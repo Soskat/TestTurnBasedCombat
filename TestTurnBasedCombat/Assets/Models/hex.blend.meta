@@ -1,17 +1,19 @@
 fileFormatVersion: 2
-guid: 64f601095f1b71b448f04e32ffbee4c4
-timeCreated: 1515786468
+guid: f72237c65a5ca354fb8400c90cc47023
+timeCreated: 1515845640
 licenseType: Pro
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: HexCellMaterial
+    2100000: HexCellMaterial__hexCell_thick_png
     2300000: //RootNode
     3300000: //RootNode
     4300000: HexCell
     6400000: //RootNode
+    7400000: Default Take
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -86,7 +88,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

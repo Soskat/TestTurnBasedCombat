@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b89f63897753f249bdf9b5656611d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridWidth: 0
-  gridHeight: 0
-  hexPrefab: {fileID: 0}
+  gridWidth: 10
+  gridHeight: 6
+  hexPrefab: {fileID: 1456124573503114, guid: ab6c66ce01feb9d4581e72c75186c4b5, type: 2}
+  hexSide: 1
