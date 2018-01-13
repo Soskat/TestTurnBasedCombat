@@ -112,7 +112,7 @@ MonoBehaviour:
   hexGridObject: {fileID: 1928819429164864}
   gridWidth: 10
   gridHeight: 7
-  hexPrefab: {fileID: 1456124573503114, guid: ab6c66ce01feb9d4581e72c75186c4b5, type: 2}
+  hexPrefab: {fileID: 1480185838677214, guid: d29af9b732de9fe4a963d1e53d472a50, type: 2}
   hexSide: 1
   obstaclesObject: {fileID: 1888864940611276}
   obstaclePrefab: {fileID: 1663110347275536, guid: 0727b033b5741f94b9cff18dea54e0a8,

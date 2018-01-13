@@ -1,4 +1,5 @@
 ﻿using TestTurnBasedCombat.Game;
+using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
 
 
@@ -24,6 +25,8 @@ namespace TestTurnBasedCombat.Managers
         #region Public fields & properties
         /// <summary>Current active game phase.</summary>
         public GamePhase CurrentPhase { get { return currentPhase; } }
+        /// <summary>Currently selected hex.</summary>
+        public Hex SelectedHex;
         #endregion
 
 
@@ -45,19 +48,40 @@ namespace TestTurnBasedCombat.Managers
             }
         }
 
-
-
-
         // Use this for initialization
-        void Start()
-        {
-
-        }
+        void Start() { }
 
         // Update is called once per frame
         void Update()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Debug <----------------------------------------------- remove later
+                if (SelectedHex != null) Debug.Log("Left-clicked hex cell no. " + SelectedHex.GetCoords());
+                // /Debug <----------------------------------------------- remove later
+            }
+        }
+        #endregion
 
+
+        #region Public methods
+        /// <summary>
+        /// Save info about current selected hex cell.
+        /// </summary>
+        /// <param name="hex">Current selected hex</param>
+        public void SelectHexCell(Hex hex)
+        {
+            if (hex == null)
+            {
+                if (SelectedHex != null) SelectedHex.Unselect();
+                SelectedHex = null;
+            }
+            else if (SelectedHex != hex)
+            {
+                if (SelectedHex != null) SelectedHex.Unselect();
+                SelectedHex = hex;
+                SelectedHex.Select();
+            }
         }
         #endregion
     }

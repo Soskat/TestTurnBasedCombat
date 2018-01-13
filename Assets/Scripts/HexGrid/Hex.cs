@@ -20,18 +20,6 @@ namespace TestTurnBasedCombat.HexGrid
 
 
         #region MonoBehaviour methods
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
         private void OnCollisionEnter(Collision collision)
         {
@@ -56,6 +44,35 @@ namespace TestTurnBasedCombat.HexGrid
                 GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
                 // /Debug <----------------------------------------------- remove later
             }
+        }
+        #endregion
+
+
+        #region Public methods
+        /// <summary>
+        /// Gets the hex cell coordinates in the hex grid.
+        /// </summary>
+        /// <returns>Hex cell coordinates</returns>
+        public Vector2 GetCoords()
+        {
+            return new Vector2(ColumnIndex, RowIndex);
+        }
+
+
+        public void Select()
+        {
+            GetComponent<MeshRenderer>().material = AssetManager.instance.HexHighlight;
+        }
+
+        public void Unselect()
+        {
+            // uncomment later:
+            //GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
+
+            // Debug <----------------------------------------------- remove later
+            if (!IsOccupied) GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
+            else GetComponent<MeshRenderer>().material = AssetManager.instance.HexOccupied;
+            // /Debug <----------------------------------------------- remove later
         }
         #endregion
     }

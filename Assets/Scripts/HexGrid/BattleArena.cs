@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TestTurnBasedCombat.Managers;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 
@@ -55,6 +56,22 @@ namespace TestTurnBasedCombat.HexGrid
         {
             CreateHexGrid();
             AddObstacles();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            // check if mouse cursor is pointing at a hex cell:
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("HexGrid")))
+            {
+                GameManager.instance.SelectHexCell(hit.collider.gameObject.GetComponent<Hex>());
+            }
+            else
+            {
+                GameManager.instance.SelectHexCell(null);
+            }
         }
         #endregion
 
