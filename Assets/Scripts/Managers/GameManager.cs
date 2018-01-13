@@ -27,6 +27,10 @@ namespace TestTurnBasedCombat.Managers
         public GamePhase CurrentPhase { get { return currentPhase; } }
         /// <summary>Currently selected hex.</summary>
         public Hex SelectedHex;
+        /// <summary>Currently selected unit.</summary>
+        public Unit SelectedUnit;
+        /// <summary>Is there any action in progress?</summary>
+        public bool ActionInProgress;
         #endregion
 
 
@@ -41,6 +45,7 @@ namespace TestTurnBasedCombat.Managers
 
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
+                ActionInProgress = false;
             }
             else if (instance != this)
             {
@@ -56,9 +61,37 @@ namespace TestTurnBasedCombat.Managers
         {
             if (Input.GetMouseButtonDown(0))
             {
-                // Debug <----------------------------------------------- remove later
-                if (SelectedHex != null) Debug.Log("Left-clicked hex cell no. " + SelectedHex.GetCoords());
-                // /Debug <----------------------------------------------- remove later
+                if (SelectedHex != null)
+                {
+                    // Debug <----------------------------------------------- remove later
+                    Debug.Log("Left-clicked hex cell no. " + SelectedHex.GetCoords());
+                    // /Debug <----------------------------------------------- remove later
+
+
+                    // select unit
+                    if (SelectedUnit == null ||
+                        (SelectedHex.IsOccupied && SelectedHex.OccupyingObject.tag == "Unit" && SelectedUnit != SelectedHex.OccupyingObject.GetComponent<Unit>()))
+                    {
+                        if (SelectedHex.IsOccupied && SelectedHex.OccupyingObject.tag == "Unit")
+                        {
+                            SelectedUnit = SelectedHex.OccupyingObject.GetComponent<Unit>();
+                            //Debug.Log("Change the selected unit");
+                        }
+                    }
+                    // perform an action with selected unit:
+                    else
+                    {
+                        // move unit to the selected hex:
+                        if (!SelectedHex.IsOccupied)
+                        {
+                            StartCoroutine(SelectedUnit.Move(new Hex[] { SelectedHex }));
+                            //Debug.Log("Move the selected");
+                        }
+
+                        // do other things
+                        // ...
+                    }
+                }
             }
         }
         #endregion

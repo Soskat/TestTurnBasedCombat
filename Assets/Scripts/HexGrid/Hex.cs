@@ -9,13 +9,20 @@ namespace TestTurnBasedCombat.HexGrid
     /// </summary>
     public class Hex : MonoBehaviour
     {
-        #region Public fields
+        #region Private fields
+        /// <summary>Game object that occupies the hex cell.</summary>
+        [SerializeField] private GameObject occupyingObject;
+        #endregion
+
+        #region Public fields & properties
         /// <summary>Row index of the hex cell in hex grid.</summary>
         public int RowIndex;
         /// <summary>Column index of the hex cell in hex grid.</summary>
         public int ColumnIndex;
         /// <summary>Is the hex cell occupied?</summary>
         public bool IsOccupied;
+        /// <summary>Game object that occupies the hex cell.</summary>
+        public GameObject OccupyingObject { get { return occupyingObject; } }
         #endregion
 
 
@@ -26,6 +33,7 @@ namespace TestTurnBasedCombat.HexGrid
             if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Unit")
             {
                 IsOccupied = true;
+                occupyingObject = collision.gameObject;
 
                 // Debug <----------------------------------------------- remove later
                 GetComponent<MeshRenderer>().material = AssetManager.instance.HexOccupied;
@@ -39,6 +47,7 @@ namespace TestTurnBasedCombat.HexGrid
             if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Unit")
             {
                 IsOccupied = false;
+                occupyingObject = null;
 
                 // Debug <----------------------------------------------- remove later
                 GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
@@ -53,17 +62,28 @@ namespace TestTurnBasedCombat.HexGrid
         /// Gets the hex cell coordinates in the hex grid.
         /// </summary>
         /// <returns>Hex cell coordinates</returns>
-        public Vector2 GetCoords()
+        public Vector3 GetCoords()
         {
-            return new Vector2(ColumnIndex, RowIndex);
+            return new Vector3(ColumnIndex, 0f, RowIndex);
         }
 
 
+        public void SetOccupyingObject(GameObject go)
+        {
+            occupyingObject = go;
+        }
+
+        /// <summary>
+        /// Selects the hex cell.
+        /// </summary>
         public void Select()
         {
             GetComponent<MeshRenderer>().material = AssetManager.instance.HexHighlight;
         }
 
+        /// <summary>
+        /// Unselects the hex cell.
+        /// </summary>
         public void Unselect()
         {
             // uncomment later:
