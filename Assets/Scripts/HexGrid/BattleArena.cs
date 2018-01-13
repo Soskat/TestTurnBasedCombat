@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Assertions;
 
 
 namespace TestTurnBasedCombat.HexGrid
 {
     /// <summary>
-    /// Component that creates the hex grid game object.
+    /// Component that represents the battle arena object.
     /// </summary>
-    public class HexGrid : MonoBehaviour
+    public class BattleArena : MonoBehaviour
     {
         #region Private fields
+        /// <summary>Hex grid holder game object.</summary>
+        [SerializeField] private GameObject hexGridObject;
         /// <summary>Width of the hex grid (number of hex rows).</summary>
         [SerializeField] private int gridWidth;
         /// <summary>Height of the hex grid (number of hex columns).</summary>
@@ -21,12 +20,20 @@ namespace TestTurnBasedCombat.HexGrid
         [SerializeField] private GameObject hexPrefab;
         /// <summary>Length of the hex side.</summary>
         [SerializeField] private float hexSide = 1f;
+        /// <summary>Obstacles holder game object.</summary>
+        [SerializeField] private GameObject obstaclesObject;
+        /// <summary>Prefab of the obstacle object.</summary>
+        [SerializeField] private GameObject obstaclePrefab;
+        /// <summary>Number of the obstacles.</summary>
+        [SerializeField] private int obstaclesNumber = 2;
         /// <summary>Width of the hex cell.</summary>
         private float hexWidth;
         /// <summary>Height of the hex cell.</summary>
         private float hexHeight;
-        /// <summary>Table of hex cells.</summary>
+        /// <summary>Table of the hex cells.</summary>
         private GameObject[][] hexCells;
+        /// <summary>Table of the obstacles.</summary>
+        private GameObject[] obstacles;
         #endregion
 
 
@@ -34,7 +41,10 @@ namespace TestTurnBasedCombat.HexGrid
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
+            Assert.IsNotNull(hexGridObject);
             Assert.IsNotNull(hexPrefab);
+            Assert.IsNotNull(obstaclesObject);
+            Assert.IsNotNull(obstaclePrefab);
             // set up hexWidth and hexHeight:
             hexWidth = hexSide * Mathf.Sqrt(3f);
             hexHeight = 2 * hexSide;
@@ -44,6 +54,7 @@ namespace TestTurnBasedCombat.HexGrid
         void Start()
         {
             CreateHexGrid();
+            AddObstacles();
         }
         #endregion
 
@@ -72,11 +83,41 @@ namespace TestTurnBasedCombat.HexGrid
                         hex.transform.Translate(startPos.x + x * hexWidth, startPos.z + y * yOffset, 0f);
                     else
                         hex.transform.Translate(startPos.x + xOffset + x * hexWidth, startPos.z + y * yOffset, 0f);
-                    hex.transform.SetParent(transform);
+                    hex.transform.SetParent(hexGridObject.transform);
                     // set up Hex component:
                     hex.GetComponent<Hex>().RowIndex = y;
                     hex.GetComponent<Hex>().ColumnIndex = x;
                     hexCells[x][y] = hex;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds obstacles to the battle arena.
+        /// </summary>
+        private void AddObstacles()
+        {
+            System.Random rand = new System.Random();
+            int halfWidth = gridWidth / 2;
+            int xOffset = (int)(0.25f * gridWidth);
+            int x, y;
+            for (int i = 0; i < obstaclesNumber; i++)
+            {
+                while (true)
+                {
+                    x = rand.Next(halfWidth - xOffset, halfWidth + xOffset);
+                    y = rand.Next(0, gridHeight);
+                    if (!hexCells[x][y].GetComponent<Hex>().IsOccupied)
+                    {
+                        // create new obstacle:
+                        GameObject go = Instantiate(obstaclePrefab) as GameObject;
+                        Vector3 goPosition = hexCells[x][y].transform.position;
+                        goPosition.y = 0.5f;
+                        go.transform.SetPositionAndRotation(goPosition, go.transform.rotation);
+                        go.transform.SetParent(obstaclesObject.transform);
+                        hexCells[x][y].GetComponent<Hex>().IsOccupied = true;
+                        break;
+                    }
                 }
             }
         }

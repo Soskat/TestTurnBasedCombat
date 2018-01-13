@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TestTurnBasedCombat.Game;
+﻿using TestTurnBasedCombat.Game;
 using UnityEngine;
 
 
