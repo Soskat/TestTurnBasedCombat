@@ -59,26 +59,37 @@ namespace TestTurnBasedCombat.HexGrid
 
         #region Public methods
         /// <summary>
-        /// Gets the hex cell coordinates in the hex grid.
+        /// Gets the hex cell offset coordinates in the hex grid.
         /// </summary>
-        /// <returns>Hex cell coordinates</returns>
-        public Vector3 GetCoords()
+        /// <returns>Hex cell offset coordinates</returns>
+        public Vector3Int GetOffsetCoords()
         {
-            return new Vector3(ColumnIndex, 0f, RowIndex);
+            return new Vector3Int(ColumnIndex, 0, RowIndex);
         }
 
-
+        /// <summary>
+        /// Sets the occupying game object.
+        /// </summary>
+        /// <param name="go">New occupying game object</param>
         public void SetOccupyingObject(GameObject go)
         {
             occupyingObject = go;
         }
 
         /// <summary>
-        /// Selects the hex cell.
+        /// Selects the hex cell with the default color.
         /// </summary>
         public void Select()
         {
             GetComponent<MeshRenderer>().material = AssetManager.instance.HexHighlight;
+        }
+
+        /// <summary>
+        /// Selects the hex cell with given color.
+        /// </summary>
+        public void Select(Material mat)
+        {
+            GetComponent<MeshRenderer>().material = mat;
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
-
+using UnityEngine.Assertions;
 
 namespace TestTurnBasedCombat.Managers
 {
@@ -29,8 +29,19 @@ namespace TestTurnBasedCombat.Managers
         public Hex SelectedHex;
         /// <summary>Currently selected unit.</summary>
         public Unit SelectedUnit;
+        /// <summary>Hex of currently selected hex.</summary>
+        public Hex SelectedUnitHex
+        {
+            get
+            {
+                if (SelectedUnit != null) return SelectedUnit.AssignedHex;
+                else return null;
+            }
+        }
         /// <summary>Is there any action in progress?</summary>
         public bool ActionInProgress;
+        /// <summary>Last active path.</summary>
+        public Hex[] LastPath;
         #endregion
 
 
@@ -42,6 +53,10 @@ namespace TestTurnBasedCombat.Managers
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
+
+                // Debug <----------------------------------------------- remove later
+                Assert.IsNotNull(SelectedUnit);
+                // /Debug <----------------------------------------------- remove later
 
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
@@ -64,7 +79,7 @@ namespace TestTurnBasedCombat.Managers
                 if (SelectedHex != null)
                 {
                     // Debug <----------------------------------------------- remove later
-                    Debug.Log("Left-clicked hex cell no. " + SelectedHex.GetCoords());
+                    Debug.Log("Left-clicked hex cell no. " + SelectedHex.GetOffsetCoords());
                     // /Debug <----------------------------------------------- remove later
 
 
@@ -75,7 +90,6 @@ namespace TestTurnBasedCombat.Managers
                         if (SelectedHex.IsOccupied && SelectedHex.OccupyingObject.tag == "Unit")
                         {
                             SelectedUnit = SelectedHex.OccupyingObject.GetComponent<Unit>();
-                            //Debug.Log("Change the selected unit");
                         }
                     }
                     // perform an action with selected unit:
@@ -84,8 +98,8 @@ namespace TestTurnBasedCombat.Managers
                         // move unit to the selected hex:
                         if (!SelectedHex.IsOccupied)
                         {
-                            StartCoroutine(SelectedUnit.Move(new Hex[] { SelectedHex }));
-                            //Debug.Log("Move the selected");
+                            // play movement animation:
+                            if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
                         }
 
                         // do other things

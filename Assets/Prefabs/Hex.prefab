@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 114861582762509984}
   m_Layer: 8
   m_Name: Hex
-  m_TagString: Untagged
+  m_TagString: Hex
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291d302eb1208fd4a8da5f2d100a27c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  occupyingObject: {fileID: 0}
   RowIndex: 0
   ColumnIndex: 0
   IsOccupied: 0

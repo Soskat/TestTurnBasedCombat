@@ -16,6 +16,9 @@ namespace TestTurnBasedCombat.Game
         public int HealthPoints;
         /// <summary>Action points of the unit.</summary>
         public int ActionPoints;
+
+        /// <summary>The hex cell that unit stands on.</summary>
+        public Hex AssignedHex;
         #endregion
 
 
@@ -31,6 +34,15 @@ namespace TestTurnBasedCombat.Game
         {
 
         }
+
+        // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Hex")
+            {
+                AssignedHex = collision.gameObject.GetComponent<Hex>();
+            }
+        }
         #endregion
 
 
@@ -44,12 +56,13 @@ namespace TestTurnBasedCombat.Game
         {
             GameManager.instance.ActionInProgress = true;
             Vector3 newPos;
-            foreach(Hex hex in hexPath)
+            //foreach(Hex hex in hexPath)
+            for (int i = 1; i < hexPath.Length; i++)
             {
-                newPos = hex.gameObject.transform.position;
+                yield return new WaitForSeconds(0.1f);
+                newPos = hexPath[i].gameObject.transform.position;
                 newPos.y = transform.position.y;
                 transform.position = newPos;
-                yield return new WaitForSeconds(0.5f);
             }
             GameManager.instance.ActionInProgress = false;
             yield return null;

@@ -1,4 +1,5 @@
-﻿using TestTurnBasedCombat.Managers;
+﻿using System.Collections.Generic;
+using TestTurnBasedCombat.Managers;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,6 +11,11 @@ namespace TestTurnBasedCombat.HexGrid
     /// </summary>
     public class BattleArena : MonoBehaviour
     {
+        #region Public static fields
+        /// <summary>Reference to the active <see cref="BattleArena"/> class.</summary>
+        public static BattleArena instance;
+        #endregion
+
         #region Private fields
         /// <summary>Hex grid holder game object.</summary>
         [SerializeField] private GameObject hexGridObject;
@@ -42,6 +48,8 @@ namespace TestTurnBasedCombat.HexGrid
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
+            if (instance == null) instance = this;
+            // do asstertions:
             Assert.IsNotNull(hexGridObject);
             Assert.IsNotNull(hexPrefab);
             Assert.IsNotNull(obstaclesObject);
@@ -69,6 +77,15 @@ namespace TestTurnBasedCombat.HexGrid
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("HexGrid")))
                 {
                     GameManager.instance.SelectHexCell(hit.collider.gameObject.GetComponent<Hex>());
+                    // find the path from SelectedUnit to SelectedHex:
+                    if (GameManager.instance.SelectedUnit != null)
+                    {
+                        // unselect last path:
+                        //UnselectPath(GameManager.instance.LastPath);
+                        // find a new path to the destination:
+                        GameManager.instance.LastPath = BattleArena.instance.FindPathUsingAStar(GameManager.instance.SelectedUnitHex, GameManager.instance.SelectedHex);
+                        //SelectPath(GameManager.instance.LastPath);
+                    }
                 }
                 else
                 {
@@ -77,6 +94,33 @@ namespace TestTurnBasedCombat.HexGrid
             }
         }
         #endregion
+
+        /// <summary>
+        /// Selects all hex cell from given path.
+        /// </summary>
+        /// <param name="path">Path of hex cells</param>
+        private void SelectPath(Hex[] path)
+        {
+            if (path == null) return;
+            foreach(Hex hex in path)
+            {
+                if (hex != GameManager.instance.SelectedHex) hex.Select(AssetManager.instance.HexPath);
+            }
+        }
+
+        /// <summary>
+        /// Unselects all hex cell from given path.
+        /// </summary>
+        /// <param name="path">Path of hex cells</param>
+        private void UnselectPath(Hex[] path)
+        {
+            if (path == null) return;
+            foreach (Hex hex in path)
+            {
+                hex.Unselect();
+                //if (hex != GameManager.instance.SelectedHex) hex.Unselect();
+            }
+        }
 
 
         #region Private methods
@@ -141,6 +185,157 @@ namespace TestTurnBasedCombat.HexGrid
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Calculates the sum of two cube coordinates.
+        /// </summary>
+        /// <param name="a">First cube coordinate</param>
+        /// <param name="b">Secont cube coordinates</param>
+        /// <returns>Sum of the first and second cube coordinates</returns>
+        private Vector3Int AddCubeCoords(Vector3Int a, Vector3Int b)
+        {
+            return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
+        }
+        #endregion
+
+
+        #region Public methods
+        /// <summary>
+        /// Converts offset coordinates of the hex cell to the cube coordinates.
+        /// Based on: https://www.redblobgames.com/grids/hexagons/#conversions-offset
+        /// </summary>
+        /// <param name="hex">Hex cell</param>
+        /// <returns>Cube coordinates</returns>
+        public Vector3Int OffsetToCubeCoords(Hex hex)
+        {
+            Vector3Int cube = Vector3Int.zero;
+            cube.x = hex.ColumnIndex - (hex.RowIndex - (hex.RowIndex & 1)) / 2; // use bitwise AND to determine if hex.RowIndex is even(0) or odd(1)
+            cube.z = hex.RowIndex;
+            cube.y = -cube.x - cube.z;
+            return cube;
+        }
+
+        /// <summary>
+        /// Converts cube coordinates to the offset coordinates.
+        /// Based on: https://www.redblobgames.com/grids/hexagons/#conversions-offset
+        /// </summary>
+        /// <param name="cube">Cube coordinates</param>
+        /// <returns>Offset coordinates</returns>
+        public Vector2Int CubeToOffsetCoords(Vector3Int cube)
+        {
+            Vector2Int offset = Vector2Int.zero;
+            offset.x = cube.x + (cube.z - (cube.z & 1)) / 2; // use bitwise AND to determine if cube.z is even(0) or odd(1)
+            offset.y = cube.z;
+            return offset;
+        }
+
+        /// <summary>
+        /// Finds all neighbours of the given hex cell.
+        /// Based on: https://www.redblobgames.com/grids/hexagons/#neighbors
+        /// </summary>
+        /// <param name="hex">hex cell to find the neighbours</param>
+        /// <returns>List of the neighbours of the hex</returns>
+        public Hex[] GetNeighbours(Hex hex)
+        {
+            Vector3Int cube = OffsetToCubeCoords(hex);
+            Vector2Int offset = Vector2Int.zero;
+            List<Hex> neighbours = new List<Hex>();
+            // find all neighbours of the hex:
+            foreach(Vector3Int coords in AssetManager.instance.CubeDirections)
+            {
+                offset = CubeToOffsetCoords(AddCubeCoords(cube, coords));
+                if (offset.x >= 0 && offset.x < gridWidth &&
+                    offset.y >= 0 && offset.y < gridHeight)
+                {
+                    // neighbour exists -> add it to the list:
+                    neighbours.Add(hexCells[offset.x][offset.y].GetComponent<Hex>());
+                }
+            }
+            return neighbours.ToArray();
+        }
+
+        /// <summary>
+        /// Return heuristic value of the distance between start and end hex cells.
+        /// Based on: https://www.redblobgames.com/grids/hexagons/#distances
+        /// </summary>
+        /// <param name="start">Start hex</param>
+        /// <param name="goal">Final hex</param>
+        /// <returns>Heuristic value</returns>
+        public float Heuristic(Hex start, Hex goal)
+        {
+            Vector3Int a = OffsetToCubeCoords(start);
+            Vector3Int b = OffsetToCubeCoords(goal);
+            return (Mathf.Abs(a.x - b.x) + Mathf.Abs(a.y - b.y) + Mathf.Abs(a.z - b.z));
+        }
+
+        /// <summary>
+        /// Finds the best path from the first hex of the path to the last hex of the path.
+        /// Based on: https://www.redblobgames.com/pathfinding/a-star/implementation.html#python-astar
+        /// </summary>
+        /// <param name="start">First hex of the path</param>
+        /// <param name="goal">Final hex of the path</param>
+        /// <param name="maxSteps">Maximum number of steps in the path</param>
+        /// <returns>The best path</returns>
+        public Hex[] FindPathUsingAStar(Hex start, Hex goal, int maxSteps = int.MaxValue)
+        {
+            PriorityQueue<float, Hex> frontier = new PriorityQueue<float, Hex>();
+            Dictionary<Hex, Hex> cameFrom = new Dictionary<Hex, Hex>();
+            Dictionary<Hex, float> costSoFar = new Dictionary<Hex, float>();
+            // initialize all variables:
+            frontier.Enqueue(0f, start);
+            cameFrom.Add(start, null);
+            costSoFar.Add(start, 0f);
+            // begin A star pathfinding:
+            Hex current;
+            float newCost, priority;
+            int steps = 0;
+            while (!frontier.IsEmpty)
+            {
+                // get the first element from the queue:
+                current = frontier.Dequeue();
+
+                // is the current element the goal 
+                // or has already achieved the max steps number?:
+                if (current == goal || steps == maxSteps) break;
+
+                // examine all neighbours:
+                Hex[] neighbours = GetNeighbours(current);
+                foreach(Hex neighbour in neighbours)
+                {
+                    // skip hex cell if it is occupied:
+                    if (neighbour.IsOccupied) continue;
+
+                    // calculate new cost between current and neighbour:
+                    newCost = costSoFar[current] + 1f;
+                    // add neighbour to the lists if needed:
+                    if (!costSoFar.ContainsKey(neighbour))
+                    {
+                        costSoFar.Add(neighbour, newCost);
+                        priority = newCost + Heuristic(current, neighbour);
+                        frontier.Enqueue(priority, neighbour);
+                        cameFrom.Add(neighbour, current);
+                    }
+                }
+                // increment steps:
+                steps++;
+            }
+            // reconstruct the path:
+            List<Hex> path = new List<Hex>();
+            current = goal;
+            path.Add(current);
+            while (current != null)
+            {
+                if (cameFrom.ContainsKey(current))
+                {
+                    path.Add(cameFrom[current]);
+                    current = cameFrom[current];
+                }
+                else break;
+            }
+            path.Reverse();
+            // return path:
+            return path.ToArray();
         }
         #endregion
     }
