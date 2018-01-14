@@ -11,11 +11,6 @@ namespace TestTurnBasedCombat.HexGrid
     /// </summary>
     public class BattleArena : MonoBehaviour
     {
-        #region Public static fields
-        /// <summary>Reference to the active <see cref="BattleArena"/> class.</summary>
-        public static BattleArena instance;
-        #endregion
-
         #region Private fields
         /// <summary>Hex grid holder game object.</summary>
         [SerializeField] private GameObject hexGridObject;
@@ -48,7 +43,6 @@ namespace TestTurnBasedCombat.HexGrid
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
-            if (instance == null) instance = this;
             // do asstertions:
             Assert.IsNotNull(hexGridObject);
             Assert.IsNotNull(hexPrefab);
@@ -81,10 +75,16 @@ namespace TestTurnBasedCombat.HexGrid
                     if (GameManager.instance.SelectedUnit != null)
                     {
                         // unselect last path:
-                        //UnselectPath(GameManager.instance.LastPath);
-                        // find a new path to the destination:
-                        GameManager.instance.LastPath = BattleArena.instance.FindPathUsingAStar(GameManager.instance.SelectedUnitHex, GameManager.instance.SelectedHex);
-                        //SelectPath(GameManager.instance.LastPath);
+                        UnselectPath(GameManager.instance.LastPath);
+                        // find a new path to the destination (with limited path length):
+                        GameManager.instance.LastPath = FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
+                                                                           GameManager.instance.SelectedHex,
+                                                                           GameManager.instance.SelectedUnit.ActionPoints);
+
+                        //// find a new path to the destination (with unlimited path length):
+                        //GameManager.instance.LastPath = FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
+                        //                                                   GameManager.instance.SelectedHex);
+                        SelectPath(GameManager.instance.LastPath);
                     }
                 }
                 else
@@ -94,33 +94,6 @@ namespace TestTurnBasedCombat.HexGrid
             }
         }
         #endregion
-
-        /// <summary>
-        /// Selects all hex cell from given path.
-        /// </summary>
-        /// <param name="path">Path of hex cells</param>
-        private void SelectPath(Hex[] path)
-        {
-            if (path == null) return;
-            foreach(Hex hex in path)
-            {
-                if (hex != GameManager.instance.SelectedHex) hex.Select(AssetManager.instance.HexPath);
-            }
-        }
-
-        /// <summary>
-        /// Unselects all hex cell from given path.
-        /// </summary>
-        /// <param name="path">Path of hex cells</param>
-        private void UnselectPath(Hex[] path)
-        {
-            if (path == null) return;
-            foreach (Hex hex in path)
-            {
-                hex.Unselect();
-                //if (hex != GameManager.instance.SelectedHex) hex.Unselect();
-            }
-        }
 
 
         #region Private methods
@@ -190,12 +163,38 @@ namespace TestTurnBasedCombat.HexGrid
         /// <summary>
         /// Calculates the sum of two cube coordinates.
         /// </summary>
-        /// <param name="a">First cube coordinate</param>
+        /// <param name="a">First cube coordinates</param>
         /// <param name="b">Secont cube coordinates</param>
         /// <returns>Sum of the first and second cube coordinates</returns>
         private Vector3Int AddCubeCoords(Vector3Int a, Vector3Int b)
         {
             return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
+        }
+
+        /// <summary>
+        /// Mark as selected all the hex cells from the given path.
+        /// </summary>
+        /// <param name="path">Path of hex cells</param>
+        private void SelectPath(Hex[] path)
+        {
+            if (path == null) return;
+            foreach (Hex hex in path)
+            {
+                if (hex != GameManager.instance.SelectedHex) hex.Select(AssetManager.instance.HexPath);
+            }
+        }
+
+        /// <summary>
+        /// Unselects all the hex cells from the given path.
+        /// </summary>
+        /// <param name="path">Path of hex cells</param>
+        private void UnselectPath(Hex[] path)
+        {
+            if (path == null) return;
+            foreach (Hex hex in path)
+            {
+                if (hex != GameManager.instance.SelectedHex) hex.Unselect();
+            }
         }
         #endregion
 
@@ -256,7 +255,7 @@ namespace TestTurnBasedCombat.HexGrid
         }
 
         /// <summary>
-        /// Return heuristic value of the distance between start and end hex cells.
+        /// Return heuristic value of the distance between start and goal hex cells.
         /// Based on: https://www.redblobgames.com/grids/hexagons/#distances
         /// </summary>
         /// <param name="start">Start hex</param>
@@ -279,25 +278,23 @@ namespace TestTurnBasedCombat.HexGrid
         /// <returns>The best path</returns>
         public Hex[] FindPathUsingAStar(Hex start, Hex goal, int maxSteps = int.MaxValue)
         {
+            // initialize all variables:
             PriorityQueue<float, Hex> frontier = new PriorityQueue<float, Hex>();
             Dictionary<Hex, Hex> cameFrom = new Dictionary<Hex, Hex>();
             Dictionary<Hex, float> costSoFar = new Dictionary<Hex, float>();
-            // initialize all variables:
+            float newCost, priority;
+            Hex current;
             frontier.Enqueue(0f, start);
             cameFrom.Add(start, null);
             costSoFar.Add(start, 0f);
-            // begin A star pathfinding:
-            Hex current;
-            float newCost, priority;
-            int steps = 0;
+            // while the queue is not empty:
             while (!frontier.IsEmpty)
             {
                 // get the first element from the queue:
                 current = frontier.Dequeue();
 
-                // is the current element the goal 
-                // or has already achieved the max steps number?:
-                if (current == goal || steps == maxSteps) break;
+                // is the current element the goal?:
+                if (current == goal) break;
 
                 // examine all neighbours:
                 Hex[] neighbours = GetNeighbours(current);
@@ -305,9 +302,10 @@ namespace TestTurnBasedCombat.HexGrid
                 {
                     // skip hex cell if it is occupied:
                     if (neighbour.IsOccupied) continue;
-
+                    
                     // calculate new cost between current and neighbour:
                     newCost = costSoFar[current] + 1f;
+                    
                     // add neighbour to the lists if needed:
                     if (!costSoFar.ContainsKey(neighbour))
                     {
@@ -317,8 +315,6 @@ namespace TestTurnBasedCombat.HexGrid
                         cameFrom.Add(neighbour, current);
                     }
                 }
-                // increment steps:
-                steps++;
             }
             // reconstruct the path:
             List<Hex> path = new List<Hex>();
@@ -328,14 +324,15 @@ namespace TestTurnBasedCombat.HexGrid
             {
                 if (cameFrom.ContainsKey(current))
                 {
-                    path.Add(cameFrom[current]);
+                    if (cameFrom[current] != null) path.Add(cameFrom[current]);
                     current = cameFrom[current];
                 }
                 else break;
             }
             path.Reverse();
             // return path:
-            return path.ToArray();
+            if (maxSteps < int.MaxValue && maxSteps < path.Count) return path.GetRange(0, maxSteps).ToArray();
+            else return path.ToArray();
         }
         #endregion
     }

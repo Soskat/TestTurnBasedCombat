@@ -3,6 +3,7 @@ using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+
 namespace TestTurnBasedCombat.Managers
 {
     /// <summary>
@@ -78,11 +79,6 @@ namespace TestTurnBasedCombat.Managers
             {
                 if (SelectedHex != null)
                 {
-                    // Debug <----------------------------------------------- remove later
-                    Debug.Log("Left-clicked hex cell no. " + SelectedHex.GetOffsetCoords());
-                    // /Debug <----------------------------------------------- remove later
-
-
                     // select unit
                     if (SelectedUnit == null ||
                         (SelectedHex.IsOccupied && SelectedHex.OccupyingObject.tag == "Unit" && SelectedUnit != SelectedHex.OccupyingObject.GetComponent<Unit>()))
