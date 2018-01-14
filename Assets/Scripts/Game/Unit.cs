@@ -2,7 +2,7 @@
 using System.Collections;
 using TestTurnBasedCombat.Managers;
 using TestTurnBasedCombat.HexGrid;
-
+using System.Collections.Generic;
 
 namespace TestTurnBasedCombat.Game
 {
@@ -16,9 +16,12 @@ namespace TestTurnBasedCombat.Game
         public int HealthPoints;
         /// <summary>Action points of the unit.</summary>
         public int ActionPoints;
-
         /// <summary>The hex cell that unit stands on.</summary>
         public Hex AssignedHex;
+        /// <summary>Unit basic attack.</summary>
+        public Attack BasicAttack;
+        /// <summary>Leader (player) of the unit.</summary>
+        public Player Leader;
         #endregion
 
 
@@ -66,6 +69,48 @@ namespace TestTurnBasedCombat.Game
             }
             GameManager.instance.ActionInProgress = false;
             yield return null;
+        }
+
+        /// <summary>
+        /// Deal with the damage.
+        /// </summary>
+        /// <param name="damage">Damage that unit has received</param>
+        /// <returns></returns>
+        public IEnumerator GotHit(int damage)
+        {
+            GameManager.instance.ActionInProgress = true;
+            // animate the unit reaction to being hit:
+            gameObject.transform.localScale = Vector3.one * 0.9f;
+            yield return new WaitForSeconds(0.2f);
+            gameObject.transform.localScale = Vector3.one;
+            yield return new WaitForSeconds(0.1f);
+            // calculate received damage:
+            HealthPoints -= damage;
+            HealthPoints = (HealthPoints < 0) ? 0 : HealthPoints;
+            // unit is dead:
+            if (HealthPoints == 0) StartCoroutine(Die());
+            GameManager.instance.ActionInProgress = false;
+            yield return null;
+        }
+
+        /// <summary>
+        /// Deal with the unit death.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator Die()
+        {
+            GameManager.instance.ActionInProgress = true;
+            // animate unit death:
+            for (float i = 1f; i > 0.0f; i -= 0.1f)
+            {
+                gameObject.transform.localScale = Vector3.one * i;
+                yield return new WaitForSeconds(0.01f);
+            }
+            // remove this unit from player's army:
+            // ...
+            GameManager.instance.ActionInProgress = false;
+            // destroy this game object:
+            Destroy(gameObject);
         }
         #endregion
     }

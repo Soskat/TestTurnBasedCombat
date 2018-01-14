@@ -1,4 +1,5 @@
-﻿using TestTurnBasedCombat.Game;
+﻿using System.Collections.Generic;
+using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -20,6 +21,8 @@ namespace TestTurnBasedCombat.Managers
         #region Private fields
         /// <summary>Current active game phase.</summary>
         [SerializeField] private GamePhase currentPhase;
+        /// <summary>List of players.</summary>
+        [SerializeField] private List<Player> players;
         #endregion
 
 
@@ -58,6 +61,18 @@ namespace TestTurnBasedCombat.Managers
                 // Debug <----------------------------------------------- remove later
                 Assert.IsNotNull(SelectedUnit);
                 // /Debug <----------------------------------------------- remove later
+
+
+
+
+
+                // To do:
+                // - add players to the players list and add units to their armies --------------------------------------------
+
+
+
+
+
 
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
