@@ -32,13 +32,20 @@ namespace TestTurnBasedCombat.Game
             // create game objects for each unit data:
             if (player != null)
             {
-                foreach(var unitData in player.Army)
+                PriorityQueue<int, Unit> queue = new PriorityQueue<int, Unit>();
+                foreach (var unitData in player.Army)
                 {
                     GameObject go = Instantiate(Resources.Load("Units/" + unitData.PrefabCode) as GameObject);
                     go.AddComponent<Unit>();
-                    go.GetComponent<Unit>().UnitData = new UnitData(unitData);
+                    Unit unit = go.GetComponent<Unit>();
+                    unit.UnitData = new UnitData(unitData);
+                    // elements in PriorityQUeue are sorted from lowest to highest
+                    // this simple hack (priority * -1) will reverse this
+                    queue.Enqueue(-unit.UnitData.ActionPoints, unit);
                     go.transform.SetParent(gameObject.transform);
                 }
+                // update player's Units list:
+                while (!queue.IsEmpty) player.Units.Add(queue.Dequeue());
             }
         }
         #endregion

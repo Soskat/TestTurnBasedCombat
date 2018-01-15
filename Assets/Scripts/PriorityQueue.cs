@@ -14,7 +14,18 @@ namespace TestTurnBasedCombat
     {
         #region Private fields
         /// <summary>List of elements in the queue.</summary>
-        private SortedDictionary<P, Queue<V>> list = new SortedDictionary<P, Queue<V>>();
+        private SortedDictionary<P, Queue<V>> list;
+        #endregion
+
+
+        #region Constructors
+        /// <summary>
+        /// Creates an instance of <see cref="PriorityQueue{P, V}"/> class.
+        /// </summary>
+        public PriorityQueue()
+        {
+            list = new SortedDictionary<P, Queue<V>>();
+        }
         #endregion
 
 

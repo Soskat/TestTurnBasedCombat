@@ -253,7 +253,7 @@ namespace TestTurnBasedCombat.HexGrid
         /// </summary>
         /// <param name="hex">Hex cell</param>
         /// <returns>Cube coordinates</returns>
-        public Vector3Int OffsetToCubeCoords(Hex hex)
+        public static Vector3Int OffsetToCubeCoords(Hex hex)
         {
             Vector3Int cube = Vector3Int.zero;
             cube.x = hex.ColumnIndex - (hex.RowIndex - (hex.RowIndex & 1)) / 2; // use bitwise AND to determine if hex.RowIndex is even(0) or odd(1)
@@ -268,12 +268,26 @@ namespace TestTurnBasedCombat.HexGrid
         /// </summary>
         /// <param name="cube">Cube coordinates</param>
         /// <returns>Offset coordinates</returns>
-        public Vector2Int CubeToOffsetCoords(Vector3Int cube)
+        public static Vector2Int CubeToOffsetCoords(Vector3Int cube)
         {
             Vector2Int offset = Vector2Int.zero;
             offset.x = cube.x + (cube.z - (cube.z & 1)) / 2; // use bitwise AND to determine if cube.z is even(0) or odd(1)
             offset.y = cube.z;
             return offset;
+        }
+
+        /// <summary>
+        /// Gets distance between two hexes with cube coordinates.
+        /// Source: https://www.redblobgames.com/grids/hexagons/#distances
+        /// </summary>
+        /// <param name="a">First hex cell</param>
+        /// <param name="b">Second hex cell</param>
+        /// <returns>Distance between first and second hexes</returns>
+        public static int GetDistanceBetweenHexes(Hex a, Hex b)
+        {
+            Vector3Int cubeA = OffsetToCubeCoords(a);
+            Vector3Int cubeB = OffsetToCubeCoords(b);
+            return (int)Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
         }
 
         /// <summary>

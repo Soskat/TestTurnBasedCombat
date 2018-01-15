@@ -13,8 +13,10 @@ namespace TestTurnBasedCombat.Game
         #region Public fields & properties
         /// <summary>Player tag.</summary>
         public Players PlayerTag;
-        /// <summary>List of all units from player's army.</summary>
+        /// <summary>List of all units data from player's army.</summary>
         public List<UnitData> Army;
+        /// <summary>Circular queue with all units on the battle arena.</summary>
+        public CicrularQueue<Unit> Units;
         #endregion
 
 
@@ -27,6 +29,7 @@ namespace TestTurnBasedCombat.Game
         {
             PlayerTag = tag;
             Army = new List<UnitData>();
+            Units = new CicrularQueue<Unit>();
         }
         #endregion
     }

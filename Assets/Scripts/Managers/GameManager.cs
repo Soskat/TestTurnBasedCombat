@@ -121,6 +121,9 @@ namespace TestTurnBasedCombat.Managers
                     else
                     {
                         // move the unit:
+
+                        Debug.Log("Distance: " + BattleArena.GetDistanceBetweenHexes(SelectedHex, SelectedUnitHex));
+
                         // play movement animation:
                         if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
                     }
