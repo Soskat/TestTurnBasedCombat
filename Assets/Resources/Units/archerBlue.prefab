@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33908703399151446}
   - component: {fileID: 135222023206907618}
   - component: {fileID: 23603982476184540}
-  - component: {fileID: 114652963998883936}
   m_Layer: 0
   m_Name: archerBlue
   m_TagString: Unit
@@ -37,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542321356157936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,32 +83,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542321356157936}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114652963998883936
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1542321356157936}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 744c0153731ce4d4fb2931767f96359e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnitData:
-    Name: 
-    HealthPoints: 0
-    ActionPoints: 0
-    BasicAttack:
-      AttackName: Single hit
-      AttackInfo: Performs a single melee hit
-      RangeOfAttack: 1
-      DamageRange: 1
-      Damage: 15
-      AttackCost: 1
-      Cooldown: 1
-    Leader: 0
-    PrefabCode: 
-  AssignedHex: {fileID: 0}
 --- !u!135 &135222023206907618
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -11,6 +11,8 @@ namespace TestTurnBasedCombat.Game
     public class Player
     {
         #region Public fields & properties
+        /// <summary>Player tag.</summary>
+        public Players PlayerTag;
         /// <summary>List of all units from player's army.</summary>
         public List<UnitData> Army;
         #endregion
@@ -18,10 +20,12 @@ namespace TestTurnBasedCombat.Game
 
         #region Constructors
         /// <summary>
-        /// Default constructor of <see cref="Player"/> class.
+        /// Creates an instance of <see cref="Player"/> class.
         /// </summary>
-        public Player()
+        /// <param name="tag">Player tag</param>
+        public Player(Players tag)
         {
+            PlayerTag = tag;
             Army = new List<UnitData>();
         }
         #endregion

@@ -28,6 +28,10 @@ namespace TestTurnBasedCombat.HexGrid
         [SerializeField] private GameObject obstaclePrefab;
         /// <summary>Number of the obstacles.</summary>
         [SerializeField] private int obstaclesNumber = 2;
+        /// <summary>Player 1 units game objects holder.</summary>
+        [SerializeField] private GameObject player1UnitsHolder;
+        /// <summary>Player 2 units game objects holder.</summary>
+        [SerializeField] private GameObject player2UnitsHolder;
         /// <summary>Width of the hex cell.</summary>
         private float hexWidth;
         /// <summary>Height of the hex cell.</summary>
@@ -48,6 +52,8 @@ namespace TestTurnBasedCombat.HexGrid
             Assert.IsNotNull(hexPrefab);
             Assert.IsNotNull(obstaclesObject);
             Assert.IsNotNull(obstaclePrefab);
+            Assert.IsNotNull(player1UnitsHolder);
+            Assert.IsNotNull(player2UnitsHolder);
             // set up hexWidth and hexHeight:
             hexWidth = hexSide * Mathf.Sqrt(3f);
             hexHeight = 2 * hexSide;
@@ -166,7 +172,39 @@ namespace TestTurnBasedCombat.HexGrid
         /// </summary>
         private void SetUpArmiesPosition()
         {
-
+            int childCount, spaceLeft, startIndex;
+            // set up an army of player 1:
+            childCount = player1UnitsHolder.transform.childCount;
+            spaceLeft = gridHeight - childCount;
+            if (spaceLeft > childCount) startIndex = 1;
+            else startIndex = 0;
+            for(int y = startIndex, index = 0; y < gridHeight && index < childCount; y++, index++)
+            {
+                Vector3 newPosition = hexCells[0][y].transform.position;
+                newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
+                player1UnitsHolder.transform.GetChild(index).position = newPosition;
+                if (spaceLeft > 0)
+                {
+                    y++;
+                    spaceLeft--;
+                }
+            }
+            // set up an army of player 2:
+            childCount = player2UnitsHolder.transform.childCount;
+            spaceLeft = gridHeight - childCount;
+            if (spaceLeft > childCount) startIndex = 1;
+            else startIndex = 0;
+            for (int y = startIndex, index = 0; y < gridHeight && index < childCount; y++, index++)
+            {
+                Vector3 newPosition = hexCells[gridWidth - 1][y].transform.position;
+                newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
+                player2UnitsHolder.transform.GetChild(index).position = newPosition;
+                if (spaceLeft > 0)
+                {
+                    y++;
+                    spaceLeft--;
+                }
+            }
         }
 
         /// <summary>

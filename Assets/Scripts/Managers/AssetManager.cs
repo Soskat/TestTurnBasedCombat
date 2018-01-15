@@ -32,20 +32,6 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Highlighted hex cell with an enemy material.</summary>
         private Material hexEnemyHighlight;
         #endregion
-        #region Units specification
-        ///// <summary>Specification of the SoldierBlue unit.</summary>
-        //private UnitData soldierBlue;
-        ///// <summary>Specification of the SoldeirRed unit.</summary>
-        //private UnitData soldierRed;
-        ///// <summary>Specification of the ArcherBlue unit.</summary>
-        //private UnitData archerBlue;
-        ///// <summary>Specification of the ArcherRed unit.</summary>
-        //private UnitData archerRed;
-        ///// <summary>Specification of the WizardBlue unit.</summary>
-        //private UnitData wizardBlue;
-        ///// <summary>Specification of the WizardRed unit.</summary>
-        //private UnitData wizardRed;
-        #endregion
         /// <summary>Armies specification.</summary>
         private Dictionary<Players, ArmySpec> armiesSpec;
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
@@ -54,7 +40,6 @@ namespace TestTurnBasedCombat.Managers
 
 
         #region Public properties
-
         #region Materials
         /// <summary>Basic hex cell material.</summary>
         public Material HexIdle { get { return hexIdle; } }
@@ -67,22 +52,8 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Highlighted hex cell with an enemy material.</summary>
         public Material HexEnemyHighlight { get { return hexEnemyHighlight; } }
         #endregion
-        #region Units specification
-        ///// <summary>Specification of the SoldierBlue unit.</summary>
-        //public UnitData SoldierBlue { get { return soldierBlue; } }
-        ///// <summary>Specification of the SoldierRed unit.</summary>
-        //public UnitData SoldierRed { get { return soldierRed; } }
-        ///// <summary>Specification of the ArcherBlue unit.</summary>
-        //public UnitData ArcherBlue { get { return archerBlue; } }
-        ///// <summary>Specification of the ArcherRed unit.</summary>
-        //public UnitData ArcherRed { get { return archerRed; } }
-        ///// <summary>Specification of the WizardBlue unit.</summary>
-        //public UnitData WizardBlue { get { return wizardBlue; } }
-        ///// <summary>Specification of the WizardRed unit.</summary>
-        //public UnitData WizardRed { get { return wizardRed; } }
-        #endregion
         /// <summary>Armies specification.</summary>
-        private Dictionary<Players, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
+        public Dictionary<Players, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
         public Vector3Int[] CubeDirections { get { return cubeDirections; } }
         #endregion
@@ -166,17 +137,10 @@ namespace TestTurnBasedCombat.Managers
             ArmySpec army2 = new ArmySpec(Players.Player2);
             army2.Units.Add(new UnitData("Blood Mercenary", 50, 5, null, Players.Player2, "soldierRed"));
             army2.Units.Add(new UnitData("Poacher", 40, 6, null, Players.Player2, "archerRed"));
-            army2.Units.Add(new UnitData("Sorcerer", 30, 3, null, Players.Player1, "wizardBlue"));
+            army2.Units.Add(new UnitData("Sorcerer", 30, 3, null, Players.Player2, "wizardRed"));
             newArmiesSpec.Add(army2);
-            //soldierBlue = new UnitData("Blue Knight", 50, 5, null, Players.Player1, "soldierBlue");
-            //soldierRed = new UnitData("Blood Mercenary", 50, 5, null, Players.Player2, "soldierRed");
-            //archerBlue = new UnitData("Royal archer", 40, 6, null, Players.Player1, "archerBlue");
-            //archerRed = new UnitData("Poacher", 40, 6, null, Players.Player2, "archerRed");
-            //wizardBlue = new UnitData("Mage", 30, 3, null, Players.Player1, "wizardBlue");
-            //wizardRed = new UnitData("Sorcerer", 30, 3, null, Players.Player1, "wizardBlue");
             return newArmiesSpec;
         }
-
 
         #region File IO operations methods
         /// <summary>

@@ -101,8 +101,8 @@
                         "AttackCost": 1,
                         "Cooldown": 1
                     },
-                    "Leader": 0,
-                    "PrefabCode": "wizardBlue"
+                    "Leader": 1,
+                    "PrefabCode": "wizardRed"
                 }
             ]
         }

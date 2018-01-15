@@ -2,7 +2,7 @@
 using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
-using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 
 namespace TestTurnBasedCombat.Managers
@@ -21,8 +21,8 @@ namespace TestTurnBasedCombat.Managers
         #region Private fields
         /// <summary>Current active game phase.</summary>
         [SerializeField] private GamePhase currentPhase;
-        ///// <summary>List of players.</summary>
-        //[SerializeField] private List<Player> players;
+        /// <summary>List of players.</summary>
+        [SerializeField] private List<Player> players;
         #endregion
 
 
@@ -46,7 +46,6 @@ namespace TestTurnBasedCombat.Managers
         public bool ActionInProgress;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
-
         /// <summary>Doeas SelectedHex contain an enemy of SelectedUnit?</summary>
         public bool IsSelectedHexContainsEnemy
         {
@@ -61,6 +60,8 @@ namespace TestTurnBasedCombat.Managers
                 else return false;
             }
         }
+        /// <summary>List of players.</summary>
+        public List<Player> Players { get { return players; } }
         #endregion
 
 
@@ -75,9 +76,6 @@ namespace TestTurnBasedCombat.Managers
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
                 ActionInProgress = false;
-
-                // initialize players:
-                InitializePlayers();
             }
             else if (instance != this)
             {
@@ -86,10 +84,14 @@ namespace TestTurnBasedCombat.Managers
         }
 
         // Use this for initialization
-        void Start() { }
+        void Start()
+        {
+            // initialize players:
+            InitializePlayers();
+        }
 
-        // Update is called once per frame
-        void Update()
+            // Update is called once per frame
+            void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -129,17 +131,18 @@ namespace TestTurnBasedCombat.Managers
 
 
         #region Private methods
+        /// <summary>
+        /// Initialize players.
+        /// </summary>
         private void InitializePlayers()
         {
-            //players = new List<Player>();
-            //players.Add(new Player());
-            //players[0].Army.Add(AssetManager.instance.SoldierBlue);
-            //players[0].Army.Add(AssetManager.instance.ArcherBlue);
-            //players[0].Army.Add(AssetManager.instance.WizardBlue);
-            //players.Add(new Player());
-            //players[1].Army.Add(AssetManager.instance.SoldierRed);
-            //players[1].Army.Add(AssetManager.instance.ArcherRed);
-            //players[1].Army.Add(AssetManager.instance.WizardRed);
+            players = new List<Player>();
+            foreach(var value in AssetManager.instance.ArmiesSpec.Values)
+            {
+                Player newPlayer = new Player(value.Player);
+                foreach (var item in value.Units) newPlayer.Army.Add(item);
+                players.Add(newPlayer);
+            }
         }
         #endregion
 
@@ -163,6 +166,21 @@ namespace TestTurnBasedCombat.Managers
                 if (IsSelectedHexContainsEnemy) SelectedHex.Select(AssetManager.instance.HexEnemyHighlight);
                 else SelectedHex.Select();
             }
+        }
+
+        /// <summary>
+        /// Starts the battle.
+        /// </summary>
+        public void StartTheBattle()
+        {
+#if UNITY_EDITOR
+            Debug.Log("START THE BATTLE");
+#endif
+            // things to do before loading next scene:
+            // ...
+
+            // load next scene:
+            SceneManager.LoadScene(1); // 1 -> BattleArena
         }
         #endregion
     }

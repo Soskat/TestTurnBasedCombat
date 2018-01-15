@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/PrebattleMenu.unity
+    guid: 812916c8193e5f9429f099e12369360a
+  - enabled: 1
+    path: Assets/Scenes/BattleArena.unity
+    guid: d87aea7103e579743b2d974203af53a5
