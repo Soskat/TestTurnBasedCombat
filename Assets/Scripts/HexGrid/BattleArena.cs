@@ -58,6 +58,7 @@ namespace TestTurnBasedCombat.HexGrid
         {
             CreateHexGrid();
             AddObstacles();
+            SetUpArmiesPosition();
         }
 
         // Update is called once per frame
@@ -79,7 +80,7 @@ namespace TestTurnBasedCombat.HexGrid
                         // find a new path to the destination (with limited path length):
                         GameManager.instance.LastPath = FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
                                                                            GameManager.instance.SelectedHex,
-                                                                           GameManager.instance.SelectedUnit.ActionPoints);
+                                                                           GameManager.instance.SelectedUnit.UnitData.ActionPoints);
 
                         //// find a new path to the destination (with unlimited path length):
                         //GameManager.instance.LastPath = FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
@@ -158,6 +159,14 @@ namespace TestTurnBasedCombat.HexGrid
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Set up armies positions.
+        /// </summary>
+        private void SetUpArmiesPosition()
+        {
+
         }
 
         /// <summary>

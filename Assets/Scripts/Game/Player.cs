@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+
 
 namespace TestTurnBasedCombat.Game
 {
@@ -14,7 +12,7 @@ namespace TestTurnBasedCombat.Game
     {
         #region Public fields & properties
         /// <summary>List of all units from player's army.</summary>
-        public List<Unit> Army;
+        public List<UnitData> Army;
         #endregion
 
 
@@ -24,7 +22,7 @@ namespace TestTurnBasedCombat.Game
         /// </summary>
         public Player()
         {
-            Army = new List<Unit>();
+            Army = new List<UnitData>();
         }
         #endregion
     }

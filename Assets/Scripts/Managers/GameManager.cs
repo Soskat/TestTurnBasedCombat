@@ -56,7 +56,7 @@ namespace TestTurnBasedCombat.Managers
                     SelectedHex != null && SelectedHex.OccupyingObject != null && 
                     SelectedHex.OccupyingObject.GetComponent<Unit>() != null)
                 {
-                    return SelectedUnit.Leader != SelectedHex.OccupyingObject.GetComponent<Unit>().Leader;
+                    return SelectedUnit.UnitData.Leader != SelectedHex.OccupyingObject.GetComponent<Unit>().UnitData.Leader;
                 }
                 else return false;
             }
@@ -75,6 +75,9 @@ namespace TestTurnBasedCombat.Managers
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
                 ActionInProgress = false;
+
+                // initialize players:
+                InitializePlayers();
             }
             else if (instance != this)
             {
@@ -121,6 +124,22 @@ namespace TestTurnBasedCombat.Managers
                     }
                 }
             }
+        }
+        #endregion
+
+
+        #region Private methods
+        private void InitializePlayers()
+        {
+            //players = new List<Player>();
+            //players.Add(new Player());
+            //players[0].Army.Add(AssetManager.instance.SoldierBlue);
+            //players[0].Army.Add(AssetManager.instance.ArcherBlue);
+            //players[0].Army.Add(AssetManager.instance.WizardBlue);
+            //players.Add(new Player());
+            //players[1].Army.Add(AssetManager.instance.SoldierRed);
+            //players[1].Army.Add(AssetManager.instance.ArcherRed);
+            //players[1].Army.Add(AssetManager.instance.WizardRed);
         }
         #endregion
 

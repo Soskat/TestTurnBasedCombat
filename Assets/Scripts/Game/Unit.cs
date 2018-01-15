@@ -12,18 +12,10 @@ namespace TestTurnBasedCombat.Game
     public class Unit : MonoBehaviour
     {
         #region Public fields & properties
-        /// <summary>Unit name.</summary>
-        public string Name;
-        /// <summary>Health points of the unit.</summary>
-        public int HealthPoints;
-        /// <summary>Action points of the unit.</summary>
-        public int ActionPoints;
+        /// <summary>The unit specification.</summary>
+        public UnitData UnitData;
         /// <summary>The hex cell that unit stands on.</summary>
         public Hex AssignedHex;
-        /// <summary>Unit basic attack.</summary>
-        public Attack BasicAttack;
-        /// <summary>Leader (player) of the unit.</summary>
-        public Players Leader;
         #endregion
 
 
@@ -86,10 +78,10 @@ namespace TestTurnBasedCombat.Game
             gameObject.transform.localScale = Vector3.one;
             yield return new WaitForSeconds(0.1f);
             // calculate received damage:
-            HealthPoints -= damage;
-            HealthPoints = (HealthPoints < 0) ? 0 : HealthPoints;
+            UnitData.HealthPoints -= damage;
+            UnitData.HealthPoints = (UnitData.HealthPoints < 0) ? 0 : UnitData.HealthPoints;
             // unit is dead:
-            if (HealthPoints == 0) StartCoroutine(Die());
+            if (UnitData.HealthPoints == 0) StartCoroutine(Die());
             GameManager.instance.ActionInProgress = false;
             yield return null;
         }

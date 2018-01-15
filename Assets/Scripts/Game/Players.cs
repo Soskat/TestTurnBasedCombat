@@ -1,8 +1,11 @@
-﻿namespace TestTurnBasedCombat.Game
+﻿using System;
+
+namespace TestTurnBasedCombat.Game
 {
     /// <summary>
     /// Players.
     /// </summary>
+    [Serializable]
     public enum Players
     {
         Player1,

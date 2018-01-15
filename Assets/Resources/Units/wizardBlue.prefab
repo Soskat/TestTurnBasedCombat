@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1071207064814932}
+  m_RootGameObject: {fileID: 1691145216821902}
   m_IsPrefabParent: 1
---- !u!1 &1071207064814932
+--- !u!1 &1691145216821902
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4522506593689464}
-  - component: {fileID: 33774289406197186}
-  - component: {fileID: 136006311592958434}
-  - component: {fileID: 23210844884434704}
-  - component: {fileID: 114821752005183232}
+  - component: {fileID: 4944971421029410}
+  - component: {fileID: 33328303334484178}
+  - component: {fileID: 136188802902482814}
+  - component: {fileID: 23351831619195388}
+  - component: {fileID: 114335975391737338}
   m_Layer: 0
-  m_Name: WizardEnemy
+  m_Name: wizardBlue
   m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4522506593689464
+--- !u!4 &4944971421029410
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1071207064814932}
+  m_GameObject: {fileID: 1691145216821902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.227241, y: 0.5, z: 3.0000005}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23210844884434704
+--- !u!23 &23351831619195388
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1071207064814932}
+  m_GameObject: {fileID: 1691145216821902}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: b52cd3fbf0e07d1498a88fa45a8f273f, type: 2}
+  - {fileID: 2100000, guid: 21b83879beadd8e42bb85db5db6f8776, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,43 +77,45 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33774289406197186
+--- !u!33 &33328303334484178
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1071207064814932}
+  m_GameObject: {fileID: 1691145216821902}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114821752005183232
+--- !u!114 &114335975391737338
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1071207064814932}
+  m_GameObject: {fileID: 1691145216821902}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 744c0153731ce4d4fb2931767f96359e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Wizard
-  HealthPoints: 15
-  ActionPoints: 4
+  UnitData:
+    Name: 
+    HealthPoints: 0
+    ActionPoints: 0
+    BasicAttack:
+      AttackName: Single hit
+      AttackInfo: Performs a single melee hit
+      RangeOfAttack: 1
+      DamageRange: 1
+      Damage: 15
+      AttackCost: 1
+      Cooldown: 1
+    Leader: 0
+    PrefabCode: 
   AssignedHex: {fileID: 0}
-  BasicAttack:
-    AttackName: Single hit
-    AttackInfo: Performs a single melee hit
-    RangeOfAttack: 20
-    DamageRange: 3
-    Damage: 20
-    AttackCost: 1
-    Cooldown: 1
-  Leader: 1
---- !u!136 &136006311592958434
+--- !u!136 &136188802902482814
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1071207064814932}
+  m_GameObject: {fileID: 1691145216821902}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

@@ -1,0 +1,110 @@
+{
+    "ArmiesSpec": [
+        {
+            "Player": 0,
+            "Units": [
+                {
+                    "Name": "Blue Knight",
+                    "HealthPoints": 50,
+                    "ActionPoints": 5,
+                    "BasicAttack": {
+                        "AttackName": "Single hit",
+                        "AttackInfo": "Performs a single melee hit",
+                        "RangeOfAttack": 1,
+                        "DamageRange": 1,
+                        "Damage": 15,
+                        "AttackCost": 1,
+                        "Cooldown": 1
+                    },
+                    "Leader": 0,
+                    "PrefabCode": "soldierBlue"
+                },
+                {
+                    "Name": "Royal archer",
+                    "HealthPoints": 40,
+                    "ActionPoints": 6,
+                    "BasicAttack": {
+                        "AttackName": "Single hit",
+                        "AttackInfo": "Performs a single melee hit",
+                        "RangeOfAttack": 1,
+                        "DamageRange": 1,
+                        "Damage": 15,
+                        "AttackCost": 1,
+                        "Cooldown": 1
+                    },
+                    "Leader": 0,
+                    "PrefabCode": "archerBlue"
+                },
+                {
+                    "Name": "Mage",
+                    "HealthPoints": 30,
+                    "ActionPoints": 3,
+                    "BasicAttack": {
+                        "AttackName": "Single hit",
+                        "AttackInfo": "Performs a single melee hit",
+                        "RangeOfAttack": 1,
+                        "DamageRange": 1,
+                        "Damage": 15,
+                        "AttackCost": 1,
+                        "Cooldown": 1
+                    },
+                    "Leader": 0,
+                    "PrefabCode": "wizardBlue"
+                }
+            ]
+        },
+        {
+            "Player": 1,
+            "Units": [
+                {
+                    "Name": "Blood Mercenary",
+                    "HealthPoints": 50,
+                    "ActionPoints": 5,
+                    "BasicAttack": {
+                        "AttackName": "Single hit",
+                        "AttackInfo": "Performs a single melee hit",
+                        "RangeOfAttack": 1,
+                        "DamageRange": 1,
+                        "Damage": 15,
+                        "AttackCost": 1,
+                        "Cooldown": 1
+                    },
+                    "Leader": 1,
+                    "PrefabCode": "soldierRed"
+                },
+                {
+                    "Name": "Poacher",
+                    "HealthPoints": 40,
+                    "ActionPoints": 6,
+                    "BasicAttack": {
+                        "AttackName": "Single hit",
+                        "AttackInfo": "Performs a single melee hit",
+                        "RangeOfAttack": 1,
+                        "DamageRange": 1,
+                        "Damage": 15,
+                        "AttackCost": 1,
+                        "Cooldown": 1
+                    },
+                    "Leader": 1,
+                    "PrefabCode": "archerRed"
+                },
+                {
+                    "Name": "Sorcerer",
+                    "HealthPoints": 30,
+                    "ActionPoints": 3,
+                    "BasicAttack": {
+                        "AttackName": "Single hit",
+                        "AttackInfo": "Performs a single melee hit",
+                        "RangeOfAttack": 1,
+                        "DamageRange": 1,
+                        "Damage": 15,
+                        "AttackCost": 1,
+                        "Cooldown": 1
+                    },
+                    "Leader": 0,
+                    "PrefabCode": "wizardBlue"
+                }
+            ]
+        }
+    ]
+}
