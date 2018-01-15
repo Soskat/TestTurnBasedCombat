@@ -21,8 +21,8 @@ namespace TestTurnBasedCombat.Managers
         #region Private fields
         /// <summary>Current active game phase.</summary>
         [SerializeField] private GamePhase currentPhase;
-        /// <summary>List of players.</summary>
-        [SerializeField] private List<Player> players;
+        ///// <summary>List of players.</summary>
+        //[SerializeField] private List<Player> players;
         #endregion
 
 
@@ -46,6 +46,21 @@ namespace TestTurnBasedCombat.Managers
         public bool ActionInProgress;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
+
+        /// <summary>Doeas SelectedHex contain an enemy of SelectedUnit?</summary>
+        public bool IsSelectedHexContainsEnemy
+        {
+            get
+            {
+                if (SelectedUnit != null && 
+                    SelectedHex != null && SelectedHex.OccupyingObject != null && 
+                    SelectedHex.OccupyingObject.GetComponent<Unit>() != null)
+                {
+                    return SelectedUnit.Leader != SelectedHex.OccupyingObject.GetComponent<Unit>().Leader;
+                }
+                else return false;
+            }
+        }
         #endregion
 
 
@@ -57,23 +72,6 @@ namespace TestTurnBasedCombat.Managers
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
-
-                // Debug <----------------------------------------------- remove later
-                Assert.IsNotNull(SelectedUnit);
-                // /Debug <----------------------------------------------- remove later
-
-
-
-
-
-                // To do:
-                // - add players to the players list and add units to their armies --------------------------------------------
-
-
-
-
-
-
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
                 ActionInProgress = false;
@@ -94,27 +92,32 @@ namespace TestTurnBasedCombat.Managers
             {
                 if (SelectedHex != null)
                 {
-                    // select unit
-                    if (SelectedUnit == null ||
-                        (SelectedHex.IsOccupied && SelectedHex.OccupyingObject.tag == "Unit" && SelectedUnit != SelectedHex.OccupyingObject.GetComponent<Unit>()))
+                    // SelectedHex contains an unit:
+                    if (SelectedHex.IsOccupied &&
+                        SelectedHex.OccupyingObject.tag == "Unit" &&
+                        SelectedUnit != SelectedHex.OccupyingObject.GetComponent<Unit>())
                     {
-                        if (SelectedHex.IsOccupied && SelectedHex.OccupyingObject.tag == "Unit")
+                        // unit is an ally - update SelectedUnit:
+                        if (!IsSelectedHexContainsEnemy)
                         {
                             SelectedUnit = SelectedHex.OccupyingObject.GetComponent<Unit>();
                         }
+                        // unit is an enemy - attack:
+                        else
+                        {
+                            // check if can perform an attack:
+                            // ...
+
+                            // if so, attack:
+                            // ...
+                        }
                     }
-                    // perform an action with selected unit:
+                    // SelectedHex is unoccupieed:
                     else
                     {
-                        // move unit to the selected hex:
-                        if (!SelectedHex.IsOccupied)
-                        {
-                            // play movement animation:
-                            if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
-                        }
-
-                        // do other things
-                        // ...
+                        // move the unit:
+                        // play movement animation:
+                        if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
                     }
                 }
             }
@@ -138,7 +141,8 @@ namespace TestTurnBasedCombat.Managers
             {
                 if (SelectedHex != null) SelectedHex.Unselect();
                 SelectedHex = hex;
-                SelectedHex.Select();
+                if (IsSelectedHexContainsEnemy) SelectedHex.Select(AssetManager.instance.HexEnemyHighlight);
+                else SelectedHex.Select();
             }
         }
         #endregion

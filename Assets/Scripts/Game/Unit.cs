@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using TestTurnBasedCombat.Managers;
+﻿using System.Collections;
 using TestTurnBasedCombat.HexGrid;
-using System.Collections.Generic;
+using TestTurnBasedCombat.Managers;
+using UnityEngine;
+
 
 namespace TestTurnBasedCombat.Game
 {
@@ -12,6 +12,8 @@ namespace TestTurnBasedCombat.Game
     public class Unit : MonoBehaviour
     {
         #region Public fields & properties
+        /// <summary>Unit name.</summary>
+        public string Name;
         /// <summary>Health points of the unit.</summary>
         public int HealthPoints;
         /// <summary>Action points of the unit.</summary>
@@ -21,7 +23,7 @@ namespace TestTurnBasedCombat.Game
         /// <summary>Unit basic attack.</summary>
         public Attack BasicAttack;
         /// <summary>Leader (player) of the unit.</summary>
-        public Player Leader;
+        public Players Leader;
         #endregion
 
 
@@ -59,7 +61,6 @@ namespace TestTurnBasedCombat.Game
         {
             GameManager.instance.ActionInProgress = true;
             Vector3 newPos;
-            //foreach(Hex hex in hexPath)
             for (int i = 1; i < hexPath.Length; i++)
             {
                 yield return new WaitForSeconds(0.1f);
