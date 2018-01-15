@@ -37,7 +37,13 @@ namespace TestTurnBasedCombat.Game
         {
             if (collision.gameObject.tag == "Hex")
             {
-                AssignedHex = collision.gameObject.GetComponent<Hex>();
+                if (GameManager.instance.SelectedUnit == this)
+                {
+                    if (AssignedHex != null) AssignedHex.Select(AssetManager.instance.HexIdle);
+                    AssignedHex = collision.gameObject.GetComponent<Hex>();
+                    AssignedHex.Select(AssetManager.instance.HexSelectedUnit);
+                }
+                else AssignedHex = collision.gameObject.GetComponent<Hex>();
             }
         }
         #endregion

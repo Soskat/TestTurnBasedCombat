@@ -217,36 +217,40 @@ namespace TestTurnBasedCombat.HexGrid
         {
             return new Vector3Int(a.x + b.x, a.y + b.y, a.z + b.z);
         }
+        #endregion
 
+
+        #region Public static methods
         /// <summary>
         /// Mark as selected all the hex cells from the given path.
         /// </summary>
         /// <param name="path">Path of hex cells</param>
-        private void SelectPath(Hex[] path)
+        public static void SelectPath(Hex[] path)
         {
-            if (path == null) return;
-            foreach (Hex hex in path)
+            if (path == null || path.Length <= 2) return;
+            int i;
+            for(i = 1; i < path.Length - 1; i++)
             {
-                if (hex != GameManager.instance.SelectedHex) hex.Select(AssetManager.instance.HexPath);
+                path[i].Select(AssetManager.instance.HexPath);
             }
+            if (path[i] != GameManager.instance.SelectedHex) path[i].Select(AssetManager.instance.HexPath);
         }
 
         /// <summary>
         /// Unselects all the hex cells from the given path.
         /// </summary>
         /// <param name="path">Path of hex cells</param>
-        private void UnselectPath(Hex[] path)
+        public static void UnselectPath(Hex[] path)
         {
-            if (path == null) return;
-            foreach (Hex hex in path)
+            if (path == null || path.Length <= 2) return;
+            int i;
+            for (i = 1; i < path.Length - 1; i++)
             {
-                if (hex != GameManager.instance.SelectedHex) hex.Unselect();
+                path[i].Unselect();
             }
+            if (path[i] != GameManager.instance.SelectedHex) path[i].Unselect();
         }
-        #endregion
 
-
-        #region Public methods
         /// <summary>
         /// Converts offset coordinates of the hex cell to the cube coordinates.
         /// Based on: https://www.redblobgames.com/grids/hexagons/#conversions-offset
@@ -289,7 +293,10 @@ namespace TestTurnBasedCombat.HexGrid
             Vector3Int cubeB = OffsetToCubeCoords(b);
             return (int)Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
         }
+        #endregion
 
+
+        #region Public methods
         /// <summary>
         /// Finds all neighbours of the given hex cell.
         /// Based on: https://www.redblobgames.com/grids/hexagons/#neighbors

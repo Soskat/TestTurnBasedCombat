@@ -34,10 +34,6 @@ namespace TestTurnBasedCombat.HexGrid
             {
                 IsOccupied = true;
                 occupyingObject = collision.gameObject;
-
-                // Debug <----------------------------------------------- remove later
-                GetComponent<MeshRenderer>().material = AssetManager.instance.HexOccupied;
-                // /Debug <----------------------------------------------- remove later
             }
         }
 
@@ -48,10 +44,6 @@ namespace TestTurnBasedCombat.HexGrid
             {
                 IsOccupied = false;
                 occupyingObject = null;
-
-                // Debug <----------------------------------------------- remove later
-                GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
-                // /Debug <----------------------------------------------- remove later
             }
         }
         #endregion
@@ -81,7 +73,7 @@ namespace TestTurnBasedCombat.HexGrid
         /// </summary>
         public void Select()
         {
-            GetComponent<MeshRenderer>().material = AssetManager.instance.HexHighlight;
+            GetComponent<MeshRenderer>().material = AssetManager.instance.HexCursor;
         }
 
         /// <summary>
@@ -97,13 +89,8 @@ namespace TestTurnBasedCombat.HexGrid
         /// </summary>
         public void Unselect()
         {
-            // uncomment later:
-            //GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
-
-            // Debug <----------------------------------------------- remove later
-            if (!IsOccupied) GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
-            else GetComponent<MeshRenderer>().material = AssetManager.instance.HexOccupied;
-            // /Debug <----------------------------------------------- remove later
+            if (GameManager.instance.SelectedUnitHex == this) GetComponent<MeshRenderer>().material = AssetManager.instance.HexSelectedUnit;
+            else GetComponent<MeshRenderer>().material = AssetManager.instance.HexIdle;
         }
         #endregion
     }

@@ -46,7 +46,12 @@ namespace TestTurnBasedCombat.Game
                 }
                 // update player's Units list:
                 while (!queue.IsEmpty) player.Units.Add(queue.Dequeue());
+
+                Debug.Log("buka in " + gameObject.name);
             }
+
+            // inform that player is ready for battle:
+            GameManager.instance.ReadyForBattle();
         }
         #endregion
     }

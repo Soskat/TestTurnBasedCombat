@@ -23,14 +23,14 @@ namespace TestTurnBasedCombat.Managers
         #region Materials
         /// <summary>Basic hex cell material.</summary>
         private Material hexIdle;
-        /// <summary>Occupied hex cell material.</summary>
-        private Material hexOccupied;
+        /// <summary>Selected unit hex cell material.</summary>
+        private Material hexSelectedUnit;
         /// <summary>Path hex cell material.</summary>
         private Material hexPath;
-        /// <summary>Highlighted hex cell material.</summary>
-        private Material hexHighlight;
-        /// <summary>Highlighted hex cell with an enemy material.</summary>
-        private Material hexEnemyHighlight;
+        /// <summary>Highlighted by cursor hex cell material.</summary>
+        private Material hexCursor;
+        /// <summary>Enemy hex cell material.</summary>
+        private Material hexEnemy;
         #endregion
         /// <summary>Armies specification.</summary>
         private Dictionary<Players, ArmySpec> armiesSpec;
@@ -44,13 +44,13 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Basic hex cell material.</summary>
         public Material HexIdle { get { return hexIdle; } }
         /// <summary>Occupied hex cell material.</summary>
-        public Material HexOccupied { get { return hexOccupied; } }
+        public Material HexSelectedUnit { get { return hexSelectedUnit; } }
         /// <summary>Path hex cell material.</summary>
         public Material HexPath { get { return hexPath; } }
-        /// <summary>Highlighted hex cell material.</summary>
-        public Material HexHighlight { get { return hexHighlight; } }
-        /// <summary>Highlighted hex cell with an enemy material.</summary>
-        public Material HexEnemyHighlight { get { return hexEnemyHighlight; } }
+        /// <summary>Highlighted by cursor hex cell material.</summary>
+        public Material HexCursor { get { return hexCursor; } }
+        /// <summary>Enemy hex cell material.</summary>
+        public Material HexEnemy { get { return hexEnemy; } }
         #endregion
         /// <summary>Armies specification.</summary>
         public Dictionary<Players, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
@@ -71,10 +71,10 @@ namespace TestTurnBasedCombat.Managers
                 LoadGameConfig();
                 // load or set up all assets:
                 hexIdle = Resources.Load("Materials/HexMaterial") as Material;
-                hexOccupied = Resources.Load("Materials/HexOccupiedMaterial") as Material;
+                hexSelectedUnit = Resources.Load("Materials/HexOccupiedMaterial") as Material;
                 hexPath = Resources.Load("Materials/HexPathMaterial") as Material;
-                hexHighlight = Resources.Load("Materials/HexHighlightMaterial") as Material;
-                hexEnemyHighlight = Resources.Load("Materials/HexHighlightEnemyMaterial") as Material;
+                hexCursor = Resources.Load("Materials/HexHighlightMaterial") as Material;
+                hexEnemy = Resources.Load("Materials/HexHighlightEnemyMaterial") as Material;
                 cubeDirections = new Vector3Int[] { new Vector3Int(+1, -1, 0),
                                                     new Vector3Int(+1, 0, -1),
                                                     new Vector3Int(0, +1, -1),

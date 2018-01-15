@@ -23,6 +23,10 @@ namespace TestTurnBasedCombat.Managers
         [SerializeField] private GamePhase currentPhase;
         /// <summary>List of players.</summary>
         [SerializeField] private List<Player> players;
+        /// <summary>Index of current active player.</summary>
+        private int playerIndex;
+        /// <summary>Number of players ready to the battle.</summary>
+        private int playersReadyCount;
         #endregion
 
 
@@ -90,8 +94,8 @@ namespace TestTurnBasedCombat.Managers
             InitializePlayers();
         }
 
-            // Update is called once per frame
-            void Update()
+        // Update is called once per frame
+        void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -102,13 +106,8 @@ namespace TestTurnBasedCombat.Managers
                         SelectedHex.OccupyingObject.tag == "Unit" &&
                         SelectedUnit != SelectedHex.OccupyingObject.GetComponent<Unit>())
                     {
-                        // unit is an ally - update SelectedUnit:
-                        if (!IsSelectedHexContainsEnemy)
-                        {
-                            SelectedUnit = SelectedHex.OccupyingObject.GetComponent<Unit>();
-                        }
                         // unit is an enemy - attack:
-                        else
+                        if (IsSelectedHexContainsEnemy)
                         {
                             // check if can perform an attack:
                             // ...
@@ -116,13 +115,18 @@ namespace TestTurnBasedCombat.Managers
                             // if so, attack:
                             // ...
                         }
+                        //// unit is an ally - update SelectedUnit:
+                        //else
+                        //{
+                        //    SelectedUnit = SelectedHex.OccupyingObject.GetComponent<Unit>();
+                        //}
                     }
                     // SelectedHex is unoccupieed:
                     else
                     {
                         // move the unit:
 
-                        Debug.Log("Distance: " + BattleArena.GetDistanceBetweenHexes(SelectedHex, SelectedUnitHex));
+                        //Debug.Log("Distance: " + BattleArena.GetDistanceBetweenHexes(SelectedHex, SelectedUnitHex));
 
                         // play movement animation:
                         if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
@@ -166,24 +170,56 @@ namespace TestTurnBasedCombat.Managers
             {
                 if (SelectedHex != null) SelectedHex.Unselect();
                 SelectedHex = hex;
-                if (IsSelectedHexContainsEnemy) SelectedHex.Select(AssetManager.instance.HexEnemyHighlight);
+                if (IsSelectedHexContainsEnemy) SelectedHex.Select(AssetManager.instance.HexEnemy);
                 else SelectedHex.Select();
             }
         }
 
         /// <summary>
-        /// Starts the battle.
+        /// Prepares everything for the battle.
         /// </summary>
-        public void StartTheBattle()
+        public void PrepareTheBattle()
         {
 #if UNITY_EDITOR
-            Debug.Log("START THE BATTLE");
+            Debug.Log("[GameManager]: START THE BATTLE");
 #endif
             // things to do before loading next scene:
-            // ...
+            playersReadyCount = 0;
 
             // load next scene:
             SceneManager.LoadScene(1); // 1 -> BattleArena
+        }
+
+        /// <summary>
+        /// Starts the battle when everything is ready.
+        /// </summary>
+        public void ReadyForBattle()
+        {
+            playersReadyCount++;
+            if (playersReadyCount == players.Count)
+            {
+                // start the battle:
+                playerIndex = -1;
+                EndTurn();
+            }
+        }
+
+        /// <summary>
+        /// Ends turn of the current player.
+        /// </summary>
+        public void EndTurn()
+        {
+            // switch to other player's next unit:
+            playerIndex = ++playerIndex % players.Count;
+            if (SelectedUnit != null) SelectedUnitHex.Select(AssetManager.instance.HexIdle);
+            SelectedUnit = players[playerIndex].Units.Next();
+            if (SelectedUnitHex != null) SelectedUnitHex.Select(AssetManager.instance.HexSelectedUnit);
+            // reset LastPath:
+            BattleArena.UnselectPath(LastPath);
+            LastPath = null;
+#if UNITY_EDITOR
+            Debug.Log(string.Format("[GameManager]: {0} turn", players[playerIndex].PlayerTag.ToString()));
+#endif
         }
         #endregion
     }
