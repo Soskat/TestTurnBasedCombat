@@ -41,7 +41,7 @@ namespace TestTurnBasedCombat.Game
                     unit.UnitData = new UnitData(unitData);
                     // elements in PriorityQUeue are sorted from lowest to highest
                     // this simple hack (priority * -1) will reverse this
-                    queue.Enqueue(-unit.UnitData.ActionPoints, unit);
+                    queue.Enqueue(-unit.UnitData.MaxActionPoints, unit);
                     go.transform.SetParent(gameObject.transform);
                 }
                 // update player's Units list:

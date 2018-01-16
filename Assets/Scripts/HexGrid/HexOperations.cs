@@ -28,12 +28,9 @@ namespace TestTurnBasedCombat.HexGrid
         /// <param name="path">Path of hex cells</param>
         public static void SelectPath(Hex[] path)
         {
-            if (path == null || path.Length <= 2) return;
+            if (path == null || path.Length < 1) return;
             int i;
-            for (i = 1; i < path.Length - 1; i++)
-            {
-                path[i].Select(AssetManager.instance.HexPath);
-            }
+            for (i = 0; i < path.Length - 1; i++) path[i].Select(AssetManager.instance.HexPath);
             if (path[i] != GameManager.instance.SelectedHex) path[i].Select(AssetManager.instance.HexPath);
         }
 
@@ -43,13 +40,9 @@ namespace TestTurnBasedCombat.HexGrid
         /// <param name="path">Path of hex cells</param>
         public static void UnselectPath(Hex[] path)
         {
-            if (path == null || path.Length <= 2) return;
-            int i;
-            for (i = 1; i < path.Length - 1; i++)
-            {
-                path[i].Unselect();
-            }
-            if (path[i] != GameManager.instance.SelectedHex) path[i].Unselect();
+            if (path == null || path.Length < 1) return;
+            foreach (var hex in path) hex.Unselect();
+            if (GameManager.instance.SelectedHex != null) GameManager.instance.SelectedHex.Select();
         }
 
         /// <summary>
@@ -200,6 +193,7 @@ namespace TestTurnBasedCombat.HexGrid
                 }
                 else break;
             }
+            path.RemoveAt(path.Count - 1);  // remove 
             path.Reverse();
             // return path:
             if (maxSteps < int.MaxValue && maxSteps < path.Count) return path.GetRange(0, maxSteps).ToArray();

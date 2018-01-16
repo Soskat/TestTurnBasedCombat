@@ -86,8 +86,7 @@ namespace TestTurnBasedCombat.HexGrid
                         GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
                                                                                          GameManager.instance.SelectedHex,
                                                                                          hexCells,
-                                                                                         GameManager.instance.SelectedUnit.UnitData.MaxActionPoints);
-
+                                                                                         GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
                         //// find a new path to the destination (with unlimited path length):
                         //GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
                         //                                                                 GameManager.instance.SelectedHex,

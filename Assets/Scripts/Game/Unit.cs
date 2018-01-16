@@ -59,12 +59,21 @@ namespace TestTurnBasedCombat.Game
         {
             GameManager.instance.ActionInProgress = true;
             Vector3 newPos;
-            for (int i = 1; i < hexPath.Length; i++)
+            for (int i = 0; i < hexPath.Length; i++)
             {
                 yield return new WaitForSeconds(0.1f);
                 newPos = hexPath[i].gameObject.transform.position;
                 newPos.y = transform.position.y;
                 transform.position = newPos;
+                // update current action points:
+                UnitData.CurrentActionPoints--;
+                if (UnitData.CurrentActionPoints <= 0)
+                {
+                    // reset action points:
+                    UnitData.ResetActionPoints();
+                    // end turn:
+                    GameManager.instance.EndTurn();
+                }
             }
             GameManager.instance.ActionInProgress = false;
             yield return null;
@@ -84,10 +93,10 @@ namespace TestTurnBasedCombat.Game
             gameObject.transform.localScale = Vector3.one;
             yield return new WaitForSeconds(0.1f);
             // calculate received damage:
-            UnitData.HealthPoints -= damage;
-            UnitData.HealthPoints = (UnitData.HealthPoints < 0) ? 0 : UnitData.HealthPoints;
+            UnitData.MaxHealthPoints -= damage;
+            UnitData.MaxHealthPoints = (UnitData.MaxHealthPoints < 0) ? 0 : UnitData.MaxHealthPoints;
             // unit is dead:
-            if (UnitData.HealthPoints == 0) StartCoroutine(Die());
+            if (UnitData.MaxHealthPoints == 0) StartCoroutine(Die());
             GameManager.instance.ActionInProgress = false;
             yield return null;
         }

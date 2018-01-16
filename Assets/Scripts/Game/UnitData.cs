@@ -12,10 +12,14 @@ namespace TestTurnBasedCombat.Game
         #region Public fields & properties
         /// <summary>Unit name.</summary>
         public string Name;
-        /// <summary>Health points of the unit.</summary>
-        public int HealthPoints;
-        /// <summary>Action points of the unit.</summary>
-        public int ActionPoints;
+        /// <summary>Max health points of the unit.</summary>
+        public int MaxHealthPoints;
+        /// <summary>Current health points of the unit.</summary>
+        public int CurrentHealthPoints;
+        /// <summary>Max action points of the unit.</summary>
+        public int MaxActionPoints;
+        /// <summary>Current action points of the unit.</summary>
+        public int CurrentActionPoints;
         /// <summary>Unit basic attack.</summary>
         public Attack BasicAttack;
         /// <summary>Leader (player) of the unit.</summary>
@@ -38,8 +42,10 @@ namespace TestTurnBasedCombat.Game
         public UnitData(string name, int hp, int ap, Attack attack, Players leader, string prefabCode)
         {
             Name = name;
-            HealthPoints = hp;
-            ActionPoints = ap;
+            MaxHealthPoints = hp;
+            CurrentHealthPoints = MaxHealthPoints;
+            MaxActionPoints = ap;
+            CurrentActionPoints = MaxActionPoints;
             BasicAttack = attack;
             Leader = leader;
             PrefabCode = prefabCode;
@@ -52,11 +58,24 @@ namespace TestTurnBasedCombat.Game
         public UnitData(UnitData unit)
         {
             Name = unit.Name;
-            HealthPoints = unit.HealthPoints;
-            ActionPoints = unit.ActionPoints;
+            MaxHealthPoints = unit.MaxHealthPoints;
+            CurrentHealthPoints = MaxHealthPoints;
+            MaxActionPoints = unit.MaxActionPoints;
+            CurrentActionPoints = MaxActionPoints;
             BasicAttack = unit.BasicAttack;
             Leader = unit.Leader;
             PrefabCode = unit.PrefabCode;
+        }
+        #endregion
+
+
+        #region Public methods
+        /// <summary>
+        /// Resets current action points.
+        /// </summary>
+        public void ResetActionPoints()
+        {
+            CurrentActionPoints = MaxActionPoints;
         }
         #endregion
     }

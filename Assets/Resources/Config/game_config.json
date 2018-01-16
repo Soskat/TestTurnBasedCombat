@@ -5,8 +5,10 @@
             "Units": [
                 {
                     "Name": "Blue Knight",
-                    "HealthPoints": 50,
-                    "ActionPoints": 5,
+                    "MaxHealthPoints": 50,
+                    "CurrentHealthPoints": 50,
+                    "MaxActionPoints": 5,
+                    "CurrentActionPoints": 5,
                     "BasicAttack": {
                         "AttackName": "Single hit",
                         "AttackInfo": "Performs a single melee hit",
@@ -21,8 +23,10 @@
                 },
                 {
                     "Name": "Royal archer",
-                    "HealthPoints": 40,
-                    "ActionPoints": 6,
+                    "MaxHealthPoints": 40,
+                    "CurrentHealthPoints": 40,
+                    "MaxActionPoints": 6,
+                    "CurrentActionPoints": 6,
                     "BasicAttack": {
                         "AttackName": "Single hit",
                         "AttackInfo": "Performs a single melee hit",
@@ -37,8 +41,10 @@
                 },
                 {
                     "Name": "Mage",
-                    "HealthPoints": 30,
-                    "ActionPoints": 3,
+                    "MaxHealthPoints": 30,
+                    "CurrentHealthPoints": 30,
+                    "MaxActionPoints": 3,
+                    "CurrentActionPoints": 3,
                     "BasicAttack": {
                         "AttackName": "Single hit",
                         "AttackInfo": "Performs a single melee hit",
@@ -58,8 +64,10 @@
             "Units": [
                 {
                     "Name": "Blood Mercenary",
-                    "HealthPoints": 50,
-                    "ActionPoints": 5,
+                    "MaxHealthPoints": 50,
+                    "CurrentHealthPoints": 50,
+                    "MaxActionPoints": 5,
+                    "CurrentActionPoints": 5,
                     "BasicAttack": {
                         "AttackName": "Single hit",
                         "AttackInfo": "Performs a single melee hit",
@@ -74,8 +82,10 @@
                 },
                 {
                     "Name": "Poacher",
-                    "HealthPoints": 40,
-                    "ActionPoints": 6,
+                    "MaxHealthPoints": 40,
+                    "CurrentHealthPoints": 40,
+                    "MaxActionPoints": 6,
+                    "CurrentActionPoints": 6,
                     "BasicAttack": {
                         "AttackName": "Single hit",
                         "AttackInfo": "Performs a single melee hit",
@@ -90,8 +100,10 @@
                 },
                 {
                     "Name": "Sorcerer",
-                    "HealthPoints": 30,
-                    "ActionPoints": 3,
+                    "MaxHealthPoints": 30,
+                    "CurrentHealthPoints": 30,
+                    "MaxActionPoints": 3,
+                    "CurrentActionPoints": 3,
                     "BasicAttack": {
                         "AttackName": "Single hit",
                         "AttackInfo": "Performs a single melee hit",
