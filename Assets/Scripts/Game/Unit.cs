@@ -46,6 +46,64 @@ namespace TestTurnBasedCombat.Game
                 else AssignedHex = collision.gameObject.GetComponent<Hex>();
             }
         }
+
+        // OnGUI is called for rendering and handling GUI events.
+        // Source: Unit.cs from project HexGridby Daniel Carrier (https://www.assetstore.unity3d.com/en/#!/content/27440)
+        private void OnGUI()
+        {
+            int hpBarWidth = 50;
+            int hpBarHeight = 15;
+            Vector3 coordinates = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -1.5f, 0) + 0.5f * Camera.main.transform.up);   //TODO: Make this some kind of constant.
+            coordinates.y = Screen.height - coordinates.y;
+            // set up colors:
+            Texture2D green = new Texture2D(1, 1);
+            green.SetPixel(0, 0, new Color(0f, 0.85f, 0.13f));
+            green.wrapMode = TextureWrapMode.Repeat;
+            green.Apply();
+            Texture2D darkRed = new Texture2D(1, 1);
+            darkRed.SetPixel(0, 0, new Color(0.9f, 0f, 0f));
+            darkRed.wrapMode = TextureWrapMode.Repeat;
+            darkRed.Apply();
+            // draw unit's health bar:
+            GUI.DrawTexture(new Rect(coordinates.x - hpBarWidth / 2f,
+                                     coordinates.y + hpBarHeight / 2f,
+                                     hpBarWidth,
+                                     hpBarHeight),
+                            darkRed);
+            GUI.DrawTexture(new Rect(coordinates.x - hpBarWidth / 2f,
+                                     coordinates.y + hpBarHeight / 2f,
+                                     hpBarWidth * UnitData.CurrentHealthPoints / UnitData.MaxHealthPoints,
+                                     hpBarHeight),
+                            green);
+            GUIStyle centered = new GUIStyle();
+            centered.alignment = TextAnchor.MiddleCenter;
+            GUI.Label(new Rect(coordinates.x - hpBarWidth / 2f,
+                               coordinates.y + hpBarHeight / 2f,
+                               hpBarWidth,
+                               hpBarHeight),
+                      UnitData.CurrentHealthPoints.ToString(),
+                      centered);
+
+
+            ////TODO: Get rid of magic numbers.
+            //Vector3 coordinates = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0) + 0.5f * Camera.main.transform.up);   //TODO: Make this some kind of constant.
+            //coordinates.y = Screen.height - coordinates.y;
+            ////print (coordinates);
+            //Texture2D red = new Texture2D(1, 1);
+            //red.SetPixel(0, 0, Color.red);
+            //red.wrapMode = TextureWrapMode.Repeat;
+            //red.Apply();
+            //Texture2D green = new Texture2D(1, 1);
+            //green.SetPixel(0, 0, Color.green);
+            //green.wrapMode = TextureWrapMode.Repeat;
+            //green.Apply();
+            //GUI.Box (new Rect(coordinates.x - 10, coordinates.y - 5, 20, 10), "test");
+            //GUI.DrawTexture(new Rect(coordinates.x - HP_BAR_WIDTH / 2, coordinates.y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT), red);
+            //GUI.DrawTexture(new Rect(coordinates.x - HP_BAR_WIDTH / 2, coordinates.y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH * hp / MAX_HP, HP_BAR_HEIGHT), green);
+            //GUIStyle centered = new GUIStyle();
+            //centered.alignment = TextAnchor.MiddleCenter;
+            //GUI.Label(new Rect(coordinates.x - HP_BAR_WIDTH / 2, coordinates.y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT), hp.ToString(), centered);
+        }
         #endregion
 
 
