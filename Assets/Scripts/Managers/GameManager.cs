@@ -80,6 +80,9 @@ namespace TestTurnBasedCombat.Managers
                 // initialize all things:
                 currentPhase = GamePhase.StartOfGame;
                 ActionInProgress = false;
+
+                // initialize players:
+                InitializePlayers();
             }
             else if (instance != this)
             {
@@ -88,11 +91,7 @@ namespace TestTurnBasedCombat.Managers
         }
 
         // Use this for initialization
-        void Start()
-        {
-            // initialize players:
-            InitializePlayers();
-        }
+        void Start() { }
 
         // Update is called once per frame
         void Update()
@@ -174,7 +173,10 @@ namespace TestTurnBasedCombat.Managers
                 else SelectedHex.Select();
             }
         }
+        #endregion
 
+
+        #region Game flow methods
         /// <summary>
         /// Prepares everything for the battle.
         /// </summary>
@@ -215,7 +217,7 @@ namespace TestTurnBasedCombat.Managers
             SelectedUnit = players[playerIndex].Units.Next();
             if (SelectedUnitHex != null) SelectedUnitHex.Select(AssetManager.instance.HexSelectedUnit);
             // reset LastPath:
-            BattleArena.UnselectPath(LastPath);
+            HexOperations.UnselectPath(LastPath);
             LastPath = null;
 #if UNITY_EDITOR
             Debug.Log(string.Format("[GameManager]: {0} turn", players[playerIndex].PlayerTag.ToString()));
