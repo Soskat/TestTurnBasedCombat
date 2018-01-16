@@ -23,18 +23,6 @@ namespace TestTurnBasedCombat.Game
 
 
         #region MonoBehaviour methods
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
         // OnCollisionEnter is called when this collider/rigidbody has begun touching another rigidbody/collider.
         private void OnCollisionEnter(Collision collision)
         {

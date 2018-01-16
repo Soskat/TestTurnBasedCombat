@@ -90,40 +90,41 @@ namespace TestTurnBasedCombat.HexGrid
 
         /// <summary>
         /// Gets hex cells within a specific range around given hex.
+        /// Source: https://www.redblobgames.com/grids/hexagons/#range
         /// </summary>
         /// <param name="center">Hex that is a center of range</param>
         /// <param name="range">Max distance from center hex</param>
         /// <param name="hexGrid">Grid of hex cells</param>
-        /// <returns></returns>
+        /// <returns>Array of hex cells whitin given range</returns>
         public static Hex[] GetHexesInRange(Hex center, int range, GameObject[][] hexGrid)
         {
-            List<Hex> hexesInRange = new List<Hex>() { center };
-            if (range == 1) return hexesInRange.ToArray();
-            Vector3Int cubeC = OffsetToCubeCoords(center);
-            /*
-            var results = []
-            for each - N ≤ dx ≤ N:
-                for each max(-N, -dx - N) ≤ dy ≤ min(N, -dx + N):
-                    var dz = -dx - dy
-                    results.append(cube_add(center, Cube(dx, dy, dz))) */
+            List<Hex> hexesInRange = new List<Hex>() { };
+            // shrink the range by 1 to remove the level 0 with the center hex:
+            range -= 1;
+            if (range == 0)
+            {
+                hexesInRange.Add(center);
+                return hexesInRange.ToArray();
+            }
             int gridWidth = hexGrid.Length;
             int gridHeight = hexGrid[1].Length;
-            int rMin, rMax, dz;
-            for (int dx = -range; dx < range; dx++)
+            // calculate hexes whitin the range using cube coordinates:
+            Vector3Int cubeC = OffsetToCubeCoords(center);
+            int yMin, yMax, dz;
+            for (int dx = -range; dx <= range; dx++)
             {
-                rMin = Mathf.Min(-range, -dx - range);
-                rMax = Mathf.Max(range, dx + range);
-                for (int dy = rMin; dy < rMax; dy++)
+                yMin = Mathf.Max(-range, -dx - range);
+                yMax = Mathf.Min(range, -dx + range);
+                for (int dy = yMin; dy <= yMax; dy++)
                 {
                     dz = -dx - dy;
                     Vector2Int offset = CubeToOffsetCoords(new Vector3Int(cubeC.x + dx, cubeC.y + dy, cubeC.z + dz));
-                    if (offset.x > 0 && offset.x < gridWidth && offset.y > 0 && offset.y < gridHeight)
+                    if (offset.x >= 0 && offset.x < gridWidth && offset.y >= 0 && offset.y < gridHeight)
                     {
                         hexesInRange.Add(hexGrid[offset.x][offset.y].GetComponent<Hex>());
                     }
                 }
             }
-
             return hexesInRange.ToArray();
         }
 
