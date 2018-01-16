@@ -46,6 +46,27 @@ namespace TestTurnBasedCombat.HexGrid
         }
 
         /// <summary>
+        /// Selects hexes within range with given material.
+        /// </summary>
+        /// <param name="range">Hexes to select</param>
+        /// <param name="mat">Material to use</param>
+        public static void SelectRangeOfHexes(Hex[] range, Material mat)
+        {
+            if (range == null) return;
+            foreach (Hex hex in range) hex.Select(mat);
+        }
+
+        /// <summary>
+        /// Unselects hexes within range.
+        /// </summary>
+        /// <param name="range">Hexes to unselect</param>
+        public static void UnselectRangeOfHexes(Hex[] range)
+        {
+            if (range == null) return;
+            foreach (Hex hex in range) hex.Unselect();
+        }
+
+        /// <summary>
         /// Converts offset coordinates of the hex cell to the cube coordinates.
         /// Based on: https://www.redblobgames.com/grids/hexagons/#conversions-offset
         /// </summary>

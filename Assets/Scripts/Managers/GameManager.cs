@@ -104,7 +104,7 @@ namespace TestTurnBasedCombat.Managers
         // Update is called once per frame
         void Update()
         {
-            // got left mouse button down:
+            // left mouse button is down:
             if (Input.GetMouseButtonDown(0))
             {
                 if (SelectedHex != null)
@@ -119,8 +119,6 @@ namespace TestTurnBasedCombat.Managers
                             if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
                             {
                                 // attack:
-                                Debug.Log(string.Format("{0} attacks {1}", SelectedUnit.gameObject.name,
-                                                                           SelectedHex.OccupyingObject.gameObject.name));
                                 CurrentAttack.PerformAttack(HexesInRange);
                             }
                             // enemy is out of range of attack:
@@ -158,7 +156,7 @@ namespace TestTurnBasedCombat.Managers
                 }
             }
 
-            // got right mouse button down:
+            // right mouse button is down:
             if (Input.GetMouseButtonDown(1))
             {
                 // reset current attack to the basic one:
@@ -187,10 +185,10 @@ namespace TestTurnBasedCombat.Managers
 
         #region Public methods
         /// <summary>
-        /// Save info about current selected hex cell.
+        /// Highlights current selected hex.
         /// </summary>
         /// <param name="hex">Current selected hex</param>
-        public void SelectHexCell(Hex hex)
+        public void HighlightSelectedHex(Hex hex)
         {
             if (hex == null)
             {

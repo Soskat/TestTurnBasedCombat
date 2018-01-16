@@ -145,7 +145,7 @@ namespace TestTurnBasedCombat.Managers
             Dictionary<string, Attack> attacks = new Dictionary<string, Attack>();
             attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 20, true, 1, 1));
             attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 20, 1, 15, true, 1, 1));
-            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 2, 15, true, 1, 1));
+            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 2, 15, false, 1, 1));
             //attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 1, 15, true, 1, 1));
             return attacks;
         }

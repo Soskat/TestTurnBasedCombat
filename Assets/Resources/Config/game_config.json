@@ -26,7 +26,7 @@
             "RangeOfAttack": 20,
             "DamageRange": 2,
             "Damage": 15,
-            "NeedEnemyToLaunch": true,
+            "NeedEnemyToLaunch": false,
             "AttackCost": 1,
             "Cooldown": 1
         }
@@ -90,7 +90,7 @@
                             "RangeOfAttack": 20,
                             "DamageRange": 2,
                             "Damage": 15,
-                            "NeedEnemyToLaunch": true,
+                            "NeedEnemyToLaunch": false,
                             "AttackCost": 1,
                             "Cooldown": 1
                         }
@@ -158,7 +158,7 @@
                             "RangeOfAttack": 20,
                             "DamageRange": 2,
                             "Damage": 15,
-                            "NeedEnemyToLaunch": true,
+                            "NeedEnemyToLaunch": false,
                             "AttackCost": 1,
                             "Cooldown": 1
                         }
