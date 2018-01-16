@@ -54,7 +54,7 @@ namespace TestTurnBasedCombat
         public void Remove(T obj)
         {
             queue.Remove(obj);
-            iterator %= queue.Count;
+            if (queue.Count > 0) iterator %= queue.Count;
         }
 
         /// <summary>
@@ -63,8 +63,12 @@ namespace TestTurnBasedCombat
         /// <returns>Value of the element</returns>
         public T Next()
         {
-            iterator = ++iterator % queue.Count;
-            return queue[iterator];
+            if (queue.Count == 0) return default(T);
+            else
+            {
+                iterator = ++iterator % queue.Count;
+                return queue[iterator];
+            }
         }
 
         /// <summary>

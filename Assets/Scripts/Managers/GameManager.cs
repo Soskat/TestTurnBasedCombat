@@ -19,9 +19,6 @@ namespace TestTurnBasedCombat.Managers
 
 
         #region Private fields
-        ///// <summary>Current active game phase.</summary>
-        //[SerializeField] private GamePhase currentPhase;
-
         /// <summary>List of players.</summary>
         [SerializeField] private List<Player> players;
         /// <summary>Index of current active player.</summary>
@@ -35,9 +32,6 @@ namespace TestTurnBasedCombat.Managers
 
 
         #region Public fields & properties
-        ///// <summary>Current active game phase.</summary>
-        //public GamePhase CurrentPhase { get { return currentPhase; } }
-
         /// <summary>Currently selected hex.</summary>
         public Hex SelectedHex;
         /// <summary>Currently selected unit.</summary>
@@ -51,11 +45,21 @@ namespace TestTurnBasedCombat.Managers
                 else return null;
             }
         }
-        public Attack CurrentAttack { get { return null; } }
+        /// <summary>Index of current active attack on unit's attacks listUnit's current active attack.</summary>
+        public Attack CurrentAttack
+        {
+            get
+            {
+                if (SelectedUnit != null) return SelectedUnit.UnitData.Attacks[currentAttackIndex];
+                else return null;
+            }
+        }
         /// <summary>Is there any action in progress?</summary>
         public bool ActionInProgress;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
+        /// <summary>Hexes whitin range of attack.</summary>
+        public Hex[] HexesInRange;
         /// <summary>Doeas SelectedHex contain an enemy of SelectedUnit?</summary>
         public bool IsSelectedHexContainsEnemy
         {
@@ -84,9 +88,7 @@ namespace TestTurnBasedCombat.Managers
                 instance = this;
                 DontDestroyOnLoad(gameObject);
                 // initialize all things:
-                //currentPhase = GamePhase.StartOfGame;
                 ActionInProgress = false;
-
                 // initialize players:
                 InitializePlayers();
             }
@@ -102,41 +104,65 @@ namespace TestTurnBasedCombat.Managers
         // Update is called once per frame
         void Update()
         {
+            // got left mouse button down:
             if (Input.GetMouseButtonDown(0))
             {
                 if (SelectedHex != null)
                 {
-                    // SelectedHex contains an unit:
-                    if (SelectedHex.IsOccupied &&
-                        SelectedHex.OccupyingObject.tag == "Unit" &&
-                        SelectedUnit != SelectedHex.OccupyingObject.GetComponent<Unit>())
+                    // current attack need an enemy to launch:
+                    if (CurrentAttack != null && CurrentAttack.NeedEnemyToLaunch)
                     {
-                        // unit is an enemy - attack:
+                        // check if SelectedHex contains an enemy:
                         if (IsSelectedHexContainsEnemy)
                         {
-                            // check if can perform an attack:
-                            // ...
-
-                            // if so, attack:
-                            // ...
+                            // check if enemy is in range of attack:
+                            if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
+                            {
+                                // attack:
+                                Debug.Log(string.Format("{0} attacks {1}", SelectedUnit.gameObject.name,
+                                                                           SelectedHex.OccupyingObject.gameObject.name));
+                                CurrentAttack.PerformAttack(HexesInRange);
+                            }
+                            // enemy is out of range of attack:
+                            else
+                            {
+                                Debug.Log(string.Format("{0} if out of range of {1}", SelectedHex.OccupyingObject.gameObject.name,
+                                                                                      SelectedUnit.gameObject.name));
+                                // move towards SelectedHex:
+                                if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
+                            }
                         }
-                        //// unit is an ally - update SelectedUnit:
-                        //else
-                        //{
-                        //    SelectedUnit = SelectedHex.OccupyingObject.GetComponent<Unit>();
-                        //}
+                        // there's no enemy on SelectedHex:
+                        else
+                        {
+                            // move towards SelectedHex:
+                            if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
+                        }
                     }
-                    // SelectedHex is unoccupieed:
+                    // current attack doesn't need an enemy to launch:
                     else
                     {
-                        // move the unit:
-
-                        //Debug.Log("Distance: " + BattleArena.GetDistanceBetweenHexes(SelectedHex, SelectedUnitHex));
-
-                        // play movement animation:
-                        if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
+                        // check if SelectedHex is in range of attack:
+                        if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
+                        {
+                            // attack:
+                            CurrentAttack.PerformAttack(HexesInRange);
+                        }
+                        // SelectedHex is out of range of attack:
+                        else
+                        {
+                            // move towards SelectedHex:
+                            if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
+                        }
                     }
                 }
+            }
+
+            // got right mouse button down:
+            if (Input.GetMouseButtonDown(1))
+            {
+                // reset current attack to the basic one:
+                currentAttackIndex = 0;
             }
         }
         #endregion
@@ -193,6 +219,8 @@ namespace TestTurnBasedCombat.Managers
 #endif
             // things to do before loading next scene:
             playersReadyCount = 0;
+            currentAttackIndex = 0;
+            ActionInProgress = false;
 
             // load next scene:
             SceneManager.LoadScene(1); // 1 -> BattleArena
@@ -217,10 +245,14 @@ namespace TestTurnBasedCombat.Managers
         /// </summary>
         public void EndTurn()
         {
+            // reset CurrentAttack ref:
+            currentAttackIndex = 0;
+            ActionInProgress = false;
             // switch to other player's next unit:
             playerIndex = ++playerIndex % players.Count;
             if (SelectedUnit != null) SelectedUnitHex.Select(AssetManager.instance.HexIdle);
             SelectedUnit = players[playerIndex].Units.Next();
+            SelectedUnit.UnitData.ResetActionPoints();
             if (SelectedUnitHex != null) SelectedUnitHex.Select(AssetManager.instance.HexSelectedUnit);
             // reset LastPath:
             HexOperations.UnselectPath(LastPath);
@@ -228,6 +260,16 @@ namespace TestTurnBasedCombat.Managers
 #if UNITY_EDITOR
             Debug.Log(string.Format("[GameManager]: {0} turn", players[playerIndex].PlayerTag.ToString()));
 #endif
+        }
+
+        /// <summary>
+        /// Shows info about the winner of the battle.
+        /// </summary>
+        /// <param name="looser"></param>
+        public void EndOfBattle(Players looser)
+        {
+            Debug.Log("--------------------> The looser is: " + looser.ToString());
+            ActionInProgress = true;
         }
         #endregion
     }

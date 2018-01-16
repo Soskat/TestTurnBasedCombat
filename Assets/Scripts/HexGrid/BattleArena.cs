@@ -77,21 +77,96 @@ namespace TestTurnBasedCombat.HexGrid
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("HexGrid")))
                 {
                     GameManager.instance.SelectHexCell(hit.collider.gameObject.GetComponent<Hex>());
-                    // find the path from SelectedUnit to SelectedHex:
+
                     if (GameManager.instance.SelectedUnit != null)
                     {
-                        // unselect last path:
-                        HexOperations.UnselectPath(GameManager.instance.LastPath);
-                        // find a new path to the destination (with limited path length):
-                        GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
-                                                                                         GameManager.instance.SelectedHex,
-                                                                                         hexCells,
-                                                                                         GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
-                        //// find a new path to the destination (with unlimited path length):
+                        // current attack need an enemy to launch:
+                        if (GameManager.instance.CurrentAttack != null && GameManager.instance.CurrentAttack.NeedEnemyToLaunch)
+                        {
+                            // check if SelectedHex contains an enemy:
+                            if (GameManager.instance.IsSelectedHexContainsEnemy)
+                            {
+                                // check if enemy is in range of attack:
+                                if (HexOperations.GetDistanceBetweenHexes(GameManager.instance.SelectedUnitHex,
+                                                                          GameManager.instance.SelectedHex)
+                                    <= GameManager.instance.CurrentAttack.RangeOfAttack)
+                                {
+                                    // mark hexes whitin range of attack as vulnerable:
+                                    foreach (Hex hex in GameManager.instance.HexesInRange) hex.Unselect();
+                                    GameManager.instance.HexesInRange = HexOperations.GetHexesInRange(GameManager.instance.SelectedHex,
+                                                                                                      GameManager.instance.CurrentAttack.DamageRange,
+                                                                                                      hexCells);
+                                    foreach (Hex hex in GameManager.instance.HexesInRange) hex.Select(AssetManager.instance.HexEnemyToAttack);
+                                }
+                                // enemy is out of range of attack:
+                                else
+                                {
+                                    // find the path from the enemy:
+                                    HexOperations.UnselectPath(GameManager.instance.LastPath);
+                                    // find a new path to the destination (with limited path length):
+                                    GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
+                                                                                                     GameManager.instance.SelectedHex,
+                                                                                                     hexCells,
+                                                                                                     GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
+                                    HexOperations.SelectPath(GameManager.instance.LastPath);
+                                }
+                            }
+                            // there's no enemy on SelectedHex:
+                            else
+                            {
+                                // find the path from the enemy:
+                                HexOperations.UnselectPath(GameManager.instance.LastPath);
+                                // find a new path to the destination (with limited path length):
+                                GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
+                                                                                                 GameManager.instance.SelectedHex,
+                                                                                                 hexCells,
+                                                                                                 GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
+                                HexOperations.SelectPath(GameManager.instance.LastPath);
+                            }
+                        }
+                        // current attack doesn't need an enemy to launch:
+                        else
+                        {
+                            // check if SelectedHex is in range of attack:
+                            if (HexOperations.GetDistanceBetweenHexes(GameManager.instance.SelectedUnitHex,
+                                                                      GameManager.instance.SelectedHex)
+                                <= GameManager.instance.CurrentAttack.RangeOfAttack)
+                            {
+                                // mark hexes whitin range of attack as vulnerable:
+                                foreach (Hex hex in GameManager.instance.HexesInRange) hex.Unselect();
+                                GameManager.instance.HexesInRange = HexOperations.GetHexesInRange(GameManager.instance.SelectedHex,
+                                                                                                  GameManager.instance.CurrentAttack.DamageRange,
+                                                                                                  hexCells);
+                                foreach (Hex hex in GameManager.instance.HexesInRange) hex.Select(AssetManager.instance.HexEnemyToAttack);
+                            }
+                            // SelectedHex is out of range of attack:
+                            else
+                            {
+                                // find the path from the enemy:
+                                HexOperations.UnselectPath(GameManager.instance.LastPath);
+                                // find a new path to the destination (with limited path length):
+                                GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
+                                                                                                 GameManager.instance.SelectedHex,
+                                                                                                 hexCells,
+                                                                                                 GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
+                                HexOperations.SelectPath(GameManager.instance.LastPath);
+                            }
+                        }
+
+                        #region Backup
+                        //// unselect last path:
+                        //HexOperations.UnselectPath(GameManager.instance.LastPath);
+                        //// find a new path to the destination (with limited path length):
                         //GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
                         //                                                                 GameManager.instance.SelectedHex,
-                        //                                                                 hexCells);
-                        HexOperations.SelectPath(GameManager.instance.LastPath);
+                        //                                                                 hexCells,
+                        //                                                                 GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
+                        ////// find a new path to the destination (with unlimited path length):
+                        ////GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
+                        ////                                                                 GameManager.instance.SelectedHex,
+                        ////                                                                 hexCells);
+                        //HexOperations.SelectPath(GameManager.instance.LastPath);
+                        #endregion
                     }
                 }
                 else

@@ -1,5 +1,5 @@
 ﻿using System;
-using UnityEngine;
+using TestTurnBasedCombat.HexGrid;
 
 
 namespace TestTurnBasedCombat.Game
@@ -76,9 +76,15 @@ namespace TestTurnBasedCombat.Game
         /// Performs the attack on the given unit.
         /// </summary>
         /// <param name="unit">Unit to attack</param>
-        public void PerformAttack(Unit unit)
+        public void PerformAttack(Hex[] range)
         {
-            Debug.Log("Do the " + AttackName);
+            foreach(Hex hex in range)
+            {
+                if (hex.OccupyingObject != null && hex.OccupyingObject.gameObject.tag == "Unit")
+                {
+                    hex.OccupyingObject.GetComponent<Unit>().GotHit(Damage);
+                }
+            }
         }
         #endregion
     }

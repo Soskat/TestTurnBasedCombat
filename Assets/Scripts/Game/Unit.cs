@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TestTurnBasedCombat.HexGrid;
 using TestTurnBasedCombat.Managers;
 using UnityEngine;
@@ -16,6 +17,8 @@ namespace TestTurnBasedCombat.Game
         public UnitData UnitData;
         /// <summary>The hex cell that unit stands on.</summary>
         public Hex AssignedHex;
+        /// <summary>Informs that the unit is dead.</summary>
+        public Action IsDead { get; set; }
         #endregion
 
 
@@ -141,42 +144,19 @@ namespace TestTurnBasedCombat.Game
         /// Deal with the damage.
         /// </summary>
         /// <param name="damage">Damage that unit has received</param>
-        /// <returns></returns>
-        public IEnumerator GotHit(int damage)
+        public void GotHit(int damage)
         {
-            GameManager.instance.ActionInProgress = true;
-            // animate the unit reaction to being hit:
-            gameObject.transform.localScale = Vector3.one * 0.9f;
-            yield return new WaitForSeconds(0.2f);
-            gameObject.transform.localScale = Vector3.one;
-            yield return new WaitForSeconds(0.1f);
             // calculate received damage:
-            UnitData.MaxHealthPoints -= damage;
-            UnitData.MaxHealthPoints = (UnitData.MaxHealthPoints < 0) ? 0 : UnitData.MaxHealthPoints;
+            UnitData.CurrentHealthPoints -= damage;
+            UnitData.CurrentHealthPoints = (UnitData.CurrentHealthPoints < 0) ? 0 : UnitData.CurrentHealthPoints;
             // unit is dead:
-            if (UnitData.MaxHealthPoints == 0) StartCoroutine(Die());
-            GameManager.instance.ActionInProgress = false;
-            yield return null;
-        }
-
-        /// <summary>
-        /// Deal with the unit death.
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator Die()
-        {
-            GameManager.instance.ActionInProgress = true;
-            // animate unit death:
-            for (float i = 1f; i > 0.0f; i -= 0.1f)
+            if (UnitData.CurrentHealthPoints == 0)
             {
-                gameObject.transform.localScale = Vector3.one * i;
-                yield return new WaitForSeconds(0.01f);
+                // remove this unit from player's army:
+                IsDead();
+                // destroy this game object:
+                Destroy(gameObject);
             }
-            // remove this unit from player's army:
-            // ...
-            GameManager.instance.ActionInProgress = false;
-            // destroy this game object:
-            Destroy(gameObject);
         }
         #endregion
     }

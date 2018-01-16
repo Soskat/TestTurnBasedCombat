@@ -85,9 +85,47 @@ namespace TestTurnBasedCombat.HexGrid
         {
             Vector3Int cubeA = OffsetToCubeCoords(a);
             Vector3Int cubeB = OffsetToCubeCoords(b);
-            return (int)Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
+            return Mathf.Max(Mathf.Abs(cubeA.x - cubeB.x), Mathf.Abs(cubeA.y - cubeB.y), Mathf.Abs(cubeA.z - cubeB.z));
         }
 
+        /// <summary>
+        /// Gets hex cells within a specific range around given hex.
+        /// </summary>
+        /// <param name="center">Hex that is a center of range</param>
+        /// <param name="range">Max distance from center hex</param>
+        /// <param name="hexGrid">Grid of hex cells</param>
+        /// <returns></returns>
+        public static Hex[] GetHexesInRange(Hex center, int range, GameObject[][] hexGrid)
+        {
+            List<Hex> hexesInRange = new List<Hex>() { center };
+            if (range == 1) return hexesInRange.ToArray();
+            Vector3Int cubeC = OffsetToCubeCoords(center);
+            /*
+            var results = []
+            for each - N ≤ dx ≤ N:
+                for each max(-N, -dx - N) ≤ dy ≤ min(N, -dx + N):
+                    var dz = -dx - dy
+                    results.append(cube_add(center, Cube(dx, dy, dz))) */
+            int gridWidth = hexGrid.Length;
+            int gridHeight = hexGrid[1].Length;
+            int rMin, rMax, dz;
+            for (int dx = -range; dx < range; dx++)
+            {
+                rMin = Mathf.Min(-range, -dx - range);
+                rMax = Mathf.Max(range, dx + range);
+                for (int dy = rMin; dy < rMax; dy++)
+                {
+                    dz = -dx - dy;
+                    Vector2Int offset = CubeToOffsetCoords(new Vector3Int(cubeC.x + dx, cubeC.y + dy, cubeC.z + dz));
+                    if (offset.x > 0 && offset.x < gridWidth && offset.y > 0 && offset.y < gridHeight)
+                    {
+                        hexesInRange.Add(hexGrid[offset.x][offset.y].GetComponent<Hex>());
+                    }
+                }
+            }
+
+            return hexesInRange.ToArray();
+        }
 
         /// <summary>
         /// Finds all neighbours of the given hex cell.

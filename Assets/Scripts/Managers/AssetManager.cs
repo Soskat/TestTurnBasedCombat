@@ -31,6 +31,8 @@ namespace TestTurnBasedCombat.Managers
         private Material hexCursor;
         /// <summary>Enemy hex cell material.</summary>
         private Material hexEnemy;
+        /// <summary>Enemy hex cell in range of attack material.</summary>
+        private Material hexEnemyToAttack;
         #endregion
         /// <summary>Units attacks specifications.</summary>
         private Dictionary<string, Attack> attacksSpec;
@@ -53,6 +55,8 @@ namespace TestTurnBasedCombat.Managers
         public Material HexCursor { get { return hexCursor; } }
         /// <summary>Enemy hex cell material.</summary>
         public Material HexEnemy { get { return hexEnemy; } }
+        /// <summary>Enemy hex cell in range of attack material.</summary>
+        public Material HexEnemyToAttack { get { return hexEnemyToAttack; } }
         #endregion
         /// <summary>Armies specification.</summary>
         public Dictionary<Players, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
@@ -77,6 +81,7 @@ namespace TestTurnBasedCombat.Managers
                 hexPath = Resources.Load("Materials/HexPathMaterial") as Material;
                 hexCursor = Resources.Load("Materials/HexHighlightMaterial") as Material;
                 hexEnemy = Resources.Load("Materials/HexHighlightEnemyMaterial") as Material;
+                hexEnemyToAttack = Resources.Load("Materials/HexHighlightEnemyToAttackMaterial") as Material;
                 cubeDirections = new Vector3Int[] { new Vector3Int(+1, -1, 0),
                                                     new Vector3Int(+1, 0, -1),
                                                     new Vector3Int(0, +1, -1),
@@ -140,7 +145,8 @@ namespace TestTurnBasedCombat.Managers
             Dictionary<string, Attack> attacks = new Dictionary<string, Attack>();
             attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 20, true, 1, 1));
             attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 20, 1, 15, true, 1, 1));
-            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 1, 15, true, 1, 1));
+            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 2, 15, true, 1, 1));
+            //attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 1, 15, true, 1, 1));
             return attacks;
         }
 

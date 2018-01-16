@@ -39,6 +39,19 @@ namespace TestTurnBasedCombat.Game
                     go.AddComponent<Unit>();
                     Unit unit = go.GetComponent<Unit>();
                     unit.UnitData = new UnitData(unitData);
+
+
+
+
+                    unit.IsDead += () => {
+                        Debug.Log(unit.UnitData.Name + " is dead");
+                        player.Units.Remove(unit);
+                        if (player.Units.Count == 0) GameManager.instance.EndOfBattle(player.PlayerTag);
+                    };
+
+
+
+
                     // elements in PriorityQUeue are sorted from lowest to highest
                     // this simple hack (priority * -1) will reverse this
                     queue.Enqueue(-unit.UnitData.MaxActionPoints, unit);
