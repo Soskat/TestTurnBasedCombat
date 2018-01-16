@@ -32,6 +32,8 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Enemy hex cell material.</summary>
         private Material hexEnemy;
         #endregion
+        /// <summary>Units attacks specifications.</summary>
+        private Dictionary<string, Attack> attacksSpec;
         /// <summary>Armies specification.</summary>
         private Dictionary<Players, ArmySpec> armiesSpec;
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
@@ -103,6 +105,9 @@ namespace TestTurnBasedCombat.Managers
                 config = CreateNewGameConfiguration();
                 SaveGameConfigToFile(config);
             }
+            // create attacks spec dictionary:
+            attacksSpec = new Dictionary<string, Attack>();
+            foreach (var item in config.AttacksSpec) attacksSpec.Add(item.AttackName, item);
             // create armies spec dictionary:
             armiesSpec = new Dictionary<Players, ArmySpec>();
             foreach (var item in config.ArmiesSpec) armiesSpec.Add(item.Player, item);
@@ -115,7 +120,11 @@ namespace TestTurnBasedCombat.Managers
         private GameConfig CreateNewGameConfiguration()
         {
             GameConfig newConfig = new GameConfig();
-            newConfig.ArmiesSpec = CreateArmiesSpecification();
+            Dictionary<string, Attack> attacks = CreateAttacksSpecification();
+            List<Attack> attacksList = new List<Attack>();
+            foreach (var item in attacks.Values) attacksList.Add(item);
+            newConfig.AttacksSpec = attacksList;
+            newConfig.ArmiesSpec = CreateArmiesSpecification(attacks);
 #if UNITY_EDITOR
             Debug.Log("[AssetManager]: Created new game configuration data...");
 #endif
@@ -123,21 +132,34 @@ namespace TestTurnBasedCombat.Managers
         }
 
         /// <summary>
+        /// Creates attacks specifications.
+        /// </summary>
+        /// <returns>Dictionary with attacks specifications</returns>
+        private Dictionary<string, Attack> CreateAttacksSpecification()
+        {
+            Dictionary<string, Attack> attacks = new Dictionary<string, Attack>();
+            attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 20, true, 1, 1));
+            attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 20, 1, 15, true, 1, 1));
+            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 1, 15, true, 1, 1));
+            return attacks;
+        }
+
+        /// <summary>
         /// Creates hard-coded units specifications.
         /// </summary>
         /// <returns>Dictionary with new armies specification</returns>
-        private List<ArmySpec> CreateArmiesSpecification()
+        private List<ArmySpec> CreateArmiesSpecification(Dictionary<string, Attack> attacks)
         {
             List<ArmySpec> newArmiesSpec = new List<ArmySpec>();
             ArmySpec army1 = new ArmySpec(Players.Player1);
-            army1.Units.Add(new UnitData("Blue Knight", 50, 5, null, Players.Player1, "soldierBlue"));
-            army1.Units.Add(new UnitData("Royal archer", 40, 6, null, Players.Player1, "archerBlue"));
-            army1.Units.Add(new UnitData("Mage", 30, 3, null, Players.Player1, "wizardBlue"));
+            army1.Units.Add(new UnitData("Blue Knight", 50, 5, new Attack[] { attacks["Stab"] }, Players.Player1, "soldierBlue"));
+            army1.Units.Add(new UnitData("Royal archer", 40, 6, new Attack[] { attacks["Shoot"] }, Players.Player1, "archerBlue"));
+            army1.Units.Add(new UnitData("Mage", 30, 3, new Attack[] { attacks["Magic_missle"] }, Players.Player1, "wizardBlue"));
             newArmiesSpec.Add(army1);
             ArmySpec army2 = new ArmySpec(Players.Player2);
-            army2.Units.Add(new UnitData("Blood Mercenary", 50, 5, null, Players.Player2, "soldierRed"));
-            army2.Units.Add(new UnitData("Poacher", 40, 6, null, Players.Player2, "archerRed"));
-            army2.Units.Add(new UnitData("Sorcerer", 30, 3, null, Players.Player2, "wizardRed"));
+            army2.Units.Add(new UnitData("Blood Mercenary", 50, 5, new Attack[] { attacks["Stab"] }, Players.Player2, "soldierRed"));
+            army2.Units.Add(new UnitData("Poacher", 40, 6, new Attack[] { attacks["Shoot"] }, Players.Player2, "archerRed"));
+            army2.Units.Add(new UnitData("Sorcerer", 30, 3, new Attack[] { attacks["Magic_missle"] }, Players.Player2, "wizardRed"));
             newArmiesSpec.Add(army2);
             return newArmiesSpec;
         }

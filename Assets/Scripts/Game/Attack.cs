@@ -21,6 +21,8 @@ namespace TestTurnBasedCombat.Game
         public int DamageRange = 1;
         /// <summary>Damage dealt by the attack.</summary>
         public int Damage = 15;
+        /// <summary>Does this attack need selected enemy to launch?</summary>
+        public bool NeedEnemyToLaunch = true;
         /// <summary>Cost of the attack.</summary>
         public int AttackCost = 1;
         /// <summary>Number of turns of the attack cooldown.</summary>
@@ -39,8 +41,32 @@ namespace TestTurnBasedCombat.Game
             RangeOfAttack = 1;
             DamageRange = 1;
             Damage = 15;
+            NeedEnemyToLaunch = true;
             AttackCost = 1;
             Cooldown = 1;
+        }
+
+        /// <summary>
+        /// Creates an instance of <see cref="Attack"/> class.
+        /// </summary>
+        /// <param name="attackName">Name of the attack</param>
+        /// <param name="attackInfo">Info about the attack</param>
+        /// <param name="rangeOfAttack">Area where the attack can be performed</param>
+        /// <param name="damageRange">Area of the attack damage</param>
+        /// <param name="damage">Damage dealt by the attack</param>
+        /// <param name="needEnemy">Does this attack need selected enemy to launch?</param>
+        /// <param name="attackCost">Cost of the attack</param>
+        /// <param name="cooldown">Number of turns of the attack cooldown</param>
+        public Attack(string attackName, string attackInfo, int rangeOfAttack, int damageRange, int damage, bool needEnemy, int attackCost, int cooldown)
+        {
+            AttackName = attackName;
+            AttackInfo = attackInfo;
+            RangeOfAttack = rangeOfAttack;
+            DamageRange = damageRange;
+            Damage = damage;
+            NeedEnemyToLaunch = needEnemy;
+            AttackCost = attackCost;
+            Cooldown = cooldown;
         }
         #endregion
 

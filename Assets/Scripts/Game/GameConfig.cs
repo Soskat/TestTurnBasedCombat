@@ -11,6 +11,8 @@ namespace TestTurnBasedCombat.Game
     public class GameConfig
     {
         #region Public fields
+        /// <summary>Attacks specifications.</summary>
+        public List<Attack> AttacksSpec;
         /// <summary>Armies specifications.</summary>
         public List<ArmySpec> ArmiesSpec;
         #endregion

@@ -20,8 +20,8 @@ namespace TestTurnBasedCombat.Game
         public int MaxActionPoints;
         /// <summary>Current action points of the unit.</summary>
         public int CurrentActionPoints;
-        /// <summary>Unit basic attack.</summary>
-        public Attack BasicAttack;
+        /// <summary>List of unit's attacks.</summary>
+        public Attack[] Attacks;
         /// <summary>Leader (player) of the unit.</summary>
         public Players Leader;
         /// <summary>Unit prefab code.</summary>
@@ -36,17 +36,17 @@ namespace TestTurnBasedCombat.Game
         /// <param name="name">Unit name</param>
         /// <param name="hp">Unit health points</param>
         /// <param name="ap">Unit action points</param>
-        /// <param name="attack">Unit basic attack</param>
+        /// <param name="attack">List of unit's attacks</param>
         /// <param name="leader">Unit leader (player)</param>
         /// <param name="prefabCode">Unit prefab code</param>
-        public UnitData(string name, int hp, int ap, Attack attack, Players leader, string prefabCode)
+        public UnitData(string name, int hp, int ap, Attack[] attack, Players leader, string prefabCode)
         {
             Name = name;
             MaxHealthPoints = hp;
             CurrentHealthPoints = MaxHealthPoints;
             MaxActionPoints = ap;
             CurrentActionPoints = MaxActionPoints;
-            BasicAttack = attack;
+            Attacks = attack;
             Leader = leader;
             PrefabCode = prefabCode;
         }
@@ -62,7 +62,7 @@ namespace TestTurnBasedCombat.Game
             CurrentHealthPoints = MaxHealthPoints;
             MaxActionPoints = unit.MaxActionPoints;
             CurrentActionPoints = MaxActionPoints;
-            BasicAttack = unit.BasicAttack;
+            Attacks = unit.Attacks;
             Leader = unit.Leader;
             PrefabCode = unit.PrefabCode;
         }

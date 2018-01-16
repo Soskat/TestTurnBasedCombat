@@ -1,4 +1,36 @@
 {
+    "AttacksSpec": [
+        {
+            "AttackName": "Stab",
+            "AttackInfo": "Meet Mr. Pointy",
+            "RangeOfAttack": 1,
+            "DamageRange": 1,
+            "Damage": 20,
+            "NeedEnemyToLaunch": true,
+            "AttackCost": 1,
+            "Cooldown": 1
+        },
+        {
+            "AttackName": "Shoot",
+            "AttackInfo": "An arrow to the knee",
+            "RangeOfAttack": 20,
+            "DamageRange": 1,
+            "Damage": 15,
+            "NeedEnemyToLaunch": true,
+            "AttackCost": 1,
+            "Cooldown": 1
+        },
+        {
+            "AttackName": "Magic_missle",
+            "AttackInfo": "A shiny star of pain",
+            "RangeOfAttack": 20,
+            "DamageRange": 1,
+            "Damage": 15,
+            "NeedEnemyToLaunch": true,
+            "AttackCost": 1,
+            "Cooldown": 1
+        }
+    ],
     "ArmiesSpec": [
         {
             "Player": 0,
@@ -9,15 +41,18 @@
                     "CurrentHealthPoints": 50,
                     "MaxActionPoints": 5,
                     "CurrentActionPoints": 5,
-                    "BasicAttack": {
-                        "AttackName": "Single hit",
-                        "AttackInfo": "Performs a single melee hit",
-                        "RangeOfAttack": 1,
-                        "DamageRange": 1,
-                        "Damage": 15,
-                        "AttackCost": 1,
-                        "Cooldown": 1
-                    },
+                    "Attacks": [
+                        {
+                            "AttackName": "Stab",
+                            "AttackInfo": "Meet Mr. Pointy",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 20,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 1,
+                            "Cooldown": 1
+                        }
+                    ],
                     "Leader": 0,
                     "PrefabCode": "soldierBlue"
                 },
@@ -27,15 +62,18 @@
                     "CurrentHealthPoints": 40,
                     "MaxActionPoints": 6,
                     "CurrentActionPoints": 6,
-                    "BasicAttack": {
-                        "AttackName": "Single hit",
-                        "AttackInfo": "Performs a single melee hit",
-                        "RangeOfAttack": 1,
-                        "DamageRange": 1,
-                        "Damage": 15,
-                        "AttackCost": 1,
-                        "Cooldown": 1
-                    },
+                    "Attacks": [
+                        {
+                            "AttackName": "Shoot",
+                            "AttackInfo": "An arrow to the knee",
+                            "RangeOfAttack": 20,
+                            "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 1,
+                            "Cooldown": 1
+                        }
+                    ],
                     "Leader": 0,
                     "PrefabCode": "archerBlue"
                 },
@@ -45,15 +83,18 @@
                     "CurrentHealthPoints": 30,
                     "MaxActionPoints": 3,
                     "CurrentActionPoints": 3,
-                    "BasicAttack": {
-                        "AttackName": "Single hit",
-                        "AttackInfo": "Performs a single melee hit",
-                        "RangeOfAttack": 1,
-                        "DamageRange": 1,
-                        "Damage": 15,
-                        "AttackCost": 1,
-                        "Cooldown": 1
-                    },
+                    "Attacks": [
+                        {
+                            "AttackName": "Magic_missle",
+                            "AttackInfo": "A shiny star of pain",
+                            "RangeOfAttack": 20,
+                            "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 1,
+                            "Cooldown": 1
+                        }
+                    ],
                     "Leader": 0,
                     "PrefabCode": "wizardBlue"
                 }
@@ -68,15 +109,18 @@
                     "CurrentHealthPoints": 50,
                     "MaxActionPoints": 5,
                     "CurrentActionPoints": 5,
-                    "BasicAttack": {
-                        "AttackName": "Single hit",
-                        "AttackInfo": "Performs a single melee hit",
-                        "RangeOfAttack": 1,
-                        "DamageRange": 1,
-                        "Damage": 15,
-                        "AttackCost": 1,
-                        "Cooldown": 1
-                    },
+                    "Attacks": [
+                        {
+                            "AttackName": "Stab",
+                            "AttackInfo": "Meet Mr. Pointy",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 20,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 1,
+                            "Cooldown": 1
+                        }
+                    ],
                     "Leader": 1,
                     "PrefabCode": "soldierRed"
                 },
@@ -86,15 +130,18 @@
                     "CurrentHealthPoints": 40,
                     "MaxActionPoints": 6,
                     "CurrentActionPoints": 6,
-                    "BasicAttack": {
-                        "AttackName": "Single hit",
-                        "AttackInfo": "Performs a single melee hit",
-                        "RangeOfAttack": 1,
-                        "DamageRange": 1,
-                        "Damage": 15,
-                        "AttackCost": 1,
-                        "Cooldown": 1
-                    },
+                    "Attacks": [
+                        {
+                            "AttackName": "Shoot",
+                            "AttackInfo": "An arrow to the knee",
+                            "RangeOfAttack": 20,
+                            "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 1,
+                            "Cooldown": 1
+                        }
+                    ],
                     "Leader": 1,
                     "PrefabCode": "archerRed"
                 },
@@ -104,15 +151,18 @@
                     "CurrentHealthPoints": 30,
                     "MaxActionPoints": 3,
                     "CurrentActionPoints": 3,
-                    "BasicAttack": {
-                        "AttackName": "Single hit",
-                        "AttackInfo": "Performs a single melee hit",
-                        "RangeOfAttack": 1,
-                        "DamageRange": 1,
-                        "Damage": 15,
-                        "AttackCost": 1,
-                        "Cooldown": 1
-                    },
+                    "Attacks": [
+                        {
+                            "AttackName": "Magic_missle",
+                            "AttackInfo": "A shiny star of pain",
+                            "RangeOfAttack": 20,
+                            "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 1,
+                            "Cooldown": 1
+                        }
+                    ],
                     "Leader": 1,
                     "PrefabCode": "wizardRed"
                 }

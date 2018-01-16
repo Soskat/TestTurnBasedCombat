@@ -19,20 +19,25 @@ namespace TestTurnBasedCombat.Managers
 
 
         #region Private fields
-        /// <summary>Current active game phase.</summary>
-        [SerializeField] private GamePhase currentPhase;
+        ///// <summary>Current active game phase.</summary>
+        //[SerializeField] private GamePhase currentPhase;
+
         /// <summary>List of players.</summary>
         [SerializeField] private List<Player> players;
         /// <summary>Index of current active player.</summary>
         private int playerIndex;
         /// <summary>Number of players ready to the battle.</summary>
         private int playersReadyCount;
+
+        /// <summary>Index of current active attack on unit's attacks list.</summary>
+        private int currentAttackIndex;
         #endregion
 
 
         #region Public fields & properties
-        /// <summary>Current active game phase.</summary>
-        public GamePhase CurrentPhase { get { return currentPhase; } }
+        ///// <summary>Current active game phase.</summary>
+        //public GamePhase CurrentPhase { get { return currentPhase; } }
+
         /// <summary>Currently selected hex.</summary>
         public Hex SelectedHex;
         /// <summary>Currently selected unit.</summary>
@@ -46,6 +51,7 @@ namespace TestTurnBasedCombat.Managers
                 else return null;
             }
         }
+        public Attack CurrentAttack { get { return null; } }
         /// <summary>Is there any action in progress?</summary>
         public bool ActionInProgress;
         /// <summary>Last active path.</summary>
@@ -78,7 +84,7 @@ namespace TestTurnBasedCombat.Managers
                 instance = this;
                 DontDestroyOnLoad(gameObject);
                 // initialize all things:
-                currentPhase = GamePhase.StartOfGame;
+                //currentPhase = GamePhase.StartOfGame;
                 ActionInProgress = false;
 
                 // initialize players:
