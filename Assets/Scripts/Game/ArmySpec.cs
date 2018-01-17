@@ -12,7 +12,7 @@ namespace TestTurnBasedCombat.Game
     {
         #region Public fields
         /// <summary>Player that owns the army.</summary>
-        public Players Player;
+        public PlayerTags Player;
         /// <summary>Units available in this army.</summary>
         public List<UnitData> Units;
         #endregion
@@ -23,7 +23,7 @@ namespace TestTurnBasedCombat.Game
         /// Creates an instance of <see cref="ArmySpec"/> class.
         /// </summary>
         /// <param name="player">Player that owns the army</param>
-        public ArmySpec(Players player)
+        public ArmySpec(PlayerTags player)
         {
             Player = player;
             Units = new List<UnitData>();

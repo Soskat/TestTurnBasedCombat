@@ -23,7 +23,7 @@ namespace TestTurnBasedCombat.Game
         /// <summary>List of unit's attacks.</summary>
         public Attack[] Attacks;
         /// <summary>Leader (player) of the unit.</summary>
-        public Players Leader;
+        public PlayerTags Leader;
         /// <summary>Unit prefab code.</summary>
         public string PrefabCode;
         /// <summary>Unit image code.</summary>
@@ -44,7 +44,7 @@ namespace TestTurnBasedCombat.Game
         /// <param name="leader">Unit leader (player)</param>
         /// <param name="prefabCode">Unit prefab code</param>
         /// <param name="prefabCode">Unit image code</param>
-        public UnitData(string name, int hp, int ap, Attack[] attack, Players leader, string prefabCode, string imageCode)
+        public UnitData(string name, int hp, int ap, Attack[] attack, PlayerTags leader, string prefabCode, string imageCode)
         {
             Name = name;
             MaxHealthPoints = hp;
@@ -85,6 +85,18 @@ namespace TestTurnBasedCombat.Game
         public void ResetActionPoints()
         {
             CurrentActionPoints = MaxActionPoints;
+        }
+
+        /// <summary>
+        /// Actions performed before next turn.
+        /// </summary>
+        public void PrepareForNextTurn()
+        {
+            // update attaks' turns left counters:
+            foreach (var attack in Attacks)
+            {
+                if (attack.TurnsLeft > 0) attack.TurnsLeft--;
+            }
         }
         #endregion
     }

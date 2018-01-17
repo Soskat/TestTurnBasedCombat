@@ -114,16 +114,8 @@ namespace TestTurnBasedCombat.Game
                 newPos = hexPath[i].gameObject.transform.position;
                 newPos.y = transform.position.y;
                 transform.position = newPos;
-                // update current action points:
-                UnitData.CurrentActionPoints--;
-                GameManager.instance.UpdateSelectedUnitAP();
-                if (UnitData.CurrentActionPoints <= 0)
-                {
-                    // reset action points:
-                    UnitData.ResetActionPoints();
-                    // end turn:
-                    GameManager.instance.EndTurn();
-                }
+                // update unit's current action points number:
+                GameManager.instance.DecreaseActionPoint(1);
             }
             GameManager.instance.ActionInProgress = false;
             yield return null;
@@ -143,6 +135,8 @@ namespace TestTurnBasedCombat.Game
             {
                 // remove this unit from player's army:
                 IsDead();
+                // end turn if SelectedUnit just died:
+                if (GameManager.instance.SelectedUnit == this) GameManager.instance.EndTurn();
                 // destroy this game object:
                 Destroy(gameObject);
             }

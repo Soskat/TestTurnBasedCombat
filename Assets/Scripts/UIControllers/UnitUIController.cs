@@ -15,7 +15,7 @@ namespace TestTurnBasedCombat.UIControllers
     {
         #region Private fields
         /// <summary>Unit UI panel.</summary>
-        [SerializeField] private Players playerTag;
+        [SerializeField] private PlayerTags playerTag;
         /// <summary>Unit UI panel.</summary>
         [SerializeField] private GameObject unitUIPanel;
         /// <summary>Current action points label.</summary>
@@ -46,13 +46,17 @@ namespace TestTurnBasedCombat.UIControllers
             UpdateUI();
             endTurnButton.onClick.AddListener(GameManager.instance.EndTurn);
             // sign up for events:
+            GameManager.instance.GameIsOver += (pt) =>
+            {
+                unitUIPanel.SetActive(false);
+            };
             GameManager.instance.UpdateSelectedUnit += () =>
             {
                 UpdateUI();
             };
             GameManager.instance.UpdateSelectedUnitAP += () =>
             {
-                actionPointsText.text = GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints.ToString();
+                UpdateUnitAPUI();
             };
         }
         #endregion
@@ -72,34 +76,55 @@ namespace TestTurnBasedCombat.UIControllers
                     unitImage.texture = GameManager.instance.SelectedUnit.UnitData.Image;
                 }
                 else unitImage.texture = Resources.Load("Images/placeholder") as Texture2D;
-                actionPointsText.text = GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints.ToString();
-                // update attacks buttons:
+                // reset attacks buttons:
                 foreach (var attackButton in attackButtons) attackButton.gameObject.SetActive(false);
-                for (int i = 1, j = 0; j < attackButtons.Count && i < GameManager.instance.SelectedUnit.UnitData.Attacks.Length; j++, i++)
+                UpdateUnitAPUI();
+                unitUIPanel.SetActive(true);
+            }
+            else
+            {
+                unitUIPanel.SetActive(false);
+            }
+        }
+
+
+        /// <summary>
+        /// Updates unit's action points UI.
+        /// </summary>
+        private void UpdateUnitAPUI()
+        {
+            // update AP label:
+            actionPointsText.text = GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints.ToString();
+            // update attacks buttons:
+            for (int i = 1, j = 0; j < attackButtons.Count && i < GameManager.instance.SelectedUnit.UnitData.Attacks.Length; j++, i++)
+            {
+                Attack attack = GameManager.instance.SelectedUnit.UnitData.Attacks[i];
+                if (attack.TurnsLeft > 0)
                 {
-                    Attack attack = GameManager.instance.SelectedUnit.UnitData.Attacks[i];
-                    if (attack.TurnsLeft > 0)
+                    attackButtons[j].GetComponentInChildren<Text>().text = attack.AttackName.Replace("_", " ") + string.Format(" ({0})", attack.TurnsLeft);
+                    attackButtons[j].enabled = false;
+                    attackButtons[j].GetComponent<Image>().color = AssetManager.instance.ButtonDisabled;
+                }
+                else
+                {
+                    attackButtons[j].GetComponentInChildren<Text>().text = attack.AttackName.Replace("_", " ");
+                    if (attack.AttackCost > GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints)
                     {
-                        attackButtons[j].GetComponent<Text>().text = attack.AttackName.Replace("_", " ") + string.Format(" ({0})", attack.TurnsLeft);
                         attackButtons[j].enabled = false;
+                        attackButtons[j].GetComponent<Image>().color = AssetManager.instance.ButtonDisabled;
                     }
                     else
                     {
-                        attackButtons[j].GetComponentInChildren<Text>().text = attack.AttackName.Replace("_", " ");
                         attackButtons[j].enabled = true;
+                        attackButtons[j].GetComponent<Image>().color = AssetManager.instance.ButtonEnabled;
                         attackButtons[j].onClick.RemoveAllListeners();
                         int index = i;
                         attackButtons[j].onClick.AddListener(() => {
                             GameManager.instance.SetCurrentAttackIndex(index);
                         });
                     }
-                    attackButtons[j].gameObject.SetActive(true);
                 }
-                unitUIPanel.SetActive(true);
-            }
-            else
-            {
-                unitUIPanel.SetActive(false);
+                attackButtons[j].gameObject.SetActive(true);
             }
         }
         #endregion

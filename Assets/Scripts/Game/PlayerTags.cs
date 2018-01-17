@@ -3,10 +3,10 @@
 namespace TestTurnBasedCombat.Game
 {
     /// <summary>
-    /// Players.
+    /// Player's tag.
     /// </summary>
     [Serializable]
-    public enum Players
+    public enum PlayerTags
     {
         Player1,
         Player2

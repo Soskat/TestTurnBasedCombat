@@ -80,12 +80,16 @@ namespace TestTurnBasedCombat.Managers
         public List<Player> Players { get { return players; } }
         /// <summary>Current player.</summary>
         public Player CurrentPlayer { get { return players[playerIndex]; } }
+        #region Actions
+        /// <summary>Informs that game is over.</summary>
+        public Action<PlayerTags> GameIsOver { get; set; }
         /// <summary>Informs that SelectedHex has changed.</summary>
         public Action UpdateSelectedHex { get; set; }
         /// <summary>Informs that SelectedUnit has changed.</summary>
         public Action UpdateSelectedUnit { get; set; }
         /// <summary>Informs that SelectedUnit action points has changed.</summary>
         public Action UpdateSelectedUnitAP { get; set; }
+        #endregion
         #endregion
 
 
@@ -99,6 +103,7 @@ namespace TestTurnBasedCombat.Managers
                 DontDestroyOnLoad(gameObject);
                 // initialize all things:
                 ActionInProgress = false;
+                GameIsOver += (pt) => { EndOfBattle(pt); };
                 UpdateSelectedUnit += () => { };
                 // initialize players:
                 InitializePlayers();
@@ -224,6 +229,26 @@ namespace TestTurnBasedCombat.Managers
                 UpdateSelectedHex();
             }
         }
+
+        /// <summary>
+        /// Decrease selected unit's action points by delta AP.
+        /// </summary>
+        /// <param name="dAP">Delta action points</param>
+        public void DecreaseActionPoint(int dAP)
+        {
+            if (SelectedUnit != null)
+            {
+                SelectedUnit.UnitData.CurrentActionPoints -= dAP;
+                UpdateSelectedUnitAP();
+                if (SelectedUnit.UnitData.CurrentActionPoints <= 0)
+                {
+                    // reset action points:
+                    SelectedUnit.UnitData.ResetActionPoints();
+                    // end turn:
+                    EndTurn();
+                }
+            }
+        }
         #endregion
 
 
@@ -273,12 +298,15 @@ namespace TestTurnBasedCombat.Managers
         /// </summary>
         public void EndTurn()
         {
-            // reset CurrentAttack ref:
+            // reset CurrentAttack index:
             currentAttackIndex = 0;
-            ActionInProgress = false;
             // switch to other player's next unit:
             playerIndex = ++playerIndex % players.Count;
-            if (SelectedUnit != null) SelectedUnitHex.Select(AssetManager.instance.HexIdle);
+            if (SelectedUnit != null)
+            {
+                SelectedUnit.UnitData.PrepareForNextTurn();
+                SelectedUnitHex.Select(AssetManager.instance.HexIdle);
+            }
             if (players[playerIndex].Units.Count > 0)
             {
                 SelectedUnit = players[playerIndex].Units.Next();
@@ -288,18 +316,22 @@ namespace TestTurnBasedCombat.Managers
             // reset LastPath:
             HexOperations.UnselectPath(LastPath);
             LastPath = null;
+            // reset DamageRangeHexes:
+            HexOperations.UnselectRangeOfHexes(DamageRangeHexes);
+            DamageRangeHexes = null;
 #if UNITY_EDITOR
             Debug.Log(string.Format("[GameManager]: {0} turn", players[playerIndex].PlayerTag.ToString()));
 #endif
             // inform that SelectedUnit has changed:
             UpdateSelectedUnit();
+            ActionInProgress = false;
         }
 
         /// <summary>
         /// Shows info about the winner of the battle.
         /// </summary>
         /// <param name="looser"></param>
-        public void EndOfBattle(Players looser)
+        public void EndOfBattle(PlayerTags looser)
         {
             Debug.Log("--------------------> The looser is: " + looser.ToString());
             ActionInProgress = true;

@@ -1,5 +1,6 @@
 ﻿using System;
 using TestTurnBasedCombat.HexGrid;
+using TestTurnBasedCombat.Managers;
 
 
 namespace TestTurnBasedCombat.Game
@@ -23,11 +24,13 @@ namespace TestTurnBasedCombat.Game
         public int Damage = 15;
         /// <summary>Does this attack need selected enemy to launch?</summary>
         public bool NeedEnemyToLaunch = true;
+        /// <summary>Can hurt yourself with this attack?</summary>
+        public bool AutoDamageOn = false;
         /// <summary>Cost of the attack.</summary>
         public int AttackCost = 1;
         /// <summary>Number of turns of the attack cooldown.</summary>
         public int Cooldown = 1;
-        /// <summary>Turns left to colldown attack.</summary>
+        /// <summary>Turns left to cooldown the attack.</summary>
         public int TurnsLeft = 0;
         #endregion
 
@@ -38,14 +41,16 @@ namespace TestTurnBasedCombat.Game
         /// </summary>
         public Attack()
         {
-            AttackName = "Single hit";
-            AttackInfo = "Performs a single melee hit";
+            AttackName = "Attack";
+            AttackInfo = "Attack info";
             RangeOfAttack = 1;
             DamageRange = 1;
             Damage = 15;
             NeedEnemyToLaunch = true;
+            AutoDamageOn = false;
             AttackCost = 1;
             Cooldown = 1;
+            TurnsLeft = 0;
         }
 
         /// <summary>
@@ -57,9 +62,18 @@ namespace TestTurnBasedCombat.Game
         /// <param name="damageRange">Area of the attack damage</param>
         /// <param name="damage">Damage dealt by the attack</param>
         /// <param name="needEnemy">Does this attack need selected enemy to launch?</param>
+        /// <param name="autoDamage">Can hurt yourself with this attack?</param>
         /// <param name="attackCost">Cost of the attack</param>
         /// <param name="cooldown">Number of turns of the attack cooldown</param>
-        public Attack(string attackName, string attackInfo, int rangeOfAttack, int damageRange, int damage, bool needEnemy, int attackCost, int cooldown)
+        public Attack(string attackName,
+                      string attackInfo,
+                      int rangeOfAttack,
+                      int damageRange,
+                      int damage,
+                      bool needEnemy,
+                      bool autoDamage,
+                      int attackCost,
+                      int cooldown)
         {
             AttackName = attackName;
             AttackInfo = attackInfo;
@@ -67,8 +81,10 @@ namespace TestTurnBasedCombat.Game
             DamageRange = damageRange;
             Damage = damage;
             NeedEnemyToLaunch = needEnemy;
+            AutoDamageOn = autoDamage;
             AttackCost = attackCost;
             Cooldown = cooldown;
+            TurnsLeft = 0;
         }
         #endregion
 
@@ -82,11 +98,22 @@ namespace TestTurnBasedCombat.Game
         {
             foreach(Hex hex in range)
             {
-                if (hex.IsOccupied && hex.OccupyingObject.gameObject.tag == "Unit")
+                if (hex.OccupyingObject != null && hex.OccupyingObject.gameObject.tag == "Unit")
                 {
+                    // if SelectedUnit is in damage range, but auto-damage is off, skip:
+                    if (GameManager.instance.SelectedUnit == hex.OccupyingObject.GetComponent<Unit>() && !AutoDamageOn) continue;
+                    // calculate damage:
                     hex.OccupyingObject.GetComponent<Unit>().GotHit(Damage);
                 }
             }
+            // set up TurnsLeft:
+            TurnsLeft = Cooldown;
+            // reset current attack index:
+            GameManager.instance.SetCurrentAttackIndex(0);
+            // unselects last damage range:
+            HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
+            // update unit's current action points number:
+            GameManager.instance.DecreaseActionPoint(AttackCost);
         }
         #endregion
     }

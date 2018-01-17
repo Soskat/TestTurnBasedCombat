@@ -227,7 +227,6 @@ namespace TestTurnBasedCombat.HexGrid
                         goPosition.y = 0.5f;
                         go.transform.SetPositionAndRotation(goPosition, go.transform.rotation);
                         go.transform.SetParent(obstaclesObject.transform);
-                        hexCells[x][y].GetComponent<Hex>().IsOccupied = true;
                         hexCells[x][y].GetComponent<Hex>().SetOccupyingObject(go);
                         break;
                     }

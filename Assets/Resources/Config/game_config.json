@@ -1,34 +1,37 @@
 {
     "AttacksSpec": [
         {
-            "AttackName": "Stab",
-            "AttackInfo": "Meet Mr. Pointy",
-            "RangeOfAttack": 1,
-            "DamageRange": 1,
-            "Damage": 15,
-            "NeedEnemyToLaunch": true,
-            "AttackCost": 1,
-            "Cooldown": 1,
-            "TurnsLeft": 0
-        },
-        {
             "AttackName": "Punch",
             "AttackInfo": "One punch, one bruise",
             "RangeOfAttack": 1,
             "DamageRange": 1,
+            "Damage": 15,
+            "NeedEnemyToLaunch": true,
+            "AutoDamageOn": false,
+            "AttackCost": 1,
+            "Cooldown": 0,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Stab",
+            "AttackInfo": "Meet Mr. Pointy",
+            "RangeOfAttack": 1,
+            "DamageRange": 1,
             "Damage": 30,
             "NeedEnemyToLaunch": true,
+            "AutoDamageOn": false,
             "AttackCost": 2,
             "Cooldown": 2,
             "TurnsLeft": 0
         },
         {
-            "AttackName": "Mill",
-            "AttackInfo": "The Spinning Blade of Doom",
+            "AttackName": "Hammer_punch",
+            "AttackInfo": "Whole ground is shaking",
             "RangeOfAttack": 1,
             "DamageRange": 2,
             "Damage": 40,
-            "NeedEnemyToLaunch": true,
+            "NeedEnemyToLaunch": false,
+            "AutoDamageOn": false,
             "AttackCost": 3,
             "Cooldown": 3,
             "TurnsLeft": 0
@@ -40,8 +43,9 @@
             "DamageRange": 1,
             "Damage": 10,
             "NeedEnemyToLaunch": true,
+            "AutoDamageOn": false,
             "AttackCost": 1,
-            "Cooldown": 1,
+            "Cooldown": 0,
             "TurnsLeft": 0
         },
         {
@@ -51,6 +55,7 @@
             "DamageRange": 2,
             "Damage": 20,
             "NeedEnemyToLaunch": false,
+            "AutoDamageOn": true,
             "AttackCost": 2,
             "Cooldown": 3,
             "TurnsLeft": 0
@@ -62,6 +67,7 @@
             "DamageRange": 3,
             "Damage": 30,
             "NeedEnemyToLaunch": false,
+            "AutoDamageOn": true,
             "AttackCost": 2,
             "Cooldown": 3,
             "TurnsLeft": 0
@@ -73,8 +79,9 @@
             "DamageRange": 1,
             "Damage": 15,
             "NeedEnemyToLaunch": true,
+            "AutoDamageOn": false,
             "AttackCost": 1,
-            "Cooldown": 1,
+            "Cooldown": 0,
             "TurnsLeft": 0
         },
         {
@@ -84,6 +91,7 @@
             "DamageRange": 1,
             "Damage": 25,
             "NeedEnemyToLaunch": true,
+            "AutoDamageOn": false,
             "AttackCost": 2,
             "Cooldown": 2,
             "TurnsLeft": 0
@@ -95,6 +103,7 @@
             "DamageRange": 3,
             "Damage": 45,
             "NeedEnemyToLaunch": false,
+            "AutoDamageOn": true,
             "AttackCost": 3,
             "Cooldown": 4,
             "TurnsLeft": 0
@@ -112,34 +121,37 @@
                     "CurrentActionPoints": 5,
                     "Attacks": [
                         {
-                            "AttackName": "Stab",
-                            "AttackInfo": "Meet Mr. Pointy",
-                            "RangeOfAttack": 1,
-                            "DamageRange": 1,
-                            "Damage": 15,
-                            "NeedEnemyToLaunch": true,
-                            "AttackCost": 1,
-                            "Cooldown": 1,
-                            "TurnsLeft": 0
-                        },
-                        {
                             "AttackName": "Punch",
                             "AttackInfo": "One punch, one bruise",
                             "RangeOfAttack": 1,
                             "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
+                            "AttackCost": 1,
+                            "Cooldown": 0,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Stab",
+                            "AttackInfo": "Meet Mr. Pointy",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
                             "Damage": 30,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 2,
                             "Cooldown": 2,
                             "TurnsLeft": 0
                         },
                         {
-                            "AttackName": "Mill",
-                            "AttackInfo": "The Spinning Blade of Doom",
+                            "AttackName": "Hammer_punch",
+                            "AttackInfo": "Whole ground is shaking",
                             "RangeOfAttack": 1,
                             "DamageRange": 2,
                             "Damage": 40,
-                            "NeedEnemyToLaunch": true,
+                            "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": false,
                             "AttackCost": 3,
                             "Cooldown": 3,
                             "TurnsLeft": 0
@@ -166,8 +178,9 @@
                             "DamageRange": 1,
                             "Damage": 10,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 1,
-                            "Cooldown": 1,
+                            "Cooldown": 0,
                             "TurnsLeft": 0
                         },
                         {
@@ -177,6 +190,7 @@
                             "DamageRange": 2,
                             "Damage": 20,
                             "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": true,
                             "AttackCost": 2,
                             "Cooldown": 3,
                             "TurnsLeft": 0
@@ -188,6 +202,7 @@
                             "DamageRange": 3,
                             "Damage": 30,
                             "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": true,
                             "AttackCost": 2,
                             "Cooldown": 3,
                             "TurnsLeft": 0
@@ -214,8 +229,9 @@
                             "DamageRange": 1,
                             "Damage": 15,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 1,
-                            "Cooldown": 1,
+                            "Cooldown": 0,
                             "TurnsLeft": 0
                         },
                         {
@@ -225,6 +241,7 @@
                             "DamageRange": 1,
                             "Damage": 25,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 2,
                             "Cooldown": 2,
                             "TurnsLeft": 0
@@ -236,6 +253,7 @@
                             "DamageRange": 3,
                             "Damage": 45,
                             "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": true,
                             "AttackCost": 3,
                             "Cooldown": 4,
                             "TurnsLeft": 0
@@ -261,34 +279,37 @@
                     "CurrentActionPoints": 5,
                     "Attacks": [
                         {
-                            "AttackName": "Stab",
-                            "AttackInfo": "Meet Mr. Pointy",
-                            "RangeOfAttack": 1,
-                            "DamageRange": 1,
-                            "Damage": 15,
-                            "NeedEnemyToLaunch": true,
-                            "AttackCost": 1,
-                            "Cooldown": 1,
-                            "TurnsLeft": 0
-                        },
-                        {
                             "AttackName": "Punch",
                             "AttackInfo": "One punch, one bruise",
                             "RangeOfAttack": 1,
                             "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
+                            "AttackCost": 1,
+                            "Cooldown": 0,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Stab",
+                            "AttackInfo": "Meet Mr. Pointy",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
                             "Damage": 30,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 2,
                             "Cooldown": 2,
                             "TurnsLeft": 0
                         },
                         {
-                            "AttackName": "Mill",
-                            "AttackInfo": "The Spinning Blade of Doom",
+                            "AttackName": "Hammer_punch",
+                            "AttackInfo": "Whole ground is shaking",
                             "RangeOfAttack": 1,
                             "DamageRange": 2,
                             "Damage": 40,
-                            "NeedEnemyToLaunch": true,
+                            "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": false,
                             "AttackCost": 3,
                             "Cooldown": 3,
                             "TurnsLeft": 0
@@ -315,8 +336,9 @@
                             "DamageRange": 1,
                             "Damage": 10,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 1,
-                            "Cooldown": 1,
+                            "Cooldown": 0,
                             "TurnsLeft": 0
                         },
                         {
@@ -326,6 +348,7 @@
                             "DamageRange": 2,
                             "Damage": 20,
                             "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": true,
                             "AttackCost": 2,
                             "Cooldown": 3,
                             "TurnsLeft": 0
@@ -337,6 +360,7 @@
                             "DamageRange": 3,
                             "Damage": 30,
                             "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": true,
                             "AttackCost": 2,
                             "Cooldown": 3,
                             "TurnsLeft": 0
@@ -363,8 +387,9 @@
                             "DamageRange": 1,
                             "Damage": 15,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 1,
-                            "Cooldown": 1,
+                            "Cooldown": 0,
                             "TurnsLeft": 0
                         },
                         {
@@ -374,6 +399,7 @@
                             "DamageRange": 1,
                             "Damage": 25,
                             "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
                             "AttackCost": 2,
                             "Cooldown": 2,
                             "TurnsLeft": 0
@@ -385,6 +411,7 @@
                             "DamageRange": 3,
                             "Damage": 45,
                             "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": true,
                             "AttackCost": 3,
                             "Cooldown": 4,
                             "TurnsLeft": 0

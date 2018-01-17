@@ -20,7 +20,7 @@ namespace TestTurnBasedCombat.HexGrid
         /// <summary>Column index of the hex cell in hex grid.</summary>
         public int ColumnIndex;
         /// <summary>Is the hex cell occupied?</summary>
-        public bool IsOccupied;
+        public bool IsOccupied { get { return occupyingObject != null; } }
         /// <summary>Game object that occupies the hex cell.</summary>
         public GameObject OccupyingObject { get { return occupyingObject; } }
         #endregion
@@ -32,7 +32,6 @@ namespace TestTurnBasedCombat.HexGrid
         {
             if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Unit")
             {
-                IsOccupied = true;
                 occupyingObject = collision.gameObject;
             }
         }
@@ -42,7 +41,6 @@ namespace TestTurnBasedCombat.HexGrid
         {
             if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Unit")
             {
-                IsOccupied = false;
                 occupyingObject = null;
             }
         }

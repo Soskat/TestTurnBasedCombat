@@ -20,6 +20,12 @@ namespace TestTurnBasedCombat.Managers
         #region Private fields
         /// <summary>Game configuration data.</summary>
         private GameConfig config;
+        #region Colors
+        /// <summary>Color of the enabled button.</summary>
+        private Color buttonEnabled;
+        /// <summary>Color of the disabled button.</summary>
+        private Color buttonDisabled;
+        #endregion
         #region Materials
         /// <summary>Basic hex cell material.</summary>
         private Material hexIdle;
@@ -37,13 +43,19 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Units attacks specifications.</summary>
         private Dictionary<string, Attack> attacksSpec;
         /// <summary>Armies specification.</summary>
-        private Dictionary<Players, ArmySpec> armiesSpec;
+        private Dictionary<PlayerTags, ArmySpec> armiesSpec;
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
         private Vector3Int[] cubeDirections;
         #endregion
 
 
         #region Public properties
+        #region Colors
+        /// <summary>Color of the enabled button.</summary>
+        public Color ButtonEnabled { get { return buttonEnabled; } }
+        /// <summary>Color of the disabled button.</summary>
+        public Color ButtonDisabled { get { return buttonDisabled; } }
+        #endregion
         #region Materials
         /// <summary>Basic hex cell material.</summary>
         public Material HexIdle { get { return hexIdle; } }
@@ -59,7 +71,7 @@ namespace TestTurnBasedCombat.Managers
         public Material HexEnemyToAttack { get { return hexEnemyToAttack; } }
         #endregion
         /// <summary>Armies specification.</summary>
-        public Dictionary<Players, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
+        public Dictionary<PlayerTags, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
         public Vector3Int[] CubeDirections { get { return cubeDirections; } }
         #endregion
@@ -76,6 +88,8 @@ namespace TestTurnBasedCombat.Managers
                 // load configuration data:
                 LoadGameConfig();
                 // load or set up all assets:
+                buttonEnabled = Color.white;
+                buttonDisabled = new Color(0.59f, 0.59f, 0.59f);
                 hexIdle = Resources.Load("Materials/HexMaterial") as Material;
                 hexSelectedUnit = Resources.Load("Materials/HexOccupiedMaterial") as Material;
                 hexPath = Resources.Load("Materials/HexPathMaterial") as Material;
@@ -114,7 +128,7 @@ namespace TestTurnBasedCombat.Managers
             attacksSpec = new Dictionary<string, Attack>();
             foreach (var item in config.AttacksSpec) attacksSpec.Add(item.AttackName, item);
             // create armies spec dictionary:
-            armiesSpec = new Dictionary<Players, ArmySpec>();
+            armiesSpec = new Dictionary<PlayerTags, ArmySpec>();
             foreach (var item in config.ArmiesSpec) armiesSpec.Add(item.Player, item);
         }
 
@@ -144,17 +158,17 @@ namespace TestTurnBasedCombat.Managers
         {
             Dictionary<string, Attack> attacks = new Dictionary<string, Attack>();
             // soldier attacks:
-            attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 15, true, 1, 1));   // basic attack
-            attacks.Add("Punch", new Attack("Punch", "One punch, one bruise", 1, 1, 30, true, 2, 2));
-            attacks.Add("Mill", new Attack("Mill", "The Spinning Blade of Doom", 1, 2, 40, true, 3, 3));
+            attacks.Add("Punch", new Attack("Punch", "One punch, one bruise", 1, 1, 15, true, false, 1, 0));    // basic attack
+            attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 30, true, false, 2, 2));
+            attacks.Add("Hammer_punch", new Attack("Hammer_punch", "Whole ground is shaking", 1, 2, 40, false, false, 3, 3));
             // archer attacks:
-            attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 10, 1, 10, true, 1, 1));   // basic attack
-            attacks.Add("Greanade", new Attack("Greanade", "An egg with surprise", 4, 2, 20, false, 2, 3));
-            attacks.Add("Rain_of_arrows", new Attack("Rain_of_arrows", "It's raining iron!", 5, 3, 30, false, 2, 3));
+            attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 10, 1, 10, true, false, 1, 0));    // basic attack
+            attacks.Add("Greanade", new Attack("Greanade", "An egg with surprise", 4, 2, 20, false, true, 2, 3));
+            attacks.Add("Rain_of_arrows", new Attack("Rain_of_arrows", "It's raining iron!", 5, 3, 30, false, true, 2, 3));
             // wizard attacks:
-            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 10, 1, 15, true, 1, 1));   // basic attack
-            attacks.Add("Lightning_bolt", new Attack("Lightning_bolt", "Lightning bolt! Lightning bolt! Lightning bolt!", 10, 1, 25, true, 2, 2));
-            attacks.Add("Meteorite", new Attack("Meteorite", "Mind your head", 7, 3, 45, false, 3, 4));
+            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 10, 1, 15, true, false, 1, 0));  // basic attack
+            attacks.Add("Lightning_bolt", new Attack("Lightning_bolt", "Lightning bolt! Lightning bolt! Lightning bolt!", 10, 1, 25, true, false, 2, 2));
+            attacks.Add("Meteorite", new Attack("Meteorite", "Mind your head", 7, 3, 45, false, true, 3, 4));
             return attacks;
         }
 
@@ -166,50 +180,50 @@ namespace TestTurnBasedCombat.Managers
         {
             List<ArmySpec> newArmiesSpec = new List<ArmySpec>();
             // army of player 1 spec:
-            ArmySpec army1 = new ArmySpec(Players.Player1);
+            ArmySpec army1 = new ArmySpec(PlayerTags.Player1);
             army1.Units.Add(new UnitData("Blue Knight",
                                          120,
                                          5,
-                                         new Attack[] { attacks["Stab"], attacks["Punch"], attacks["Mill"] },
-                                         Players.Player1,
+                                         new Attack[] { attacks["Punch"], attacks["Stab"], attacks["Hammer_punch"] },
+                                         PlayerTags.Player1,
                                          "soldierBlue",
                                          null));
             army1.Units.Add(new UnitData("Royal archer",
                                          90,
                                          6,
                                          new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
-                                         Players.Player1,
+                                         PlayerTags.Player1,
                                          "archerBlue",
                                          null));
             army1.Units.Add(new UnitData("Mage",
                                          75,
                                          3,
                                          new Attack[] { attacks["Magic_missle"], attacks["Lightning_bolt"], attacks["Meteorite"] },
-                                         Players.Player1,
+                                         PlayerTags.Player1,
                                          "wizardBlue",
                                          null));
             newArmiesSpec.Add(army1);
             // army of player 2 spec:
-            ArmySpec army2 = new ArmySpec(Players.Player2);
+            ArmySpec army2 = new ArmySpec(PlayerTags.Player2);
             army2.Units.Add(new UnitData("Blood Mercenary",
                                          120,
                                          5,
-                                         new Attack[] { attacks["Stab"], attacks["Punch"], attacks["Mill"] },
-                                         Players.Player2,
+                                         new Attack[] { attacks["Punch"], attacks["Stab"], attacks["Hammer_punch"] },
+                                         PlayerTags.Player2,
                                          "soldierRed",
                                          null));
             army2.Units.Add(new UnitData("Poacher",
                                          90,
                                          6,
                                          new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
-                                         Players.Player2,
+                                         PlayerTags.Player2,
                                          "archerRed",
                                          null));
             army2.Units.Add(new UnitData("Sorcerer",
                                          75,
                                          3,
                                          new Attack[] { attacks["Magic_missle"], attacks["Lightning_bolt"], attacks["Meteorite"] },
-                                         Players.Player2,
+                                         PlayerTags.Player2,
                                          "wizardRed",
                                          null));
             newArmiesSpec.Add(army2);

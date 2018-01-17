@@ -11,7 +11,7 @@ namespace TestTurnBasedCombat.Game
     {
         #region Private fields
         /// <summary>Player tag.</summary>
-        [SerializeField] private Players playerTag;
+        [SerializeField] private PlayerTags playerTag;
         #endregion
 
 
@@ -41,9 +41,8 @@ namespace TestTurnBasedCombat.Game
                     Unit unit = go.GetComponent<Unit>();
                     unit.UnitData = new UnitData(unitData);
                     unit.IsDead += () => {
-                        Debug.Log(unit.UnitData.Name + " is dead");
                         player.Units.Remove(unit);
-                        if (player.Units.Count == 0) GameManager.instance.EndOfBattle(player.PlayerTag);
+                        if (player.Units.Count == 0) GameManager.instance.GameIsOver(player.PlayerTag);
                     };
                     // elements in PriorityQUeue are sorted from lowest to highest
                     // this simple hack (priority * -1) will reverse this

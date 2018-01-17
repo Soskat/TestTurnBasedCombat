@@ -12,7 +12,7 @@ namespace TestTurnBasedCombat.Game
     {
         #region Public fields & properties
         /// <summary>Player tag.</summary>
-        public Players PlayerTag;
+        public PlayerTags PlayerTag;
         /// <summary>List of all units data from player's army.</summary>
         public List<UnitData> Army;
         /// <summary>Circular queue with all units on the battle arena.</summary>
@@ -25,7 +25,7 @@ namespace TestTurnBasedCombat.Game
         /// Creates an instance of <see cref="Player"/> class.
         /// </summary>
         /// <param name="tag">Player tag</param>
-        public Player(Players tag)
+        public Player(PlayerTags tag)
         {
             PlayerTag = tag;
             Army = new List<UnitData>();
