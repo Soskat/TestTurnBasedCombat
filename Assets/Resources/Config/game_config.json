@@ -47,7 +47,7 @@
         {
             "AttackName": "Greanade",
             "AttackInfo": "An egg with surprise",
-            "RangeOfAttack": 5,
+            "RangeOfAttack": 4,
             "DamageRange": 2,
             "Damage": 20,
             "NeedEnemyToLaunch": false,
@@ -58,7 +58,7 @@
         {
             "AttackName": "Rain_of_arrows",
             "AttackInfo": "It's raining iron!",
-            "RangeOfAttack": 7,
+            "RangeOfAttack": 5,
             "DamageRange": 3,
             "Damage": 30,
             "NeedEnemyToLaunch": false,
@@ -91,7 +91,7 @@
         {
             "AttackName": "Meteorite",
             "AttackInfo": "Mind your head",
-            "RangeOfAttack": 10,
+            "RangeOfAttack": 7,
             "DamageRange": 3,
             "Damage": 45,
             "NeedEnemyToLaunch": false,
@@ -173,7 +173,7 @@
                         {
                             "AttackName": "Greanade",
                             "AttackInfo": "An egg with surprise",
-                            "RangeOfAttack": 5,
+                            "RangeOfAttack": 4,
                             "DamageRange": 2,
                             "Damage": 20,
                             "NeedEnemyToLaunch": false,
@@ -184,7 +184,7 @@
                         {
                             "AttackName": "Rain_of_arrows",
                             "AttackInfo": "It's raining iron!",
-                            "RangeOfAttack": 7,
+                            "RangeOfAttack": 5,
                             "DamageRange": 3,
                             "Damage": 30,
                             "NeedEnemyToLaunch": false,
@@ -232,7 +232,7 @@
                         {
                             "AttackName": "Meteorite",
                             "AttackInfo": "Mind your head",
-                            "RangeOfAttack": 10,
+                            "RangeOfAttack": 7,
                             "DamageRange": 3,
                             "Damage": 45,
                             "NeedEnemyToLaunch": false,
@@ -322,7 +322,7 @@
                         {
                             "AttackName": "Greanade",
                             "AttackInfo": "An egg with surprise",
-                            "RangeOfAttack": 5,
+                            "RangeOfAttack": 4,
                             "DamageRange": 2,
                             "Damage": 20,
                             "NeedEnemyToLaunch": false,
@@ -333,7 +333,7 @@
                         {
                             "AttackName": "Rain_of_arrows",
                             "AttackInfo": "It's raining iron!",
-                            "RangeOfAttack": 7,
+                            "RangeOfAttack": 5,
                             "DamageRange": 3,
                             "Damage": 30,
                             "NeedEnemyToLaunch": false,
@@ -381,7 +381,7 @@
                         {
                             "AttackName": "Meteorite",
                             "AttackInfo": "Mind your head",
-                            "RangeOfAttack": 10,
+                            "RangeOfAttack": 7,
                             "DamageRange": 3,
                             "Damage": 45,
                             "NeedEnemyToLaunch": false,

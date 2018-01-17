@@ -149,12 +149,12 @@ namespace TestTurnBasedCombat.Managers
             attacks.Add("Mill", new Attack("Mill", "The Spinning Blade of Doom", 1, 2, 40, true, 3, 3));
             // archer attacks:
             attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 10, 1, 10, true, 1, 1));   // basic attack
-            attacks.Add("Greanade", new Attack("Greanade", "An egg with surprise", 5, 2, 20, false, 2, 3));
-            attacks.Add("Rain_of_arrows", new Attack("Rain_of_arrows", "It's raining iron!", 7, 3, 30, false, 2, 3));
+            attacks.Add("Greanade", new Attack("Greanade", "An egg with surprise", 4, 2, 20, false, 2, 3));
+            attacks.Add("Rain_of_arrows", new Attack("Rain_of_arrows", "It's raining iron!", 5, 3, 30, false, 2, 3));
             // wizard attacks:
             attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 10, 1, 15, true, 1, 1));   // basic attack
             attacks.Add("Lightning_bolt", new Attack("Lightning_bolt", "Lightning bolt! Lightning bolt! Lightning bolt!", 10, 1, 25, true, 2, 2));
-            attacks.Add("Meteorite", new Attack("Meteorite", "Mind your head", 10, 3, 45, false, 3, 4));
+            attacks.Add("Meteorite", new Attack("Meteorite", "Mind your head", 7, 3, 45, false, 3, 4));
             return attacks;
         }
 

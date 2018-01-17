@@ -99,6 +99,7 @@ namespace TestTurnBasedCombat.Managers
                 DontDestroyOnLoad(gameObject);
                 // initialize all things:
                 ActionInProgress = false;
+                UpdateSelectedUnit += () => { };
                 // initialize players:
                 InitializePlayers();
             }

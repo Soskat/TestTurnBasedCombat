@@ -80,18 +80,17 @@ namespace TestTurnBasedCombat.UIControllers
                     Attack attack = GameManager.instance.SelectedUnit.UnitData.Attacks[i];
                     if (attack.TurnsLeft > 0)
                     {
-                        attackButtons[j].GetComponent<Text>().text = attack.AttackName + string.Format(" ({0})", attack.TurnsLeft);
+                        attackButtons[j].GetComponent<Text>().text = attack.AttackName.Replace("_", " ") + string.Format(" ({0})", attack.TurnsLeft);
                         attackButtons[j].enabled = false;
                     }
                     else
                     {
-                        attackButtons[j].GetComponentInChildren<Text>().text = attack.AttackName;
+                        attackButtons[j].GetComponentInChildren<Text>().text = attack.AttackName.Replace("_", " ");
                         attackButtons[j].enabled = true;
                         attackButtons[j].onClick.RemoveAllListeners();
+                        int index = i;
                         attackButtons[j].onClick.AddListener(() => {
-                            int index = 1;
                             GameManager.instance.SetCurrentAttackIndex(index);
-                            Debug.Log("Set current attack index to " + index);
                         });
                     }
                     attackButtons[j].gameObject.SetActive(true);
