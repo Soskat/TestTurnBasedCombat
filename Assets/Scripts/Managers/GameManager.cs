@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
@@ -25,7 +26,6 @@ namespace TestTurnBasedCombat.Managers
         private int playerIndex;
         /// <summary>Number of players ready to the battle.</summary>
         private int playersReadyCount;
-
         /// <summary>Index of current active attack on unit's attacks list.</summary>
         private int currentAttackIndex;
         #endregion
@@ -58,15 +58,17 @@ namespace TestTurnBasedCombat.Managers
         public bool ActionInProgress;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
+        /// <summary>Ring of hexes around range of current attack.</summary>
+        public Hex[] RangeOfAttackHexes;
         /// <summary>Hexes whitin range of attack.</summary>
-        public Hex[] HexesInRange;
+        public Hex[] DamageRangeHexes;
         /// <summary>Doeas SelectedHex contain an enemy of SelectedUnit?</summary>
         public bool IsSelectedHexContainsEnemy
         {
             get
             {
                 if (SelectedUnit != null && 
-                    SelectedHex != null && SelectedHex.OccupyingObject != null && 
+                    SelectedHex != null && SelectedHex.IsOccupied && 
                     SelectedHex.OccupyingObject.GetComponent<Unit>() != null)
                 {
                     return SelectedUnit.UnitData.Leader != SelectedHex.OccupyingObject.GetComponent<Unit>().UnitData.Leader;
@@ -76,6 +78,8 @@ namespace TestTurnBasedCombat.Managers
         }
         /// <summary>List of players.</summary>
         public List<Player> Players { get { return players; } }
+        /// <summary>Informs that SelectedHex has changed.</summary>
+        public Action UpdateSelectedHex { get; set; }
         #endregion
 
 
@@ -107,10 +111,10 @@ namespace TestTurnBasedCombat.Managers
             // left mouse button is down:
             if (Input.GetMouseButtonDown(0))
             {
-                if (SelectedHex != null)
+                if (SelectedHex != null && CurrentAttack != null)
                 {
                     // current attack need an enemy to launch:
-                    if (CurrentAttack != null && CurrentAttack.NeedEnemyToLaunch)
+                    if (CurrentAttack.NeedEnemyToLaunch)
                     {
                         // check if SelectedHex contains an enemy:
                         if (IsSelectedHexContainsEnemy)
@@ -119,13 +123,11 @@ namespace TestTurnBasedCombat.Managers
                             if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
                             {
                                 // attack:
-                                CurrentAttack.PerformAttack(HexesInRange);
+                                CurrentAttack.PerformAttack(DamageRangeHexes);
                             }
                             // enemy is out of range of attack:
                             else
                             {
-                                Debug.Log(string.Format("{0} if out of range of {1}", SelectedHex.OccupyingObject.gameObject.name,
-                                                                                      SelectedUnit.gameObject.name));
                                 // move towards SelectedHex:
                                 if (LastPath != null) StartCoroutine(SelectedUnit.Move(LastPath));
                             }
@@ -144,7 +146,7 @@ namespace TestTurnBasedCombat.Managers
                         if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
                         {
                             // attack:
-                            CurrentAttack.PerformAttack(HexesInRange);
+                            CurrentAttack.PerformAttack(DamageRangeHexes);
                         }
                         // SelectedHex is out of range of attack:
                         else
@@ -192,8 +194,16 @@ namespace TestTurnBasedCombat.Managers
         {
             if (hex == null)
             {
-                if (SelectedHex != null) SelectedHex.Unselect();
+                if (SelectedHex != null)
+                {
+                    // unselect all highlighted hexes:
+                    HexOperations.UnselectRangeOfHexes(DamageRangeHexes);
+                    HexOperations.UnselectPath(LastPath);
+                    SelectedHex.Unselect();
+                }
                 SelectedHex = null;
+                // inform that SelectedHex has changed:
+                UpdateSelectedHex();
             }
             else if (SelectedHex != hex)
             {
@@ -201,6 +211,8 @@ namespace TestTurnBasedCombat.Managers
                 SelectedHex = hex;
                 if (IsSelectedHexContainsEnemy) SelectedHex.Select(AssetManager.instance.HexEnemy);
                 else SelectedHex.Select();
+                // inform that SelectedHex has changed:
+                UpdateSelectedHex();
             }
         }
         #endregion
@@ -249,8 +261,11 @@ namespace TestTurnBasedCombat.Managers
             // switch to other player's next unit:
             playerIndex = ++playerIndex % players.Count;
             if (SelectedUnit != null) SelectedUnitHex.Select(AssetManager.instance.HexIdle);
-            SelectedUnit = players[playerIndex].Units.Next();
-            SelectedUnit.UnitData.ResetActionPoints();
+            if (players[playerIndex].Units.Count > 0)
+            {
+                SelectedUnit = players[playerIndex].Units.Next();
+                SelectedUnit.UnitData.ResetActionPoints();
+            }
             if (SelectedUnitHex != null) SelectedUnitHex.Select(AssetManager.instance.HexSelectedUnit);
             // reset LastPath:
             HexOperations.UnselectPath(LastPath);

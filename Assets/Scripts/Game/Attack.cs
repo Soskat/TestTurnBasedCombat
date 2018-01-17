@@ -80,7 +80,7 @@ namespace TestTurnBasedCombat.Game
         {
             foreach(Hex hex in range)
             {
-                if (hex.OccupyingObject != null && hex.OccupyingObject.gameObject.tag == "Unit")
+                if (hex.IsOccupied && hex.OccupyingObject.gameObject.tag == "Unit")
                 {
                     hex.OccupyingObject.GetComponent<Unit>().GotHit(Damage);
                 }

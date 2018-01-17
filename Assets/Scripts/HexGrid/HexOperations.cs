@@ -42,7 +42,11 @@ namespace TestTurnBasedCombat.HexGrid
         {
             if (path == null || path.Length < 1) return;
             foreach (var hex in path) hex.Unselect();
-            if (GameManager.instance.SelectedHex != null) GameManager.instance.SelectedHex.Select();
+            if (GameManager.instance.SelectedHex != null)
+            {
+                if (GameManager.instance.IsSelectedHexContainsEnemy) GameManager.instance.SelectedHex.Select(AssetManager.instance.HexEnemy);
+                else GameManager.instance.SelectedHex.Select();
+            }
         }
 
         /// <summary>
@@ -113,7 +117,7 @@ namespace TestTurnBasedCombat.HexGrid
         /// Gets hex cells within a specific range around given hex.
         /// Source: https://www.redblobgames.com/grids/hexagons/#range
         /// </summary>
-        /// <param name="center">Hex that is a center of range</param>
+        /// <param name="center">Hex that is a center of the range</param>
         /// <param name="range">Max distance from center hex</param>
         /// <param name="hexGrid">Grid of hex cells</param>
         /// <returns>Array of hex cells whitin given range</returns>

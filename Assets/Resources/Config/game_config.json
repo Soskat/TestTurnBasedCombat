@@ -23,7 +23,7 @@
         {
             "AttackName": "Magic_missle",
             "AttackInfo": "A shiny star of pain",
-            "RangeOfAttack": 20,
+            "RangeOfAttack": 5,
             "DamageRange": 2,
             "Damage": 15,
             "NeedEnemyToLaunch": false,
@@ -87,7 +87,7 @@
                         {
                             "AttackName": "Magic_missle",
                             "AttackInfo": "A shiny star of pain",
-                            "RangeOfAttack": 20,
+                            "RangeOfAttack": 5,
                             "DamageRange": 2,
                             "Damage": 15,
                             "NeedEnemyToLaunch": false,
@@ -155,7 +155,7 @@
                         {
                             "AttackName": "Magic_missle",
                             "AttackInfo": "A shiny star of pain",
-                            "RangeOfAttack": 20,
+                            "RangeOfAttack": 5,
                             "DamageRange": 2,
                             "Damage": 15,
                             "NeedEnemyToLaunch": false,
