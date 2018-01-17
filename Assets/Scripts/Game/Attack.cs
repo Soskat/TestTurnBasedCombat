@@ -27,6 +27,8 @@ namespace TestTurnBasedCombat.Game
         public int AttackCost = 1;
         /// <summary>Number of turns of the attack cooldown.</summary>
         public int Cooldown = 1;
+        /// <summary>Turns left to colldown attack.</summary>
+        public int TurnsLeft = 0;
         #endregion
 
 

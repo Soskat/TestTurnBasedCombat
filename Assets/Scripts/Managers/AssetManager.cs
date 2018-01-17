@@ -143,10 +143,18 @@ namespace TestTurnBasedCombat.Managers
         private Dictionary<string, Attack> CreateAttacksSpecification()
         {
             Dictionary<string, Attack> attacks = new Dictionary<string, Attack>();
-            attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 20, true, 1, 1));
-            attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 20, 1, 15, true, 1, 1));
-            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 5, 2, 15, false, 1, 1));
-            //attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 20, 1, 15, true, 1, 1));
+            // soldier attacks:
+            attacks.Add("Stab", new Attack("Stab", "Meet Mr. Pointy", 1, 1, 15, true, 1, 1));   // basic attack
+            attacks.Add("Punch", new Attack("Punch", "One punch, one bruise", 1, 1, 30, true, 2, 2));
+            attacks.Add("Mill", new Attack("Mill", "The Spinning Blade of Doom", 1, 2, 40, true, 3, 3));
+            // archer attacks:
+            attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 10, 1, 10, true, 1, 1));   // basic attack
+            attacks.Add("Greanade", new Attack("Greanade", "An egg with surprise", 5, 2, 20, false, 2, 3));
+            attacks.Add("Rain_of_arrows", new Attack("Rain_of_arrows", "It's raining iron!", 7, 3, 30, false, 2, 3));
+            // wizard attacks:
+            attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 10, 1, 15, true, 1, 1));   // basic attack
+            attacks.Add("Lightning_bolt", new Attack("Lightning_bolt", "Lightning bolt! Lightning bolt! Lightning bolt!", 10, 1, 25, true, 2, 2));
+            attacks.Add("Meteorite", new Attack("Meteorite", "Mind your head", 10, 3, 45, false, 3, 4));
             return attacks;
         }
 
@@ -157,15 +165,53 @@ namespace TestTurnBasedCombat.Managers
         private List<ArmySpec> CreateArmiesSpecification(Dictionary<string, Attack> attacks)
         {
             List<ArmySpec> newArmiesSpec = new List<ArmySpec>();
+            // army of player 1 spec:
             ArmySpec army1 = new ArmySpec(Players.Player1);
-            army1.Units.Add(new UnitData("Blue Knight", 50, 5, new Attack[] { attacks["Stab"] }, Players.Player1, "soldierBlue"));
-            army1.Units.Add(new UnitData("Royal archer", 40, 6, new Attack[] { attacks["Shoot"] }, Players.Player1, "archerBlue"));
-            army1.Units.Add(new UnitData("Mage", 30, 3, new Attack[] { attacks["Magic_missle"] }, Players.Player1, "wizardBlue"));
+            army1.Units.Add(new UnitData("Blue Knight",
+                                         120,
+                                         5,
+                                         new Attack[] { attacks["Stab"], attacks["Punch"], attacks["Mill"] },
+                                         Players.Player1,
+                                         "soldierBlue",
+                                         null));
+            army1.Units.Add(new UnitData("Royal archer",
+                                         90,
+                                         6,
+                                         new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
+                                         Players.Player1,
+                                         "archerBlue",
+                                         null));
+            army1.Units.Add(new UnitData("Mage",
+                                         75,
+                                         3,
+                                         new Attack[] { attacks["Magic_missle"], attacks["Lightning_bolt"], attacks["Meteorite"] },
+                                         Players.Player1,
+                                         "wizardBlue",
+                                         null));
             newArmiesSpec.Add(army1);
+            // army of player 2 spec:
             ArmySpec army2 = new ArmySpec(Players.Player2);
-            army2.Units.Add(new UnitData("Blood Mercenary", 50, 5, new Attack[] { attacks["Stab"] }, Players.Player2, "soldierRed"));
-            army2.Units.Add(new UnitData("Poacher", 40, 6, new Attack[] { attacks["Shoot"] }, Players.Player2, "archerRed"));
-            army2.Units.Add(new UnitData("Sorcerer", 30, 3, new Attack[] { attacks["Magic_missle"] }, Players.Player2, "wizardRed"));
+            army2.Units.Add(new UnitData("Blood Mercenary",
+                                         120,
+                                         5,
+                                         new Attack[] { attacks["Stab"], attacks["Punch"], attacks["Mill"] },
+                                         Players.Player2,
+                                         "soldierRed",
+                                         null));
+            army2.Units.Add(new UnitData("Poacher",
+                                         90,
+                                         6,
+                                         new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
+                                         Players.Player2,
+                                         "archerRed",
+                                         null));
+            army2.Units.Add(new UnitData("Sorcerer",
+                                         75,
+                                         3,
+                                         new Attack[] { attacks["Magic_missle"], attacks["Lightning_bolt"], attacks["Meteorite"] },
+                                         Players.Player2,
+                                         "wizardRed",
+                                         null));
             newArmiesSpec.Add(army2);
             return newArmiesSpec;
         }

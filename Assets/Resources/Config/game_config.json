@@ -5,30 +5,99 @@
             "AttackInfo": "Meet Mr. Pointy",
             "RangeOfAttack": 1,
             "DamageRange": 1,
-            "Damage": 20,
+            "Damage": 15,
             "NeedEnemyToLaunch": true,
             "AttackCost": 1,
-            "Cooldown": 1
+            "Cooldown": 1,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Punch",
+            "AttackInfo": "One punch, one bruise",
+            "RangeOfAttack": 1,
+            "DamageRange": 1,
+            "Damage": 30,
+            "NeedEnemyToLaunch": true,
+            "AttackCost": 2,
+            "Cooldown": 2,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Mill",
+            "AttackInfo": "The Spinning Blade of Doom",
+            "RangeOfAttack": 1,
+            "DamageRange": 2,
+            "Damage": 40,
+            "NeedEnemyToLaunch": true,
+            "AttackCost": 3,
+            "Cooldown": 3,
+            "TurnsLeft": 0
         },
         {
             "AttackName": "Shoot",
             "AttackInfo": "An arrow to the knee",
-            "RangeOfAttack": 20,
+            "RangeOfAttack": 10,
             "DamageRange": 1,
-            "Damage": 15,
+            "Damage": 10,
             "NeedEnemyToLaunch": true,
             "AttackCost": 1,
-            "Cooldown": 1
+            "Cooldown": 1,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Greanade",
+            "AttackInfo": "An egg with surprise",
+            "RangeOfAttack": 5,
+            "DamageRange": 2,
+            "Damage": 20,
+            "NeedEnemyToLaunch": false,
+            "AttackCost": 2,
+            "Cooldown": 3,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Rain_of_arrows",
+            "AttackInfo": "It's raining iron!",
+            "RangeOfAttack": 7,
+            "DamageRange": 3,
+            "Damage": 30,
+            "NeedEnemyToLaunch": false,
+            "AttackCost": 2,
+            "Cooldown": 3,
+            "TurnsLeft": 0
         },
         {
             "AttackName": "Magic_missle",
             "AttackInfo": "A shiny star of pain",
-            "RangeOfAttack": 5,
-            "DamageRange": 2,
+            "RangeOfAttack": 10,
+            "DamageRange": 1,
             "Damage": 15,
-            "NeedEnemyToLaunch": false,
+            "NeedEnemyToLaunch": true,
             "AttackCost": 1,
-            "Cooldown": 1
+            "Cooldown": 1,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Lightning_bolt",
+            "AttackInfo": "Lightning bolt! Lightning bolt! Lightning bolt!",
+            "RangeOfAttack": 10,
+            "DamageRange": 1,
+            "Damage": 25,
+            "NeedEnemyToLaunch": true,
+            "AttackCost": 2,
+            "Cooldown": 2,
+            "TurnsLeft": 0
+        },
+        {
+            "AttackName": "Meteorite",
+            "AttackInfo": "Mind your head",
+            "RangeOfAttack": 10,
+            "DamageRange": 3,
+            "Damage": 45,
+            "NeedEnemyToLaunch": false,
+            "AttackCost": 3,
+            "Cooldown": 4,
+            "TurnsLeft": 0
         }
     ],
     "ArmiesSpec": [
@@ -37,8 +106,8 @@
             "Units": [
                 {
                     "Name": "Blue Knight",
-                    "MaxHealthPoints": 50,
-                    "CurrentHealthPoints": 50,
+                    "MaxHealthPoints": 120,
+                    "CurrentHealthPoints": 120,
                     "MaxActionPoints": 5,
                     "CurrentActionPoints": 5,
                     "Attacks": [
@@ -47,56 +116,137 @@
                             "AttackInfo": "Meet Mr. Pointy",
                             "RangeOfAttack": 1,
                             "DamageRange": 1,
-                            "Damage": 20,
+                            "Damage": 15,
                             "NeedEnemyToLaunch": true,
                             "AttackCost": 1,
-                            "Cooldown": 1
+                            "Cooldown": 1,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Punch",
+                            "AttackInfo": "One punch, one bruise",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 30,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 2,
+                            "Cooldown": 2,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Mill",
+                            "AttackInfo": "The Spinning Blade of Doom",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 2,
+                            "Damage": 40,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 3,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
                         }
                     ],
                     "Leader": 0,
-                    "PrefabCode": "soldierBlue"
+                    "PrefabCode": "soldierBlue",
+                    "ImageCode": "",
+                    "Image": {
+                        "instanceID": 0
+                    }
                 },
                 {
                     "Name": "Royal archer",
-                    "MaxHealthPoints": 40,
-                    "CurrentHealthPoints": 40,
+                    "MaxHealthPoints": 90,
+                    "CurrentHealthPoints": 90,
                     "MaxActionPoints": 6,
                     "CurrentActionPoints": 6,
                     "Attacks": [
                         {
                             "AttackName": "Shoot",
                             "AttackInfo": "An arrow to the knee",
-                            "RangeOfAttack": 20,
+                            "RangeOfAttack": 10,
                             "DamageRange": 1,
-                            "Damage": 15,
+                            "Damage": 10,
                             "NeedEnemyToLaunch": true,
                             "AttackCost": 1,
-                            "Cooldown": 1
+                            "Cooldown": 1,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Greanade",
+                            "AttackInfo": "An egg with surprise",
+                            "RangeOfAttack": 5,
+                            "DamageRange": 2,
+                            "Damage": 20,
+                            "NeedEnemyToLaunch": false,
+                            "AttackCost": 2,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Rain_of_arrows",
+                            "AttackInfo": "It's raining iron!",
+                            "RangeOfAttack": 7,
+                            "DamageRange": 3,
+                            "Damage": 30,
+                            "NeedEnemyToLaunch": false,
+                            "AttackCost": 2,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
                         }
                     ],
                     "Leader": 0,
-                    "PrefabCode": "archerBlue"
+                    "PrefabCode": "archerBlue",
+                    "ImageCode": "",
+                    "Image": {
+                        "instanceID": 0
+                    }
                 },
                 {
                     "Name": "Mage",
-                    "MaxHealthPoints": 30,
-                    "CurrentHealthPoints": 30,
+                    "MaxHealthPoints": 75,
+                    "CurrentHealthPoints": 75,
                     "MaxActionPoints": 3,
                     "CurrentActionPoints": 3,
                     "Attacks": [
                         {
                             "AttackName": "Magic_missle",
                             "AttackInfo": "A shiny star of pain",
-                            "RangeOfAttack": 5,
-                            "DamageRange": 2,
+                            "RangeOfAttack": 10,
+                            "DamageRange": 1,
                             "Damage": 15,
-                            "NeedEnemyToLaunch": false,
+                            "NeedEnemyToLaunch": true,
                             "AttackCost": 1,
-                            "Cooldown": 1
+                            "Cooldown": 1,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Lightning_bolt",
+                            "AttackInfo": "Lightning bolt! Lightning bolt! Lightning bolt!",
+                            "RangeOfAttack": 10,
+                            "DamageRange": 1,
+                            "Damage": 25,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 2,
+                            "Cooldown": 2,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Meteorite",
+                            "AttackInfo": "Mind your head",
+                            "RangeOfAttack": 10,
+                            "DamageRange": 3,
+                            "Damage": 45,
+                            "NeedEnemyToLaunch": false,
+                            "AttackCost": 3,
+                            "Cooldown": 4,
+                            "TurnsLeft": 0
                         }
                     ],
                     "Leader": 0,
-                    "PrefabCode": "wizardBlue"
+                    "PrefabCode": "wizardBlue",
+                    "ImageCode": "",
+                    "Image": {
+                        "instanceID": 0
+                    }
                 }
             ]
         },
@@ -105,8 +255,8 @@
             "Units": [
                 {
                     "Name": "Blood Mercenary",
-                    "MaxHealthPoints": 50,
-                    "CurrentHealthPoints": 50,
+                    "MaxHealthPoints": 120,
+                    "CurrentHealthPoints": 120,
                     "MaxActionPoints": 5,
                     "CurrentActionPoints": 5,
                     "Attacks": [
@@ -115,56 +265,137 @@
                             "AttackInfo": "Meet Mr. Pointy",
                             "RangeOfAttack": 1,
                             "DamageRange": 1,
-                            "Damage": 20,
+                            "Damage": 15,
                             "NeedEnemyToLaunch": true,
                             "AttackCost": 1,
-                            "Cooldown": 1
+                            "Cooldown": 1,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Punch",
+                            "AttackInfo": "One punch, one bruise",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 30,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 2,
+                            "Cooldown": 2,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Mill",
+                            "AttackInfo": "The Spinning Blade of Doom",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 2,
+                            "Damage": 40,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 3,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
                         }
                     ],
                     "Leader": 1,
-                    "PrefabCode": "soldierRed"
+                    "PrefabCode": "soldierRed",
+                    "ImageCode": "",
+                    "Image": {
+                        "instanceID": 0
+                    }
                 },
                 {
                     "Name": "Poacher",
-                    "MaxHealthPoints": 40,
-                    "CurrentHealthPoints": 40,
+                    "MaxHealthPoints": 90,
+                    "CurrentHealthPoints": 90,
                     "MaxActionPoints": 6,
                     "CurrentActionPoints": 6,
                     "Attacks": [
                         {
                             "AttackName": "Shoot",
                             "AttackInfo": "An arrow to the knee",
-                            "RangeOfAttack": 20,
+                            "RangeOfAttack": 10,
                             "DamageRange": 1,
-                            "Damage": 15,
+                            "Damage": 10,
                             "NeedEnemyToLaunch": true,
                             "AttackCost": 1,
-                            "Cooldown": 1
+                            "Cooldown": 1,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Greanade",
+                            "AttackInfo": "An egg with surprise",
+                            "RangeOfAttack": 5,
+                            "DamageRange": 2,
+                            "Damage": 20,
+                            "NeedEnemyToLaunch": false,
+                            "AttackCost": 2,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Rain_of_arrows",
+                            "AttackInfo": "It's raining iron!",
+                            "RangeOfAttack": 7,
+                            "DamageRange": 3,
+                            "Damage": 30,
+                            "NeedEnemyToLaunch": false,
+                            "AttackCost": 2,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
                         }
                     ],
                     "Leader": 1,
-                    "PrefabCode": "archerRed"
+                    "PrefabCode": "archerRed",
+                    "ImageCode": "",
+                    "Image": {
+                        "instanceID": 0
+                    }
                 },
                 {
                     "Name": "Sorcerer",
-                    "MaxHealthPoints": 30,
-                    "CurrentHealthPoints": 30,
+                    "MaxHealthPoints": 75,
+                    "CurrentHealthPoints": 75,
                     "MaxActionPoints": 3,
                     "CurrentActionPoints": 3,
                     "Attacks": [
                         {
                             "AttackName": "Magic_missle",
                             "AttackInfo": "A shiny star of pain",
-                            "RangeOfAttack": 5,
-                            "DamageRange": 2,
+                            "RangeOfAttack": 10,
+                            "DamageRange": 1,
                             "Damage": 15,
-                            "NeedEnemyToLaunch": false,
+                            "NeedEnemyToLaunch": true,
                             "AttackCost": 1,
-                            "Cooldown": 1
+                            "Cooldown": 1,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Lightning_bolt",
+                            "AttackInfo": "Lightning bolt! Lightning bolt! Lightning bolt!",
+                            "RangeOfAttack": 10,
+                            "DamageRange": 1,
+                            "Damage": 25,
+                            "NeedEnemyToLaunch": true,
+                            "AttackCost": 2,
+                            "Cooldown": 2,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Meteorite",
+                            "AttackInfo": "Mind your head",
+                            "RangeOfAttack": 10,
+                            "DamageRange": 3,
+                            "Damage": 45,
+                            "NeedEnemyToLaunch": false,
+                            "AttackCost": 3,
+                            "Cooldown": 4,
+                            "TurnsLeft": 0
                         }
                     ],
                     "Leader": 1,
-                    "PrefabCode": "wizardRed"
+                    "PrefabCode": "wizardRed",
+                    "ImageCode": "",
+                    "Image": {
+                        "instanceID": 0
+                    }
                 }
             ]
         }

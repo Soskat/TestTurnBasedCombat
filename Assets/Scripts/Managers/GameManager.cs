@@ -78,8 +78,14 @@ namespace TestTurnBasedCombat.Managers
         }
         /// <summary>List of players.</summary>
         public List<Player> Players { get { return players; } }
+        /// <summary>Current player.</summary>
+        public Player CurrentPlayer { get { return players[playerIndex]; } }
         /// <summary>Informs that SelectedHex has changed.</summary>
         public Action UpdateSelectedHex { get; set; }
+        /// <summary>Informs that SelectedUnit has changed.</summary>
+        public Action UpdateSelectedUnit { get; set; }
+        /// <summary>Informs that SelectedUnit action points has changed.</summary>
+        public Action UpdateSelectedUnitAP { get; set; }
         #endregion
 
 
@@ -163,6 +169,8 @@ namespace TestTurnBasedCombat.Managers
             {
                 // reset current attack to the basic one:
                 currentAttackIndex = 0;
+                // unselects last damage range:
+                HexOperations.UnselectRangeOfHexes(DamageRangeHexes);
             }
         }
         #endregion
@@ -220,6 +228,15 @@ namespace TestTurnBasedCombat.Managers
 
         #region Game flow methods
         /// <summary>
+        /// Sets current attack index.
+        /// </summary>
+        /// <param name="index">New index of current attack</param>
+        public void SetCurrentAttackIndex(int index)
+        {
+            currentAttackIndex = index;
+        }
+
+        /// <summary>
         /// Prepares everything for the battle.
         /// </summary>
         public void PrepareTheBattle()
@@ -273,6 +290,8 @@ namespace TestTurnBasedCombat.Managers
 #if UNITY_EDITOR
             Debug.Log(string.Format("[GameManager]: {0} turn", players[playerIndex].PlayerTag.ToString()));
 #endif
+            // inform that SelectedUnit has changed:
+            UpdateSelectedUnit();
         }
 
         /// <summary>

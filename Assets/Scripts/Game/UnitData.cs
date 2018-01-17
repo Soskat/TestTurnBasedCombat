@@ -1,5 +1,5 @@
 ﻿using System;
-
+using UnityEngine;
 
 namespace TestTurnBasedCombat.Game
 {
@@ -26,6 +26,10 @@ namespace TestTurnBasedCombat.Game
         public Players Leader;
         /// <summary>Unit prefab code.</summary>
         public string PrefabCode;
+        /// <summary>Unit image code.</summary>
+        public string ImageCode;
+        /// <summary>Unit image.</summary>
+        public Texture2D Image;
         #endregion
 
 
@@ -39,7 +43,8 @@ namespace TestTurnBasedCombat.Game
         /// <param name="attack">List of unit's attacks</param>
         /// <param name="leader">Unit leader (player)</param>
         /// <param name="prefabCode">Unit prefab code</param>
-        public UnitData(string name, int hp, int ap, Attack[] attack, Players leader, string prefabCode)
+        /// <param name="prefabCode">Unit image code</param>
+        public UnitData(string name, int hp, int ap, Attack[] attack, Players leader, string prefabCode, string imageCode)
         {
             Name = name;
             MaxHealthPoints = hp;
@@ -49,6 +54,8 @@ namespace TestTurnBasedCombat.Game
             Attacks = attack;
             Leader = leader;
             PrefabCode = prefabCode;
+            ImageCode = imageCode;
+            Image = Resources.Load("Images/" + ImageCode) as Texture2D;
         }
 
         /// <summary>
@@ -65,6 +72,8 @@ namespace TestTurnBasedCombat.Game
             Attacks = unit.Attacks;
             Leader = unit.Leader;
             PrefabCode = unit.PrefabCode;
+            ImageCode = unit.ImageCode;
+            Image = unit.Image;
         }
         #endregion
 

@@ -116,6 +116,7 @@ namespace TestTurnBasedCombat.Game
                 transform.position = newPos;
                 // update current action points:
                 UnitData.CurrentActionPoints--;
+                GameManager.instance.UpdateSelectedUnitAP();
                 if (UnitData.CurrentActionPoints <= 0)
                 {
                     // reset action points:
