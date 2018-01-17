@@ -42,9 +42,11 @@ namespace TestTurnBasedCombat.Game
         // Source: Unit.cs from project HexGridby Daniel Carrier (https://www.assetstore.unity3d.com/en/#!/content/27440)
         private void OnGUI()
         {
+            if (GameManager.instance.GameIsPaused) return;
+
             int hpBarWidth = 50;
             int hpBarHeight = 15;
-            Vector3 coordinates = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -1.5f, 0) + 0.5f * Camera.main.transform.up);   //TODO: Make this some kind of constant.
+            Vector3 coordinates = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -1.5f, 0) + 0.5f * Camera.main.transform.up);
             coordinates.y = Screen.height - coordinates.y;
             // set up colors:
             Texture2D green = new Texture2D(1, 1);
@@ -74,26 +76,6 @@ namespace TestTurnBasedCombat.Game
                                hpBarHeight),
                       UnitData.CurrentHealthPoints.ToString(),
                       centered);
-
-
-            ////TODO: Get rid of magic numbers.
-            //Vector3 coordinates = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, 1.5f, 0) + 0.5f * Camera.main.transform.up);   //TODO: Make this some kind of constant.
-            //coordinates.y = Screen.height - coordinates.y;
-            ////print (coordinates);
-            //Texture2D red = new Texture2D(1, 1);
-            //red.SetPixel(0, 0, Color.red);
-            //red.wrapMode = TextureWrapMode.Repeat;
-            //red.Apply();
-            //Texture2D green = new Texture2D(1, 1);
-            //green.SetPixel(0, 0, Color.green);
-            //green.wrapMode = TextureWrapMode.Repeat;
-            //green.Apply();
-            //GUI.Box (new Rect(coordinates.x - 10, coordinates.y - 5, 20, 10), "test");
-            //GUI.DrawTexture(new Rect(coordinates.x - HP_BAR_WIDTH / 2, coordinates.y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT), red);
-            //GUI.DrawTexture(new Rect(coordinates.x - HP_BAR_WIDTH / 2, coordinates.y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH * hp / MAX_HP, HP_BAR_HEIGHT), green);
-            //GUIStyle centered = new GUIStyle();
-            //centered.alignment = TextAnchor.MiddleCenter;
-            //GUI.Label(new Rect(coordinates.x - HP_BAR_WIDTH / 2, coordinates.y + HP_BAR_HEIGHT / 2, HP_BAR_WIDTH, HP_BAR_HEIGHT), hp.ToString(), centered);
         }
         #endregion
 

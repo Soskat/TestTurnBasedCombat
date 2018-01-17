@@ -19,9 +19,41 @@ namespace TestTurnBasedCombat.Game
         // Use this for initialization
         void Start()
         {
+            // sign up for actions:
+            GameManager.instance.RestartGame += () =>
+            {
+                // remove all remaining units from winner's army:
+                //foreach(var player in GameManager.instance.Players) player.Units.Clear();
+                // remove all children:
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    transform.GetChild(i).GetComponent<Unit>().AssignedHex.SetOccupyingObject(null);
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+                // create units game objects once again:
+                CreateUnitsGameObjects();
+
+                // inform that player is ready for battle:
+                GameManager.instance.PrepareForBattle();
+            };
+
+            // create units game objects:
+            CreateUnitsGameObjects();
+            // inform that player is ready for battle:
+            GameManager.instance.PrepareForBattle();
+        }
+        #endregion
+
+
+        #region Private methods
+        /// <summary>
+        /// Creates units' game objects.
+        /// </summary>
+        private void CreateUnitsGameObjects()
+        {
             // create units game objects from player's army data:
             Player player = null;
-            foreach(var item in GameManager.instance.Players)
+            foreach (var item in GameManager.instance.Players)
             {
                 if (item.PlayerTag == playerTag)
                 {
@@ -50,11 +82,9 @@ namespace TestTurnBasedCombat.Game
                     go.transform.SetParent(gameObject.transform);
                 }
                 // update player's Units list:
+                player.Units.Clear();
                 while (!queue.IsEmpty) player.Units.Add(queue.Dequeue());
             }
-
-            // inform that player is ready for battle:
-            GameManager.instance.ReadyForBattle();
         }
         #endregion
     }

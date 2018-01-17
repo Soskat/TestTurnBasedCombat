@@ -14,6 +14,7 @@ namespace TestTurnBasedCombat.HexGrid
         [SerializeField] private GameObject occupyingObject;
         #endregion
 
+
         #region Public fields & properties
         /// <summary>Row index of the hex cell in hex grid.</summary>
         public int RowIndex;

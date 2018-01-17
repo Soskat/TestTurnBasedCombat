@@ -56,6 +56,8 @@ namespace TestTurnBasedCombat.Managers
         }
         /// <summary>Is there any action in progress?</summary>
         public bool ActionInProgress;
+        /// <summary>Is game paused?</summary>
+        public bool GameIsPaused;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
         /// <summary>Ring of hexes around range of current attack.</summary>
@@ -81,6 +83,10 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Current player.</summary>
         public Player CurrentPlayer { get { return players[playerIndex]; } }
         #region Actions
+        /// <summary>Informs that units game objects have been created.</summary>
+        public Action CreatedUnits { get; set; }
+        /// <summary>Informs that game must be restarted.</summary>
+        public Action RestartGame { get; set; }
         /// <summary>Informs that game is over.</summary>
         public Action<PlayerTags> GameIsOver { get; set; }
         /// <summary>Informs that SelectedHex has changed.</summary>
@@ -97,29 +103,45 @@ namespace TestTurnBasedCombat.Managers
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
+            Debug.Log("[GM]: AWAKE");
             if (instance == null)
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
                 // initialize all things:
                 ActionInProgress = false;
-                GameIsOver += (pt) => { EndOfBattle(pt); };
+                GameIsPaused = false;
+                CreatedUnits += () => { Debug.Log("[GM]: created units"); };
+                GameIsOver += (pt) => {
+                    playersReadyCount = 0;
+                    GameIsPaused = true;
+                };
+                RestartGame += () => { StartTheBattle(); };
                 UpdateSelectedUnit += () => { };
-                // initialize players:
-                InitializePlayers();
             }
             else if (instance != this)
             {
                 Destroy(gameObject);
             }
+            Debug.Log("[GM]: END OF AWAKE");
         }
 
         // Use this for initialization
-        void Start() { }
+        void Start()
+        {
+            Debug.Log("[GM]: START");
+            // initialize players:
+            InitializePlayers();
+            // start the game:
+            RestartGame();
+            Debug.Log("[GM]: END OF START");
+        }
 
         // Update is called once per frame
         void Update()
         {
+            if (ActionInProgress || GameIsPaused) return;
+
             // left mouse button is down:
             if (Input.GetMouseButtonDown(0))
             {
@@ -263,34 +285,27 @@ namespace TestTurnBasedCombat.Managers
         }
 
         /// <summary>
-        /// Prepares everything for the battle.
+        /// Prepares for the battle.
         /// </summary>
-        public void PrepareTheBattle()
+        public void PrepareForBattle()
         {
-#if UNITY_EDITOR
-            Debug.Log("[GameManager]: START THE BATTLE");
-#endif
-            // things to do before loading next scene:
-            playersReadyCount = 0;
-            currentAttackIndex = 0;
-            ActionInProgress = false;
-
-            // load next scene:
-            SceneManager.LoadScene(1); // 1 -> BattleArena
-        }
-
-        /// <summary>
-        /// Starts the battle when everything is ready.
-        /// </summary>
-        public void ReadyForBattle()
-        {
+            Debug.Log("Prepare for battle");
             playersReadyCount++;
             if (playersReadyCount == players.Count)
             {
-                // start the battle:
-                playerIndex = -1;
-                EndTurn();
+                // inform BattleArena that all units have been created:
+                CreatedUnits();
             }
+        }
+
+        /// <summary>
+        /// Starts the battle.
+        /// </summary>
+        public void StartTheBattle()
+        {
+            // start the battle:
+            playerIndex = -1;
+            EndTurn();
         }
 
         /// <summary>
@@ -300,6 +315,13 @@ namespace TestTurnBasedCombat.Managers
         {
             // reset CurrentAttack index:
             currentAttackIndex = 0;
+            // reset LastPath, DamageRangeHexes and RangeOfAttackHexes:
+            HexOperations.UnselectPath(LastPath);
+            LastPath = null;
+            HexOperations.UnselectRangeOfHexes(DamageRangeHexes);
+            DamageRangeHexes = null;
+            RangeOfAttackHexes = null;
+
             // switch to other player's next unit:
             playerIndex = ++playerIndex % players.Count;
             if (SelectedUnit != null)
@@ -313,28 +335,12 @@ namespace TestTurnBasedCombat.Managers
                 SelectedUnit.UnitData.ResetActionPoints();
             }
             if (SelectedUnitHex != null) SelectedUnitHex.Select(AssetManager.instance.HexSelectedUnit);
-            // reset LastPath:
-            HexOperations.UnselectPath(LastPath);
-            LastPath = null;
-            // reset DamageRangeHexes:
-            HexOperations.UnselectRangeOfHexes(DamageRangeHexes);
-            DamageRangeHexes = null;
-#if UNITY_EDITOR
-            Debug.Log(string.Format("[GameManager]: {0} turn", players[playerIndex].PlayerTag.ToString()));
-#endif
             // inform that SelectedUnit has changed:
             UpdateSelectedUnit();
-            ActionInProgress = false;
-        }
 
-        /// <summary>
-        /// Shows info about the winner of the battle.
-        /// </summary>
-        /// <param name="looser"></param>
-        public void EndOfBattle(PlayerTags looser)
-        {
-            Debug.Log("--------------------> The looser is: " + looser.ToString());
-            ActionInProgress = true;
+            // set down all flags:
+            ActionInProgress = false;
+            GameIsPaused = false;
         }
         #endregion
     }

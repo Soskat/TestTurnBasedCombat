@@ -78,6 +78,7 @@ namespace TestTurnBasedCombat
         public void Clear()
         {
             queue.Clear();
+            iterator = -1;
         }
 
         /// <summary>

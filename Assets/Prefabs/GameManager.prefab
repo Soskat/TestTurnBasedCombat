@@ -19,8 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4575921758134274}
-  - component: {fileID: 114731631443000512}
   - component: {fileID: 114452584828592972}
+  - component: {fileID: 114731631443000512}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -63,10 +63,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95778c7df5731dd41b9b94ed6f9f09c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPhase: 0
   players: []
   SelectedHex: {fileID: 0}
   SelectedUnit: {fileID: 0}
   ActionInProgress: 0
+  GameIsPaused: 0
   LastPath: []
-  Players: []
+  RangeOfAttackHexes: []
+  DamageRangeHexes: []
