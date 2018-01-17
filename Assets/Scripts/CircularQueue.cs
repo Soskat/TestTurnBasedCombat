@@ -53,8 +53,9 @@ namespace TestTurnBasedCombat
         /// <param name="obj">Object to remove</param>
         public void Remove(T obj)
         {
+            int objIndex = queue.IndexOf(obj);
             queue.Remove(obj);
-            if (queue.Count > 0) iterator %= queue.Count;
+            if (iterator >= objIndex) iterator = (--iterator < 0) ? (queue.Count - 1) : iterator;
         }
 
         /// <summary>
