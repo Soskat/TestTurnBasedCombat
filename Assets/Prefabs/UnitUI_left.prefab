@@ -107,6 +107,8 @@ GameObject:
   - component: {fileID: 222959053943547866}
   - component: {fileID: 114934181330961964}
   - component: {fileID: 114517541213427166}
+  - component: {fileID: 114627652310893830}
+  - component: {fileID: 114189645365128240}
   m_Layer: 5
   m_Name: AttackButton1
   m_TagString: Untagged
@@ -142,6 +144,8 @@ GameObject:
   - component: {fileID: 222151700797577646}
   - component: {fileID: 114471641394131158}
   - component: {fileID: 114577457545587392}
+  - component: {fileID: 114886261482170444}
+  - component: {fileID: 114098572691061128}
   m_Layer: 5
   m_Name: AttackButton2
   m_TagString: Untagged
@@ -193,6 +197,8 @@ GameObject:
   - component: {fileID: 224237763845042938}
   - component: {fileID: 222520219473240674}
   - component: {fileID: 114702977455673582}
+  - component: {fileID: 114182165679235970}
+  - component: {fileID: 114229662758454458}
   m_Layer: 5
   m_Name: UnitImage
   m_TagString: Untagged
@@ -299,6 +305,53 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114098572691061128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616230081527272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114886261482170444}
+          m_MethodName: TurnOnTooltip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114886261482170444}
+          m_MethodName: TurnOffToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114132241864456938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -318,6 +371,79 @@ MonoBehaviour:
   attackButtons:
   - {fileID: 114517541213427166}
   - {fileID: 114577457545587392}
+--- !u!114 &114182165679235970
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735070298084464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122c62271c51b954491a067bf95e7d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedAttack:
+    AttackName: Attack
+    AttackInfo: Attack info
+    RangeOfAttack: 1
+    DamageRange: 1
+    Damage: 15
+    NeedEnemyToLaunch: 1
+    AutoDamageOn: 0
+    AttackCost: 1
+    Cooldown: 1
+    TurnsLeft: 0
+  tooltipOn: 0
+  showUnitInfo: 1
+  leftSideLayout: 1
+  displayDelay: 0.5
+--- !u!114 &114189645365128240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489727313776772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114627652310893830}
+          m_MethodName: TurnOnTooltip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114627652310893830}
+          m_MethodName: TurnOffToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114227714845809632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -351,6 +477,53 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 10
+--- !u!114 &114229662758454458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735070298084464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114182165679235970}
+          m_MethodName: TurnOnTooltip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114182165679235970}
+          m_MethodName: TurnOffToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  delegates: []
 --- !u!114 &114305118087480406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -552,6 +725,32 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114627652310893830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1489727313776772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122c62271c51b954491a067bf95e7d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedAttack:
+    AttackName: Attack
+    AttackInfo: Attack info
+    RangeOfAttack: 1
+    DamageRange: 1
+    Damage: 15
+    NeedEnemyToLaunch: 1
+    AutoDamageOn: 0
+    AttackCost: 1
+    Cooldown: 1
+    TurnsLeft: 0
+  tooltipOn: 0
+  showUnitInfo: 0
+  leftSideLayout: 1
+  displayDelay: 0.5
 --- !u!114 &114635261760142186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -665,6 +864,32 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114886261482170444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616230081527272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122c62271c51b954491a067bf95e7d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedAttack:
+    AttackName: Attack
+    AttackInfo: Attack info
+    RangeOfAttack: 1
+    DamageRange: 1
+    Damage: 15
+    NeedEnemyToLaunch: 1
+    AutoDamageOn: 0
+    AttackCost: 1
+    Cooldown: 1
+    TurnsLeft: 0
+  tooltipOn: 0
+  showUnitInfo: 0
+  leftSideLayout: 1
+  displayDelay: 0.5
 --- !u!114 &114934181330961964
 MonoBehaviour:
   m_ObjectHideFlags: 1

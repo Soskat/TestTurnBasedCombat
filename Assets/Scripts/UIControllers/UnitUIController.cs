@@ -79,6 +79,9 @@ namespace TestTurnBasedCombat.UIControllers
                     unitImage.texture = AssetManager.instance.UnitsImages[GameManager.instance.SelectedUnit.UnitData.ImageCode];
                 }
                 else unitImage.texture = Resources.Load("Images/placeholder") as Texture2D;
+                // update unit info tooltip:
+                unitImage.GetComponent<AttackTooltip>().SetUpTooltip(GameManager.instance.SelectedUnit.UnitData.Attacks[0],
+                                                                     GameManager.instance.SelectedUnit.UnitData.Name);
                 // reset attacks buttons:
                 foreach (var attackButton in attackButtons) attackButton.gameObject.SetActive(false);
                 UpdateUnitAPUI();
@@ -127,6 +130,7 @@ namespace TestTurnBasedCombat.UIControllers
                         });
                     }
                 }
+                attackButtons[j].GetComponent<AttackTooltip>().SetUpTooltip(attack);
                 attackButtons[j].gameObject.SetActive(true);
             }
         }

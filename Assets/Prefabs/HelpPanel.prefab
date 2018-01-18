@@ -412,7 +412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1631003325081924
 GameObject:
   m_ObjectHideFlags: 1
@@ -461,7 +461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1833356643740484
 GameObject:
   m_ObjectHideFlags: 1
@@ -629,12 +629,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Orange colored hex cell marks the current active unit. \nCurrent active
-    unit's UI displays in the bottom part of the game view.\n\n\nUnit UI panel explanation:\r\n1
-    - portrait of the unit\r\n2 - number of unit's Action Points left\r\n3 - buttons
-    that activate special attacks\r\n4 - button that ends unit's turn\r\n\r\n\nAction
-    Points (AP)\r\nDescribes how far the unit can go or how many attacks it can \nperform.
-    It also determines the unit's place in turn order \n(initiative queue)."
+  m_Text: "Orange colored hex cell marks the current active unit.\nCurrent active
+    unit's UI is displayed in the bottom part of the game view.\n\nUnit UI panel description:\r\n1
+    - portrait of the unit\r\n2 - number of the unit's Action Points left\r\n3 - buttons
+    that activate special attacks\r\n4 - button that ends unit's turn\n\r\n\nAction
+    Points (AP)\r\nDescribes how far the unit can go or how many attacks it can perform.
+    It also determines the unit's place in the turn order (initiative queue).\n\nTo
+    learn about unit\u2019s attacks, hover the mouse cursor over the unit\u2019s image
+    or one of the special attack buttons."
 --- !u!114 &114037612337758408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -708,11 +710,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Welcome to the manual of this small game, which prototypes mechanics of
-    turn-based combat system. On the following panels you will find an explanation
-    for game flow details and controlls.\r\n\nThis manual can be viewed during game
-    after clicking the button with question mark placed in the upper right corner
-    of the window."
+  m_Text: 'Welcome to the manual of this small game, which prototypes mechanics of
+    the turn-based combat system. In the following panels you will find an overwiew
+    for the game flow details and controlls.
+
+
+    This manual can be viewed during the gameplay by clicking the button with the
+    question mark icon, placed in the upper right corner of the window.'
 --- !u!114 &114101815343265194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -745,9 +749,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: This game offers a battle between two players in a turn-based combat system.
-    Both players alternately made their units to perform a sequence of actions in
-    order to kill enemy's units. When one of armies will be defeated, game ends.
+  m_Text: The game offers a battle between two players in a turn-based combat system.
+    Both players alternately lead their units to perform a sequence of actions that
+    will destroy enemy units. When one of the armies is defeated, the game ends.
 --- !u!114 &114226552997616254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -780,13 +784,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "In order to move the current active unit, point with mouse cursor desired
-    destination hex on the grid.\nA path to the destination hex (navy blue colored)
-    will be drawn with light blue colored hexes. After clicking left mouse button,
-    the current unit will move to the selected destination.\r\n\nLength of the path
-    marks the range of available movement and depends on unit's Action Points.\r Each
-    step (move to another hex) costs 1 Action Point.\r\nNote: Unit can't be moved
-    on the occupied hexes."
+  m_Text: "In order to move the current active unit, point with the mouse cursor the
+    desired destination hex on the grid. A path to the destination hex (colored navy
+    blue) will be drawn with the light blue colored hexes. \nAfter clicking the left
+    mouse button, the current unit will move to the selected destination.\r\n\nLength
+    of the path marks the range of the available movement and depends on the unit's
+    Action Points.\r\nEach step (move to another hex) costs 1 Action Point.\r\nNote:
+    Unit can't be moved to the occupied hexes."
 --- !u!114 &114240785252985196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -819,12 +823,12 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Attacks mostly damage only one selected enemy''s unit, but some attacks
-    can caused damage on bigger area. In order to perfrom such attack, point with
-    mouse cursor the hex which will be a center of the damage area.
+  m_Text: 'Attacks damage mostly only one selected enemy unit, but some attacks can
+    cause damage in the bigger area. In order to perfom such an attack, point with
+    the mouse cursor to the hex which will be a center of the damage area.
 
 
-    All unit in this area will receive damage.'
+    All units in this area will receive damage.'
 --- !u!114 &114292186961769906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1497,13 +1501,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Each unit is able to performed a basic attack that spends 1 Action Point.\r\nIn
-    order to attack enemy's unit, point it with mouse cursor. If enemy's unit is in
-    range of attack, the hex below this unit will be highlighted with red spikes.
-    After clicking left mouse button the attack will be performed.\r\nIf enemy's unit
-    is out of range of attack, its hex will be only red colored.\r\n\r\nEach unit
-    has also two special attacks, which are performed with higher cost and needs a
-    few turns to recharge for another use."
+  m_Text: "Each unit is able to perform a basic attack that spends 1 Action Point.\r\nIn
+    order to attack the enemy unit, point it with the mouse cursor. If enemy unit
+    is in range of attack, the hex below this unit will be highlighted with red spikes.
+    After clicking the left mouse button, an attack will be performed.\r\nIf enemy
+    unit is out of range of the attack, its hex will be red colored only.\r\n\r\nEach
+    unit also has two special attacks, which are performed with higher cost and need
+    a few turns to recharge for another use."
 --- !u!114 &114931746765648918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1635,10 +1639,10 @@ MonoBehaviour:
     the area of the battleground. Each player''s army starts on the opposite site
     of this area.
 
-
     Below the hex grid there is a space where current unit''s UI is being displayed.
-    In upper left corner of the view there is a button that shows in-game menu. In
-    upper right corner of the view there is a button that shows this help panel.'
+
+    In upper left corner of the view there is a button that displays in-game menu.
+    In upper right corner of the view there is a button that displays this help panel.'
 --- !u!114 &114997071040649274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1671,7 +1675,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: General idea of the game
+  m_Text: Main idea of the game
 --- !u!222 &222068658399577540
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2070,8 +2074,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2.99}
-  m_SizeDelta: {x: 650, y: 278.31}
+  m_AnchoredPosition: {x: -108.89, y: -2.99}
+  m_SizeDelta: {x: 432.22, y: 278.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224445751839376456
 RectTransform:
