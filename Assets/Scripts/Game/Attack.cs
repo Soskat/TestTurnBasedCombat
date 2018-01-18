@@ -116,6 +116,8 @@ namespace TestTurnBasedCombat.Game
             HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
             // restore highlight of the SelectedHex:
             GameManager.instance.HighlightSelectedHex(GameManager.instance.SelectedHex);
+            // reset DamageRange and LastPath:
+            GameManager.instance.LastPath = null;
             // update unit's current action points number:
             GameManager.instance.DecreaseActionPoint(AttackCost);
         }

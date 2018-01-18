@@ -46,6 +46,8 @@ namespace TestTurnBasedCombat.Managers
         private Dictionary<PlayerTags, ArmySpec> armiesSpec;
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
         private Vector3Int[] cubeDirections;
+        /// <summary>Units' portrait images.</summary>
+        private Dictionary<string, Texture2D> unitsImages;
         #endregion
 
 
@@ -74,6 +76,8 @@ namespace TestTurnBasedCombat.Managers
         public Dictionary<PlayerTags, ArmySpec> ArmiesSpec { get { return armiesSpec; } }
         /// <summary>Table of the neighbours directions of the hex in the hex grid in cube coordinates.</summary>
         public Vector3Int[] CubeDirections { get { return cubeDirections; } }
+        /// <summary>Units' portrait images.</summary>
+        public Dictionary<string, Texture2D> UnitsImages { get { return unitsImages; } }
         #endregion
 
 
@@ -102,6 +106,7 @@ namespace TestTurnBasedCombat.Managers
                                                     new Vector3Int(-1, +1, 0),
                                                     new Vector3Int(-1, 0, +1),
                                                     new Vector3Int(0, -1, +1)};
+                unitsImages = LoadUnitsImages();
             }
             else if (instance != this)
             {
@@ -170,6 +175,24 @@ namespace TestTurnBasedCombat.Managers
             attacks.Add("Lightning_bolt", new Attack("Lightning_bolt", "Lightning bolt! Lightning bolt! Lightning bolt!", 10, 1, 25, true, false, 2, 2));
             attacks.Add("Meteorite", new Attack("Meteorite", "Mind your head", 7, 3, 45, false, true, 3, 4));
             return attacks;
+        }
+
+        /// <summary>
+        /// Loads units' portrait images.
+        /// </summary>
+        /// <returns>Dictionary with loaded textures 2D</returns>
+        private Dictionary<string, Texture2D> LoadUnitsImages()
+        {
+            Dictionary<string, Texture2D> images = new Dictionary<string, Texture2D>
+            {
+                { "soldierBlue_image", Resources.Load("Images/soldierBlue_image") as Texture2D },
+                { "archerBlue_image", Resources.Load("Images/archerBlue_image") as Texture2D },
+                { "wizardBlue_image", Resources.Load("Images/wizardBlue_image") as Texture2D },
+                { "soldierRed_image", Resources.Load("Images/soldierRed_image") as Texture2D },
+                { "archerRed_image", Resources.Load("Images/archerRed_image") as Texture2D },
+                { "wizardRed_image", Resources.Load("Images/wizardRed_image") as Texture2D }
+            };
+            return images;
         }
 
         /// <summary>

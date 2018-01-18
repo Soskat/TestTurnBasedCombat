@@ -61,8 +61,6 @@ namespace TestTurnBasedCombat.Managers
         public bool MenuIsOn;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
-        /// <summary>Ring of hexes around range of current attack.</summary>
-        public Hex[] RangeOfAttackHexes;
         /// <summary>Hexes whitin range of attack.</summary>
         public Hex[] DamageRangeHexes;
         /// <summary>Doeas SelectedHex contain an enemy of SelectedUnit?</summary>
@@ -320,12 +318,11 @@ namespace TestTurnBasedCombat.Managers
         {
             // reset CurrentAttack index:
             currentAttackIndex = 0;
-            // reset LastPath, DamageRangeHexes and RangeOfAttackHexes:
+            // reset LastPath and DamageRangeHexes:
             HexOperations.UnselectPath(LastPath);
             LastPath = null;
             HexOperations.UnselectRangeOfHexes(DamageRangeHexes);
             DamageRangeHexes = null;
-            RangeOfAttackHexes = null;
 
             // switch to other player's next unit:
             playerIndex = ++playerIndex % players.Count;

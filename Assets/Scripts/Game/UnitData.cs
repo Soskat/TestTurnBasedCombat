@@ -29,8 +29,6 @@ namespace TestTurnBasedCombat.Game
         public string PrefabCode;
         /// <summary>Unit image code.</summary>
         public string ImageCode;
-        /// <summary>Unit image.</summary>
-        public Texture2D Image;
         #endregion
 
 
@@ -56,7 +54,6 @@ namespace TestTurnBasedCombat.Game
             Leader = leader;
             PrefabCode = prefabCode;
             ImageCode = imageCode;
-            Image = Resources.Load("Images/" + ImageCode) as Texture2D;
         }
 
         /// <summary>
@@ -74,7 +71,6 @@ namespace TestTurnBasedCombat.Game
             Leader = unit.Leader;
             PrefabCode = unit.PrefabCode;
             ImageCode = unit.ImageCode;
-            Image = unit.Image;
         }
         #endregion
 

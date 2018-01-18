@@ -43,7 +43,6 @@ namespace TestTurnBasedCombat.UIControllers
         // Use this for initialization
         void Start()
         {
-            UpdateUI();
             endTurnButton.onClick.AddListener(GameManager.instance.EndTurn);
             // sign up for events:
             GameManager.instance.GameIsOver += (pt) =>
@@ -58,6 +57,8 @@ namespace TestTurnBasedCombat.UIControllers
             {
                 UpdateUnitAPUI();
             };
+            // update unit UI:
+            UpdateUI();
         }
         #endregion
 
@@ -70,10 +71,12 @@ namespace TestTurnBasedCombat.UIControllers
         {
             if (GameManager.instance.CurrentPlayer.PlayerTag == playerTag)
             {
+                if (GameManager.instance.SelectedUnit == null) return;
+
                 // update selected unit info:
-                if (GameManager.instance.SelectedUnit.UnitData.Image != null)
+                if (AssetManager.instance.UnitsImages[GameManager.instance.SelectedUnit.UnitData.ImageCode] != null)
                 {
-                    unitImage.texture = GameManager.instance.SelectedUnit.UnitData.Image;
+                    unitImage.texture = AssetManager.instance.UnitsImages[GameManager.instance.SelectedUnit.UnitData.ImageCode];
                 }
                 else unitImage.texture = Resources.Load("Images/placeholder") as Texture2D;
                 // reset attacks buttons:
