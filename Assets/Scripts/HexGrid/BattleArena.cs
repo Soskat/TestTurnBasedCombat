@@ -175,7 +175,7 @@ namespace TestTurnBasedCombat.HexGrid
         // Update is called once per frame
         void Update()
         {
-            if (GameManager.instance.ActionInProgress || GameManager.instance.GameIsPaused) return;
+            if (GameManager.instance.ActionInProgress || GameManager.instance.GameIsPaused || GameManager.instance.MenuIsOn) return;
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

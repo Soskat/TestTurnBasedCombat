@@ -57,6 +57,8 @@ namespace TestTurnBasedCombat.Managers
         public bool ActionInProgress;
         /// <summary>Is game paused?</summary>
         public bool GameIsPaused;
+        /// <summary>Is menu on?</summary>
+        public bool MenuIsOn;
         /// <summary>Last active path.</summary>
         public Hex[] LastPath;
         /// <summary>Ring of hexes around range of current attack.</summary>
@@ -144,7 +146,7 @@ namespace TestTurnBasedCombat.Managers
         // Update is called once per frame
         void Update()
         {
-            if (ActionInProgress || GameIsPaused) return;
+            if (ActionInProgress || GameIsPaused || MenuIsOn) return;
 
             // left mouse button is down:
             if (Input.GetMouseButtonDown(0))

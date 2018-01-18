@@ -42,7 +42,7 @@ namespace TestTurnBasedCombat.Game
         // Source: Unit.cs from project HexGridby Daniel Carrier (https://www.assetstore.unity3d.com/en/#!/content/27440)
         private void OnGUI()
         {
-            if (GameManager.instance.GameIsPaused) return;
+            if (GameManager.instance.GameIsPaused || GameManager.instance.MenuIsOn) return;
 
             int hpBarWidth = 50;
             int hpBarHeight = 15;
