@@ -94,7 +94,7 @@ namespace TestTurnBasedCombat.HexGrid
                                 HexOperations.UnselectPath(GameManager.instance.LastPath);
                                 // mark hexes whitin the damage range of attack as vulnerable:
                                 HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
-                                GameManager.instance.DamageRangeHexes = HexOperations.GetHexesInRange(GameManager.instance.SelectedHex,
+                                GameManager.instance.DamageRangeHexes = HexOperations.GetHexesInDamageRange(GameManager.instance.SelectedHex,
                                                                                                       GameManager.instance.CurrentAttack.DamageRange,
                                                                                                       hexCells);
                                 HexOperations.SelectRangeOfHexes(GameManager.instance.DamageRangeHexes, AssetManager.instance.HexEnemyToAttack);
@@ -136,7 +136,7 @@ namespace TestTurnBasedCombat.HexGrid
                             HexOperations.UnselectPath(GameManager.instance.LastPath);
                             // mark hexes whitin the range of attack as vulnerable:
                             HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
-                            GameManager.instance.DamageRangeHexes = HexOperations.GetHexesInRange(GameManager.instance.SelectedHex,
+                            GameManager.instance.DamageRangeHexes = HexOperations.GetHexesInDamageRange(GameManager.instance.SelectedHex,
                                                                                               GameManager.instance.CurrentAttack.DamageRange,
                                                                                               hexCells);
                             HexOperations.SelectRangeOfHexes(GameManager.instance.DamageRangeHexes, AssetManager.instance.HexEnemyToAttack);

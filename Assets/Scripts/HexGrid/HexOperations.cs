@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.Managers;
 using UnityEngine;
 
@@ -114,14 +115,14 @@ namespace TestTurnBasedCombat.HexGrid
         }
 
         /// <summary>
-        /// Gets hex cells within a specific range around given hex.
+        /// Gets hex cells within a specific damage range around given hex.
         /// Source: https://www.redblobgames.com/grids/hexagons/#range
         /// </summary>
-        /// <param name="center">Hex that is a center of the range</param>
+        /// <param name="center">Hex that is a center of the damage range</param>
         /// <param name="range">Max distance from center hex</param>
         /// <param name="hexGrid">Grid of hex cells</param>
         /// <returns>Array of hex cells whitin given range</returns>
-        public static Hex[] GetHexesInRange(Hex center, int range, GameObject[][] hexGrid)
+        public static Hex[] GetHexesInDamageRange(Hex center, int range, GameObject[][] hexGrid)
         {
             List<Hex> hexesInRange = new List<Hex>() { };
             // shrink the range by 1 to remove the level 0 with the center hex:
@@ -146,7 +147,20 @@ namespace TestTurnBasedCombat.HexGrid
                     Vector2Int offset = CubeToOffsetCoords(new Vector3Int(cubeC.x + dx, cubeC.y + dy, cubeC.z + dz));
                     if (offset.x >= 0 && offset.x < gridWidth && offset.y >= 0 && offset.y < gridHeight)
                     {
-                        hexesInRange.Add(hexGrid[offset.x][offset.y].GetComponent<Hex>());
+                        // check if CurrentAttack has auto-damage turned off:
+                        if (!GameManager.instance.CurrentAttack.AutoDamageOn)
+                        {
+                            Hex hex = hexGrid[offset.x][offset.y].GetComponent<Hex>();
+                            if (hex.IsOccupied && hex.OccupyingObject.gameObject.tag == "Unit" &&
+                                hex.OccupyingObject.GetComponent<Unit>() == GameManager.instance.SelectedUnit)
+                            {
+                                // skip this hex:
+                                continue;
+                            }
+                            // add hex to the damage range:
+                            else  hexesInRange.Add(hex);
+                        }
+                        else hexesInRange.Add(hexGrid[offset.x][offset.y].GetComponent<Hex>());
                     }
                 }
             }
