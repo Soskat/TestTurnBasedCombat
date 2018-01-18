@@ -39,7 +39,7 @@ namespace TestTurnBasedCombat.UIControllers
         {
             // set up buttons:
             restartGameButton.onClick.AddListener(() => {
-                GameManager.instance.RestartGame();
+                GameManager.instance.ResetUnitsData();
                 gameOverPanel.SetActive(false);
             });
             quitGameButton.onClick.AddListener(() => { Application.Quit(); });

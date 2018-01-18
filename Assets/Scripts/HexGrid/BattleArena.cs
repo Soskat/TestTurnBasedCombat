@@ -367,6 +367,7 @@ namespace TestTurnBasedCombat.HexGrid
         {
             int childCount, spaceLeft, startIndex;
             // set up an army of player 1:
+            Debug.Log("[BA]: child count of player1: " + player1UnitsHolder.transform.childCount);
             childCount = player1UnitsHolder.transform.childCount;
             spaceLeft = gridHeight - childCount;
             if (spaceLeft > childCount) startIndex = 1;
@@ -374,7 +375,6 @@ namespace TestTurnBasedCombat.HexGrid
             for(int y = startIndex, index = 0; y < gridHeight && index < childCount; y++, index++)
             {
                 Vector3 newPosition = hexCells[0][y].transform.position;
-                //newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
                 player1UnitsHolder.transform.GetChild(index).position = newPosition;
                 if (spaceLeft > 0)
                 {
@@ -383,6 +383,7 @@ namespace TestTurnBasedCombat.HexGrid
                 }
             }
             // set up an army of player 2:
+            Debug.Log("[BA]: child count of player2: " + player2UnitsHolder.transform.childCount);
             childCount = player2UnitsHolder.transform.childCount;
             spaceLeft = gridHeight - childCount;
             if (spaceLeft > childCount) startIndex = 1;
@@ -390,7 +391,6 @@ namespace TestTurnBasedCombat.HexGrid
             for (int y = startIndex, index = 0; y < gridHeight && index < childCount; y++, index++)
             {
                 Vector3 newPosition = hexCells[gridWidth - 1][y].transform.position;
-                //newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
                 player2UnitsHolder.transform.GetChild(index).position = newPosition;
                 if (spaceLeft > 0)
                 {

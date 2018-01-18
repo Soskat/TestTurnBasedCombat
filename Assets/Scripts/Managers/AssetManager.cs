@@ -81,7 +81,6 @@ namespace TestTurnBasedCombat.Managers
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
-            Debug.Log("[AM]: AWAKE");
             if (instance == null)
             {
                 instance = this;
@@ -108,7 +107,6 @@ namespace TestTurnBasedCombat.Managers
             {
                 Destroy(gameObject);
             }
-            Debug.Log("[AM]: END OF AWAKE");
         }
         #endregion
 

@@ -86,7 +86,7 @@ namespace TestTurnBasedCombat.Managers
         /// <summary>Informs that units game objects have been created.</summary>
         public Action CreatedUnits { get; set; }
         /// <summary>Informs that game must be restarted.</summary>
-        public Action RestartGame { get; set; }
+        public Action ResetUnitsData { get; set; }
         /// <summary>Informs that game is over.</summary>
         public Action<PlayerTags> GameIsOver { get; set; }
         /// <summary>Informs that SelectedHex has changed.</summary>
@@ -110,12 +110,20 @@ namespace TestTurnBasedCombat.Managers
                 // initialize all things:
                 ActionInProgress = false;
                 GameIsPaused = false;
-                CreatedUnits += () => { Debug.Log("[GM]: created units"); };
+                CreatedUnits += () => {
+#if UNITY_EDITOR
+                    Debug.Log("[GM]: created units");
+#endif
+                };
                 GameIsOver += (pt) => {
                     playersReadyCount = 0;
                     GameIsPaused = true;
                 };
-                RestartGame += () => { StartTheBattle(); };
+                ResetUnitsData += () => {
+#if UNITY_EDITOR
+                    Debug.Log("[GM]: Reset units data");
+#endif
+                };
                 UpdateSelectedUnit += () => { };
             }
             else if (instance != this)
@@ -130,7 +138,7 @@ namespace TestTurnBasedCombat.Managers
             // initialize players:
             InitializePlayers();
             // start the game:
-            RestartGame();
+            ResetUnitsData();
         }
 
         // Update is called once per frame
@@ -298,16 +306,6 @@ namespace TestTurnBasedCombat.Managers
         /// </summary>
         public void StartTheBattle()
         {
-            // reset units data:
-            Debug.Log("Reset units data");
-            foreach(var player in players)
-            {
-                for (int i = 0; i < player.Units.Count; i++)
-                {
-                    Unit unit = player.Units.Next();
-                    unit.UnitData.PrepareForNextTurn();
-                }
-            }
             // start the battle:
             playerIndex = -1;
             EndTurn();

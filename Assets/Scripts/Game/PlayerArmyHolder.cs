@@ -1,4 +1,5 @@
-﻿using TestTurnBasedCombat.Managers;
+﻿using System.Collections.Generic;
+using TestTurnBasedCombat.Managers;
 using UnityEngine;
 
 
@@ -20,19 +21,18 @@ namespace TestTurnBasedCombat.Game
         void Start()
         {
             // sign up for actions:
-            GameManager.instance.RestartGame += () =>
+            GameManager.instance.ResetUnitsData += () =>
             {
                 // remove all remaining units from winner's army:
-                //foreach(var player in GameManager.instance.Players) player.Units.Clear();
+                foreach (var player in GameManager.instance.Players) player.Units.Clear();
                 // remove all children:
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    transform.GetChild(i).GetComponent<Unit>().AssignedHex.SetOccupyingObject(null);
-                    Destroy(transform.GetChild(i).gameObject);
-                }
+                var children = new List<GameObject>();
+                foreach (Transform child in transform) children.Add(child.gameObject);
+                transform.DetachChildren();
+                foreach(GameObject child in children) Destroy(child);
+
                 // create units game objects once again:
                 CreateUnitsGameObjects();
-
                 // inform that player is ready for battle:
                 GameManager.instance.PrepareForBattle();
             };
@@ -71,6 +71,10 @@ namespace TestTurnBasedCombat.Game
                     GameObject go = Instantiate(Resources.Load("Units/" + unitData.PrefabCode) as GameObject);
                     go.AddComponent<Unit>();
                     Unit unit = go.GetComponent<Unit>();
+                    foreach (var attack in unitData.Attacks) {
+                        // reset attacks: 
+                        attack.TurnsLeft = 0;
+                    }
                     unit.UnitData = new UnitData(unitData);
                     unit.IsDead += () => {
                         player.Units.Remove(unit);
