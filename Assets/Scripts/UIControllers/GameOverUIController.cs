@@ -1,9 +1,9 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;
-using UnityEngine.Assertions;
+﻿using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.Managers;
-using TestTurnBasedCombat.Game;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.UI;
+
 
 namespace TestTurnBasedCombat.UIControllers
 {
@@ -56,7 +56,6 @@ namespace TestTurnBasedCombat.UIControllers
                     }
                 }
                 winnerText.text = winnerTag.ToString();
-                GameManager.instance.GameIsPaused = true;
                 gameOverPanel.SetActive(true);
             };
             // start with hidden panel:

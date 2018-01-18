@@ -49,7 +49,7 @@
             "TurnsLeft": 0
         },
         {
-            "AttackName": "Greanade",
+            "AttackName": "Grenade",
             "AttackInfo": "An egg with surprise",
             "RangeOfAttack": 4,
             "DamageRange": 2,
@@ -184,7 +184,7 @@
                             "TurnsLeft": 0
                         },
                         {
-                            "AttackName": "Greanade",
+                            "AttackName": "Grenade",
                             "AttackInfo": "An egg with surprise",
                             "RangeOfAttack": 4,
                             "DamageRange": 2,
@@ -342,7 +342,7 @@
                             "TurnsLeft": 0
                         },
                         {
-                            "AttackName": "Greanade",
+                            "AttackName": "Grenade",
                             "AttackInfo": "An egg with surprise",
                             "RangeOfAttack": 4,
                             "DamageRange": 2,

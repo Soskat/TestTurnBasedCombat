@@ -169,110 +169,7 @@ namespace TestTurnBasedCombat.HexGrid
             CreateHexGrid();
             AddObstacles();
             SetUpArmiesPosition();
-
-            #region backup
-
-            //// recreate units before next battle:
-            //GameManager.instance.CreatedUnits += () =>
-            //{
-            //    Debug.Log("[BA]: recreate battle arena");
-            //    // recreate obstacles:
-            //    for (int i = 0; i < obstaclesObject.transform.childCount; i++)
-            //    {
-            //        Destroy(obstaclesObject.transform.GetChild(i).gameObject);
-            //    }
-            //    AddObstacles();
-            //    SetUpArmiesPosition();
-            //    // start the battle:
-            //    GameManager.instance.StartTheBattle();
-            //};
-
-            //// update hexes materials when SelectedHex changes:
-            //GameManager.instance.UpdateSelectedHex += () =>
-            //{
-            //    if (GameManager.instance.SelectedHex != null && GameManager.instance.CurrentAttack != null)
-            //    {
-            //        // current attack need an enemy to launch:
-            //        if (GameManager.instance.CurrentAttack.NeedEnemyToLaunch)
-            //        {
-            //            // check if SelectedHex contains an enemy:
-            //            if (GameManager.instance.IsSelectedHexContainsEnemy)
-            //            {
-            //                // check if enemy is in range of attack:
-            //                if (HexOperations.GetDistanceBetweenHexes(GameManager.instance.SelectedUnitHex, GameManager.instance.SelectedHex)
-            //                    <= GameManager.instance.CurrentAttack.RangeOfAttack)
-            //                {
-            //                    // unselects the last path:
-            //                    HexOperations.UnselectPath(GameManager.instance.LastPath);
-            //                    // mark hexes whitin the damage range of attack as vulnerable:
-            //                    HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
-            //                    GameManager.instance.DamageRangeHexes = HexOperations.GetHexesInRange(GameManager.instance.SelectedHex,
-            //                                                                                          GameManager.instance.CurrentAttack.DamageRange,
-            //                                                                                          hexCells);
-            //                    HexOperations.SelectRangeOfHexes(GameManager.instance.DamageRangeHexes, AssetManager.instance.HexEnemyToAttack);
-            //                }
-            //                // enemy is out of range of attack:
-            //                else
-            //                {
-            //                    // unselects the last path:
-            //                    HexOperations.UnselectPath(GameManager.instance.LastPath);
-            //                    // find a new path to the destination (with limited path length):
-            //                    GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
-            //                                                                                     GameManager.instance.SelectedHex,
-            //                                                                                     hexCells,
-            //                                                                                     GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
-            //                    HexOperations.SelectPath(GameManager.instance.LastPath);
-            //                }
-            //            }
-            //            // there's no enemy on SelectedHex:
-            //            else
-            //            {
-            //                // unselect last path:
-            //                HexOperations.UnselectPath(GameManager.instance.LastPath);
-            //                // find a new path to the destination (with limited path length):
-            //                GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
-            //                                                                                 GameManager.instance.SelectedHex,
-            //                                                                                 hexCells,
-            //                                                                                 GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
-            //                HexOperations.SelectPath(GameManager.instance.LastPath);
-            //            }
-            //        }
-            //        // current attack doesn't need an enemy to launch:
-            //        else
-            //        {
-            //            // check if SelectedHex is in range of attack:
-            //            if (HexOperations.GetDistanceBetweenHexes(GameManager.instance.SelectedUnitHex, GameManager.instance.SelectedHex)
-            //                <= GameManager.instance.CurrentAttack.RangeOfAttack)
-            //            {
-            //                // unselects the last path:
-            //                HexOperations.UnselectPath(GameManager.instance.LastPath);
-            //                // mark hexes whitin the range of attack as vulnerable:
-            //                HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
-            //                GameManager.instance.DamageRangeHexes = HexOperations.GetHexesInRange(GameManager.instance.SelectedHex,
-            //                                                                                  GameManager.instance.CurrentAttack.DamageRange,
-            //                                                                                  hexCells);
-            //                HexOperations.SelectRangeOfHexes(GameManager.instance.DamageRangeHexes, AssetManager.instance.HexEnemyToAttack);
-            //            }
-            //            // SelectedHex is out of range of attack:
-            //            else
-            //            {
-            //                // unselects last damage range:
-            //                HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
-            //                // unselects the last path:
-            //                HexOperations.UnselectPath(GameManager.instance.LastPath);
-            //                // find a new path to the destination (with limited path length):
-            //                GameManager.instance.LastPath = HexOperations.FindPathUsingAStar(GameManager.instance.SelectedUnitHex,
-            //                                                                                 GameManager.instance.SelectedHex,
-            //                                                                                 hexCells,
-            //                                                                                 GameManager.instance.SelectedUnit.UnitData.CurrentActionPoints);
-            //                HexOperations.SelectPath(GameManager.instance.LastPath);
-            //            }
-            //        }
-            //    }
-            //};
-
-            #endregion
-
+            
             // start the battle:
             GameManager.instance.StartTheBattle();
         }
@@ -367,7 +264,6 @@ namespace TestTurnBasedCombat.HexGrid
         {
             int childCount, spaceLeft, startIndex;
             // set up an army of player 1:
-            Debug.Log("[BA]: child count of player1: " + player1UnitsHolder.transform.childCount);
             childCount = player1UnitsHolder.transform.childCount;
             spaceLeft = gridHeight - childCount;
             if (spaceLeft > childCount) startIndex = 1;
@@ -383,7 +279,6 @@ namespace TestTurnBasedCombat.HexGrid
                 }
             }
             // set up an army of player 2:
-            Debug.Log("[BA]: child count of player2: " + player2UnitsHolder.transform.childCount);
             childCount = player2UnitsHolder.transform.childCount;
             spaceLeft = gridHeight - childCount;
             if (spaceLeft > childCount) startIndex = 1;

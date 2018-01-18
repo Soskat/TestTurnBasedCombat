@@ -96,6 +96,8 @@ namespace TestTurnBasedCombat.Game
         /// <param name="unit">Unit to attack</param>
         public void PerformAttack(Hex[] range)
         {
+            if (range == null) return;
+
             foreach(Hex hex in range)
             {
                 if (hex.OccupyingObject != null && hex.OccupyingObject.gameObject.tag == "Unit")

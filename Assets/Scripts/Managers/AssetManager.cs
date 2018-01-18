@@ -163,7 +163,7 @@ namespace TestTurnBasedCombat.Managers
             attacks.Add("Hammer_punch", new Attack("Hammer_punch", "Whole ground is shaking", 1, 2, 40, false, false, 3, 3));
             // archer attacks:
             attacks.Add("Shoot", new Attack("Shoot", "An arrow to the knee", 10, 1, 10, true, false, 1, 0));    // basic attack
-            attacks.Add("Greanade", new Attack("Greanade", "An egg with surprise", 4, 2, 20, false, true, 2, 3));
+            attacks.Add("Grenade", new Attack("Grenade", "An egg with surprise", 4, 2, 20, false, true, 2, 3));
             attacks.Add("Rain_of_arrows", new Attack("Rain_of_arrows", "It's raining iron!", 5, 3, 30, false, true, 2, 3));
             // wizard attacks:
             attacks.Add("Magic_missle", new Attack("Magic_missle", "A shiny star of pain", 10, 1, 15, true, false, 1, 0));  // basic attack
@@ -191,7 +191,7 @@ namespace TestTurnBasedCombat.Managers
             army1.Units.Add(new UnitData("Royal archer",
                                          90,
                                          6,
-                                         new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
+                                         new Attack[] { attacks["Shoot"], attacks["Grenade"], attacks["Rain_of_arrows"] },
                                          PlayerTags.Player1,
                                          "archerBlue",
                                          "archerBlue_image"));
@@ -215,7 +215,7 @@ namespace TestTurnBasedCombat.Managers
             army2.Units.Add(new UnitData("Poacher",
                                          90,
                                          6,
-                                         new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
+                                         new Attack[] { attacks["Shoot"], attacks["Greaade"], attacks["Rain_of_arrows"] },
                                          PlayerTags.Player2,
                                          "archerRed",
                                          "archerRed_image"));
