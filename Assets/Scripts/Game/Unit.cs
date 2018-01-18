@@ -117,8 +117,6 @@ namespace TestTurnBasedCombat.Game
             {
                 // remove this unit from player's army:
                 IsDead();
-                // end turn if SelectedUnit just died:
-                if (GameManager.instance.SelectedUnit == this) GameManager.instance.EndTurn();
                 // destroy this game object:
                 Destroy(gameObject);
             }
