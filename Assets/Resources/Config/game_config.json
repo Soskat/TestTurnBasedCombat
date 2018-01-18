@@ -161,7 +161,7 @@
                     "PrefabCode": "soldierBlue",
                     "ImageCode": "soldierBlue_image",
                     "Image": {
-                        "instanceID": 18198
+                        "instanceID": 10636
                     }
                 },
                 {
@@ -212,7 +212,7 @@
                     "PrefabCode": "archerBlue",
                     "ImageCode": "archerBlue_image",
                     "Image": {
-                        "instanceID": 18196
+                        "instanceID": 10626
                     }
                 },
                 {
@@ -263,7 +263,58 @@
                     "PrefabCode": "wizardBlue",
                     "ImageCode": "wizardBlue_image",
                     "Image": {
-                        "instanceID": 18200
+                        "instanceID": 10794
+                    }
+                },
+                {
+                    "Name": "Blue Knight",
+                    "MaxHealthPoints": 120,
+                    "CurrentHealthPoints": 120,
+                    "MaxActionPoints": 5,
+                    "CurrentActionPoints": 5,
+                    "Attacks": [
+                        {
+                            "AttackName": "Punch",
+                            "AttackInfo": "One punch, one bruise",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
+                            "AttackCost": 1,
+                            "Cooldown": 0,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Stab",
+                            "AttackInfo": "Meet Mr. Pointy",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 30,
+                            "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
+                            "AttackCost": 2,
+                            "Cooldown": 2,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Hammer_punch",
+                            "AttackInfo": "Whole ground is shaking",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 2,
+                            "Damage": 40,
+                            "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": false,
+                            "AttackCost": 3,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
+                        }
+                    ],
+                    "Leader": 0,
+                    "PrefabCode": "soldierBlue",
+                    "ImageCode": "soldierBlue_image",
+                    "Image": {
+                        "instanceID": 10636
                     }
                 }
             ]
@@ -319,7 +370,7 @@
                     "PrefabCode": "soldierRed",
                     "ImageCode": "soldierRed_image",
                     "Image": {
-                        "instanceID": 18194
+                        "instanceID": 10618
                     }
                 },
                 {
@@ -370,7 +421,7 @@
                     "PrefabCode": "archerRed",
                     "ImageCode": "archerRed_image",
                     "Image": {
-                        "instanceID": 18190
+                        "instanceID": 10586
                     }
                 },
                 {
@@ -421,7 +472,58 @@
                     "PrefabCode": "wizardRed",
                     "ImageCode": "wizardRed_image",
                     "Image": {
-                        "instanceID": 18192
+                        "instanceID": 10606
+                    }
+                },
+                {
+                    "Name": "Blood Mercenary",
+                    "MaxHealthPoints": 120,
+                    "CurrentHealthPoints": 120,
+                    "MaxActionPoints": 5,
+                    "CurrentActionPoints": 5,
+                    "Attacks": [
+                        {
+                            "AttackName": "Punch",
+                            "AttackInfo": "One punch, one bruise",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 15,
+                            "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
+                            "AttackCost": 1,
+                            "Cooldown": 0,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Stab",
+                            "AttackInfo": "Meet Mr. Pointy",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 1,
+                            "Damage": 30,
+                            "NeedEnemyToLaunch": true,
+                            "AutoDamageOn": false,
+                            "AttackCost": 2,
+                            "Cooldown": 2,
+                            "TurnsLeft": 0
+                        },
+                        {
+                            "AttackName": "Hammer_punch",
+                            "AttackInfo": "Whole ground is shaking",
+                            "RangeOfAttack": 1,
+                            "DamageRange": 2,
+                            "Damage": 40,
+                            "NeedEnemyToLaunch": false,
+                            "AutoDamageOn": false,
+                            "AttackCost": 3,
+                            "Cooldown": 3,
+                            "TurnsLeft": 0
+                        }
+                    ],
+                    "Leader": 1,
+                    "PrefabCode": "soldierRed",
+                    "ImageCode": "soldierRed_image",
+                    "Image": {
+                        "instanceID": 10618
                     }
                 }
             ]

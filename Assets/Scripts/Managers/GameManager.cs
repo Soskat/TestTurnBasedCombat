@@ -111,7 +111,7 @@ namespace TestTurnBasedCombat.Managers
                 GameIsPaused = false;
                 CreatedUnits += () => {
 #if UNITY_EDITOR
-                    //Debug.Log("[GM]: created units");
+                    Debug.Log("[GM]: created units");
 #endif
                 };
                 GameIsOver += (pt) => {
@@ -154,10 +154,10 @@ namespace TestTurnBasedCombat.Managers
                     // current attack need an enemy to launch:
                     if (CurrentAttack.NeedEnemyToLaunch)
                     {
-                        // check if SelectedHex contains an enemy:
+                        // SelectedHex contains an enemy:
                         if (IsSelectedHexContainsEnemy)
                         {
-                            // check if enemy is in range of attack:
+                            // enemy is in range of attack:
                             if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
                             {
                                 // attack:
@@ -180,7 +180,7 @@ namespace TestTurnBasedCombat.Managers
                     // current attack doesn't need an enemy to launch:
                     else
                     {
-                        // check if SelectedHex is in range of attack:
+                        // SelectedHex is in range of attack:
                         if (HexOperations.GetDistanceBetweenHexes(SelectedUnitHex, SelectedHex) <= CurrentAttack.RangeOfAttack)
                         {
                             // attack:

@@ -86,7 +86,7 @@ namespace TestTurnBasedCombat.HexGrid
                         // check if SelectedHex contains an enemy:
                         if (GameManager.instance.IsSelectedHexContainsEnemy)
                         {
-                            // check if enemy is in range of attack:
+                            // enemy is in range of attack:
                             if (HexOperations.GetDistanceBetweenHexes(GameManager.instance.SelectedUnitHex, GameManager.instance.SelectedHex)
                                 <= GameManager.instance.CurrentAttack.RangeOfAttack)
                             {
@@ -128,7 +128,7 @@ namespace TestTurnBasedCombat.HexGrid
                     // current attack doesn't need an enemy to launch:
                     else
                     {
-                        // check if SelectedHex is in range of attack:
+                        // SelectedHex is in range of attack:
                         if (HexOperations.GetDistanceBetweenHexes(GameManager.instance.SelectedUnitHex, GameManager.instance.SelectedHex)
                             <= GameManager.instance.CurrentAttack.RangeOfAttack)
                         {

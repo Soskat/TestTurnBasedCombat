@@ -108,12 +108,14 @@ namespace TestTurnBasedCombat.Game
                     hex.OccupyingObject.GetComponent<Unit>().GotHit(Damage);
                 }
             }
-            // set up TurnsLeft:
+            // set up turns left (attack cooldown counter):
             TurnsLeft = Cooldown;
             // reset current attack index:
             GameManager.instance.SetCurrentAttackIndex(0);
             // unselects last damage range:
             HexOperations.UnselectRangeOfHexes(GameManager.instance.DamageRangeHexes);
+            // restore highlight of the SelectedHex:
+            GameManager.instance.HighlightSelectedHex(GameManager.instance.SelectedHex);
             // update unit's current action points number:
             GameManager.instance.DecreaseActionPoint(AttackCost);
         }
