@@ -25,6 +25,8 @@ namespace TestTurnBasedCombat.UIControllers
         [SerializeField] private Button restartGameButton;
         /// <summary>Quit game button.</summary>
         [SerializeField] private Button quitGameButton;
+        /// <summary>Show in-game menu button.</summary>
+        [SerializeField] private Button showMenuButton;
         /// <summary>Winner text.</summary>
         [SerializeField] private Text winnerText;
         #endregion
@@ -40,23 +42,27 @@ namespace TestTurnBasedCombat.UIControllers
             Assert.IsNotNull(gameOverPanel);
             Assert.IsNotNull(restartGameButton);
             Assert.IsNotNull(quitGameButton);
+            Assert.IsNotNull(showMenuButton);
             Assert.IsNotNull(winnerText);
         }
 
         // Use this for initialization
         void Start()
         {
-            #region MIn-game menu UI panel
+            #region In-game menu UI panel
             // set up buttons:
             resumeGameButton.onClick.AddListener(() => {
                 inGameMenu.SetActive(false);
                 GameManager.instance.MenuIsOn = false;
             });
+            showMenuButton.onClick.AddListener(() => {
+                inGameMenu.SetActive(true);
+                GameManager.instance.MenuIsOn = true;
+            });
             quitGameMenuButton.onClick.AddListener(() => { Application.Quit(); });
             // start with hidden panel:
             inGameMenu.SetActive(false);
             #endregion
-
             #region Game over UI panel
             // set up buttons:
             restartGameButton.onClick.AddListener(() => {

@@ -161,7 +161,7 @@
                     "PrefabCode": "soldierBlue",
                     "ImageCode": "soldierBlue_image",
                     "Image": {
-                        "instanceID": 10636
+                        "instanceID": 10638
                     }
                 },
                 {
@@ -212,7 +212,7 @@
                     "PrefabCode": "archerBlue",
                     "ImageCode": "archerBlue_image",
                     "Image": {
-                        "instanceID": 10626
+                        "instanceID": 10628
                     }
                 },
                 {
@@ -263,7 +263,7 @@
                     "PrefabCode": "wizardBlue",
                     "ImageCode": "wizardBlue_image",
                     "Image": {
-                        "instanceID": 10794
+                        "instanceID": 10804
                     }
                 },
                 {
@@ -314,7 +314,7 @@
                     "PrefabCode": "soldierBlue",
                     "ImageCode": "soldierBlue_image",
                     "Image": {
-                        "instanceID": 10636
+                        "instanceID": 10638
                     }
                 }
             ]
@@ -370,7 +370,7 @@
                     "PrefabCode": "soldierRed",
                     "ImageCode": "soldierRed_image",
                     "Image": {
-                        "instanceID": 10618
+                        "instanceID": 10620
                     }
                 },
                 {
@@ -472,7 +472,7 @@
                     "PrefabCode": "wizardRed",
                     "ImageCode": "wizardRed_image",
                     "Image": {
-                        "instanceID": 10606
+                        "instanceID": 10608
                     }
                 },
                 {
@@ -523,7 +523,7 @@
                     "PrefabCode": "soldierRed",
                     "ImageCode": "soldierRed_image",
                     "Image": {
-                        "instanceID": 10618
+                        "instanceID": 10620
                     }
                 }
             ]
