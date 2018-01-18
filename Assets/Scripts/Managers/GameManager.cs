@@ -103,7 +103,6 @@ namespace TestTurnBasedCombat.Managers
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
-            Debug.Log("[GM]: AWAKE");
             if (instance == null)
             {
                 instance = this;
@@ -123,18 +122,15 @@ namespace TestTurnBasedCombat.Managers
             {
                 Destroy(gameObject);
             }
-            Debug.Log("[GM]: END OF AWAKE");
         }
 
         // Use this for initialization
         void Start()
         {
-            Debug.Log("[GM]: START");
             // initialize players:
             InitializePlayers();
             // start the game:
             RestartGame();
-            Debug.Log("[GM]: END OF START");
         }
 
         // Update is called once per frame
@@ -289,7 +285,6 @@ namespace TestTurnBasedCombat.Managers
         /// </summary>
         public void PrepareForBattle()
         {
-            Debug.Log("Prepare for battle");
             playersReadyCount++;
             if (playersReadyCount == players.Count)
             {
@@ -303,6 +298,16 @@ namespace TestTurnBasedCombat.Managers
         /// </summary>
         public void StartTheBattle()
         {
+            // reset units data:
+            Debug.Log("Reset units data");
+            foreach(var player in players)
+            {
+                for (int i = 0; i < player.Units.Count; i++)
+                {
+                    Unit unit = player.Units.Next();
+                    unit.UnitData.PrepareForNextTurn();
+                }
+            }
             // start the battle:
             playerIndex = -1;
             EndTurn();

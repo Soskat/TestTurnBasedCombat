@@ -189,21 +189,21 @@ namespace TestTurnBasedCombat.Managers
                                          new Attack[] { attacks["Punch"], attacks["Stab"], attacks["Hammer_punch"] },
                                          PlayerTags.Player1,
                                          "soldierBlue",
-                                         null));
+                                         "soldierBlue_image"));
             army1.Units.Add(new UnitData("Royal archer",
                                          90,
                                          6,
                                          new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
                                          PlayerTags.Player1,
                                          "archerBlue",
-                                         null));
+                                         "archerBlue_image"));
             army1.Units.Add(new UnitData("Mage",
                                          75,
                                          3,
                                          new Attack[] { attacks["Magic_missle"], attacks["Lightning_bolt"], attacks["Meteorite"] },
                                          PlayerTags.Player1,
                                          "wizardBlue",
-                                         null));
+                                         "wizardBlue_image"));
             newArmiesSpec.Add(army1);
             // army of player 2 spec:
             ArmySpec army2 = new ArmySpec(PlayerTags.Player2);
@@ -213,21 +213,21 @@ namespace TestTurnBasedCombat.Managers
                                          new Attack[] { attacks["Punch"], attacks["Stab"], attacks["Hammer_punch"] },
                                          PlayerTags.Player2,
                                          "soldierRed",
-                                         null));
+                                         "soldierRed_image"));
             army2.Units.Add(new UnitData("Poacher",
                                          90,
                                          6,
                                          new Attack[] { attacks["Shoot"], attacks["Greanade"], attacks["Rain_of_arrows"] },
                                          PlayerTags.Player2,
                                          "archerRed",
-                                         null));
+                                         "archerRed_image"));
             army2.Units.Add(new UnitData("Sorcerer",
                                          75,
                                          3,
                                          new Attack[] { attacks["Magic_missle"], attacks["Lightning_bolt"], attacks["Meteorite"] },
                                          PlayerTags.Player2,
                                          "wizardRed",
-                                         null));
+                                         "wizardRed_image"));
             newArmiesSpec.Add(army2);
             return newArmiesSpec;
         }

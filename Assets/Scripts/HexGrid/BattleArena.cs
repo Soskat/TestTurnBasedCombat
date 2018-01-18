@@ -44,7 +44,6 @@ namespace TestTurnBasedCombat.HexGrid
         // Awake is called when the script instance is being loaded.
         private void Awake()
         {
-            Debug.Log("[BA]: AWAKE");
             // do asstertions:
             Assert.IsNotNull(hexGridObject);
             Assert.IsNotNull(hexPrefab);
@@ -161,14 +160,11 @@ namespace TestTurnBasedCombat.HexGrid
                     }
                 }
             };
-
-            Debug.Log("[BA]: END OF AWAKE");
         }
 
         // Use this for initialization
         void Start()
         {
-            Debug.Log("[BA]: START");
             // set up battle arena for the first time:
             CreateHexGrid();
             AddObstacles();
@@ -279,7 +275,6 @@ namespace TestTurnBasedCombat.HexGrid
 
             // start the battle:
             GameManager.instance.StartTheBattle();
-            Debug.Log("[BA]: END OF START");
         }
 
         // Update is called once per frame
@@ -379,7 +374,7 @@ namespace TestTurnBasedCombat.HexGrid
             for(int y = startIndex, index = 0; y < gridHeight && index < childCount; y++, index++)
             {
                 Vector3 newPosition = hexCells[0][y].transform.position;
-                newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
+                //newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
                 player1UnitsHolder.transform.GetChild(index).position = newPosition;
                 if (spaceLeft > 0)
                 {
@@ -395,7 +390,7 @@ namespace TestTurnBasedCombat.HexGrid
             for (int y = startIndex, index = 0; y < gridHeight && index < childCount; y++, index++)
             {
                 Vector3 newPosition = hexCells[gridWidth - 1][y].transform.position;
-                newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
+                //newPosition.y = 0.48f;  // ------------------------------------------------------------------ try to remove this later
                 player2UnitsHolder.transform.GetChild(index).position = newPosition;
                 if (spaceLeft > 0)
                 {

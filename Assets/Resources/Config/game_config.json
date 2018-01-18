@@ -159,9 +159,9 @@
                     ],
                     "Leader": 0,
                     "PrefabCode": "soldierBlue",
-                    "ImageCode": "",
+                    "ImageCode": "soldierBlue_image",
                     "Image": {
-                        "instanceID": 0
+                        "instanceID": 18198
                     }
                 },
                 {
@@ -210,9 +210,9 @@
                     ],
                     "Leader": 0,
                     "PrefabCode": "archerBlue",
-                    "ImageCode": "",
+                    "ImageCode": "archerBlue_image",
                     "Image": {
-                        "instanceID": 0
+                        "instanceID": 18196
                     }
                 },
                 {
@@ -261,9 +261,9 @@
                     ],
                     "Leader": 0,
                     "PrefabCode": "wizardBlue",
-                    "ImageCode": "",
+                    "ImageCode": "wizardBlue_image",
                     "Image": {
-                        "instanceID": 0
+                        "instanceID": 18200
                     }
                 }
             ]
@@ -317,9 +317,9 @@
                     ],
                     "Leader": 1,
                     "PrefabCode": "soldierRed",
-                    "ImageCode": "",
+                    "ImageCode": "soldierRed_image",
                     "Image": {
-                        "instanceID": 0
+                        "instanceID": 18194
                     }
                 },
                 {
@@ -368,9 +368,9 @@
                     ],
                     "Leader": 1,
                     "PrefabCode": "archerRed",
-                    "ImageCode": "",
+                    "ImageCode": "archerRed_image",
                     "Image": {
-                        "instanceID": 0
+                        "instanceID": 18190
                     }
                 },
                 {
@@ -419,9 +419,9 @@
                     ],
                     "Leader": 1,
                     "PrefabCode": "wizardRed",
-                    "ImageCode": "",
+                    "ImageCode": "wizardRed_image",
                     "Image": {
-                        "instanceID": 0
+                        "instanceID": 18192
                     }
                 }
             ]
