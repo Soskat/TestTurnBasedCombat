@@ -215,7 +215,7 @@ namespace TestTurnBasedCombat.Managers
             army2.Units.Add(new UnitData("Poacher",
                                          90,
                                          6,
-                                         new Attack[] { attacks["Shoot"], attacks["Greaade"], attacks["Rain_of_arrows"] },
+                                         new Attack[] { attacks["Shoot"], attacks["Grenade"], attacks["Rain_of_arrows"] },
                                          PlayerTags.Player2,
                                          "archerRed",
                                          "archerRed_image"));

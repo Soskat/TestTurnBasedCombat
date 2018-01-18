@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using TestTurnBasedCombat.Game;
 using TestTurnBasedCombat.HexGrid;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 namespace TestTurnBasedCombat.Managers
@@ -109,7 +108,6 @@ namespace TestTurnBasedCombat.Managers
                 DontDestroyOnLoad(gameObject);
                 // initialize all things:
                 ActionInProgress = false;
-                //Debug.Log("[GM]: set GameIsPaused to " + false);
                 GameIsPaused = false;
                 CreatedUnits += () => {
 #if UNITY_EDITOR
@@ -273,11 +271,7 @@ namespace TestTurnBasedCombat.Managers
                     // reset action points:
                     SelectedUnit.UnitData.ResetActionPoints();
                     // end turn if second player still has some units:
-                    if (players[(playerIndex + 1) % players.Count].Units.Count > 0)
-                    {
-                        //Debug.Log("GM: I AM ENDING THIS TURN");
-                        EndTurn();
-                    }
+                    if (players[(playerIndex + 1) % players.Count].Units.Count > 0) EndTurn();
                 }
             }
         }
@@ -312,12 +306,6 @@ namespace TestTurnBasedCombat.Managers
         /// </summary>
         public void StartTheBattle()
         {
-            Debug.Log(string.Format("[GM] >>  {0} has {1} units / {2} units in army", players[0].PlayerTag.ToString(),
-                                                                                      players[0].Units.Count,
-                                                                                      players[0].Army.Count));
-            Debug.Log(string.Format("[GM] >>  {0} has {1} units / {2} units in army", players[1].PlayerTag.ToString(),
-                                                                                      players[1].Units.Count,
-                                                                                      players[1].Army.Count));
             // start the battle:
             playerIndex = -1;
             EndTurn();
@@ -353,11 +341,8 @@ namespace TestTurnBasedCombat.Managers
             // inform that SelectedUnit has changed:
             UpdateSelectedUnit();
 
-            //Debug.Log("TURN OF PLAYER: " + CurrentPlayer.PlayerTag.ToString());
-
             // set down all flags:
             ActionInProgress = false;
-            //Debug.Log("[GM]: set GameIsPaused to " + false);
             GameIsPaused = false;
         }
         #endregion

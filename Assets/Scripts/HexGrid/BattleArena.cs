@@ -55,11 +55,10 @@ namespace TestTurnBasedCombat.HexGrid
             hexWidth = hexSide * Mathf.Sqrt(3f);
             hexHeight = 2 * hexSide;
 
-
-            // recreate units before next battle:
+            // sign up for actions:
             GameManager.instance.CreatedUnits += () =>
             {
-                Debug.Log("[BA]: recreate battle arena");
+                // recreate units before next battle:
                 if (hexCells != null)
                 {
                     // recreate obstacles:
@@ -74,10 +73,9 @@ namespace TestTurnBasedCombat.HexGrid
                     GameManager.instance.StartTheBattle();
                 }
             };
-
-            // update hexes materials when SelectedHex changes:
             GameManager.instance.UpdateSelectedHex += () =>
             {
+                // update hexes materials when SelectedHex changes:
                 if (GameManager.instance.SelectedHex != null &&
                     GameManager.instance.SelectedUnitHex != null &&
                     GameManager.instance.CurrentAttack != null)
